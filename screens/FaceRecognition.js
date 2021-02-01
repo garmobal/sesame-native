@@ -20,6 +20,8 @@ const azureOptions = {
 function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
+  const [isSmiling, setIsSmiling] = useState(null);
+  const [faceDetected, setFaceDetected] = useState(null);
 
   const cam = useRef();
 
@@ -28,16 +30,29 @@ function FaceRecognition() {
       quality: 0.25,
       base64: true,
     };
-    const picture = await cam.current.takePictureAsync(option);
-    const octetStream = base64ToArrayBuffer.decode(picture.base64);
-    const faceDetectInstance = axios.create(azureOptions);
+    try {
+      const picture = await cam.current.takePictureAsync(option);
+      const octetStream = base64ToArrayBuffer.decode(picture.base64);
+      const faceDetectInstance = axios.create(azureOptions);
 
-    const faceDetectRes = await faceDetectInstance.post(
-      '/detect?returnFaceId=true&detectionModel=detection_02',
-      octetStream,
-    );
-
-    console.log('faceDetectRes :>> ', faceDetectRes.data);
+      const faceDetectRes = await faceDetectInstance.post(
+        '/detect?returnFaceId=true&returnFaceAttributes=smile',
+        octetStream,
+      );
+      // TODO: send the face id and the selected door to the back end
+      // Wait for the answer
+      // If the user is allowed send the request to open the door
+      if (faceDetectRes.data.length === 0) {
+        setFaceDetected(false);
+      } else {
+        setFaceDetected(true);
+      }
+      setTimeout(() => {
+        setFaceDetected(null);
+      }, 3000);
+    } catch (error) {
+      console.log('error :>> ', error);
+    }
   };
 
   useEffect(() => {
@@ -53,6 +68,19 @@ function FaceRecognition() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
+  let testMessage;
+  switch (faceDetected) {
+    case true:
+      testMessage = 'Face detected';
+      break;
+    case false:
+      testMessage = 'Face not detected';
+      break;
+    default:
+      testMessage = '';
+  }
+
   return (
     <View style={styles.container}>
       <Camera ref={cam} style={styles.camera} type={type}>
@@ -63,6 +91,9 @@ function FaceRecognition() {
               style={styles.takeButton}
             />
           </View>
+        </View>
+        <View>
+          <Text style={styles.text}>{testMessage}</Text>
         </View>
         <View style={styles.flipButtonContainer}>
           <TouchableOpacity
