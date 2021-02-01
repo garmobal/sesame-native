@@ -20,7 +20,6 @@ const azureOptions = {
 function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
-  const [isSmiling, setIsSmiling] = useState(null);
   const [faceDetected, setFaceDetected] = useState(null);
 
   const cam = useRef();
