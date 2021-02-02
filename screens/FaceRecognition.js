@@ -22,6 +22,7 @@ function FaceRecognition() {
   const [faceRecState, setFaceRecState] = useState(TAKE_SELFIE);
 
   const quotes = useSelector((state) => state.quotes);
+  const selectedDoor = useSelector((state) => state.selectedDoor);
 
   const cam = useRef();
 
@@ -81,7 +82,7 @@ function FaceRecognition() {
       testMessage = 'Face not detected';
       break;
     case TAKE_SELFIE:
-      testMessage = 'Take a selfie to enter the door';
+      testMessage = `Take a selfie to enter ${selectedDoor.name}`;
       break;
     case CHECKING_FACE:
       testMessage = 'We are checking your identity';
