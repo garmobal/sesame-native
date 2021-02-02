@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import { Camera } from 'expo-camera';
 import { useSelector } from 'react-redux';
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
@@ -18,9 +24,14 @@ const azureOptions = {
 };
 
 function FaceRecognition() {
+  const TAKE_SELFIE = 1;
+  const CHECKING_FACE = 2;
+  const FACE_DETECTED = 3;
+  const FACE_NOT_DETECTED = 4;
+  const SHOW_QUOTE_TIME = 5000; // [ms]
+
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.front);
-  const [faceDetected, setFaceDetected] = useState(null);
+  const [faceRecState, setFaceRecState] = useState(TAKE_SELFIE);
 
   const quotes = useSelector((state) => state.quotes);
 
@@ -32,6 +43,8 @@ function FaceRecognition() {
   };
 
   const _takePicture = async () => {
+    setFaceRecState(CHECKING_FACE);
+
     const option = {
       quality: 0.25,
       base64: true,
@@ -49,13 +62,13 @@ function FaceRecognition() {
       // Wait for the answer
       // If the user is allowed send the request to open the door
       if (faceDetectRes.data.length === 0) {
-        setFaceDetected(false);
+        setFaceRecState(FACE_NOT_DETECTED);
       } else {
-        setFaceDetected(true);
+        setFaceRecState(FACE_DETECTED);
       }
       setTimeout(() => {
-        setFaceDetected(null);
-      }, 3000);
+        setFaceRecState(TAKE_SELFIE);
+      }, SHOW_QUOTE_TIME);
     } catch (error) {
       console.log('error :>> ', error);
     }
@@ -76,12 +89,18 @@ function FaceRecognition() {
   }
 
   let testMessage;
-  switch (faceDetected) {
-    case true:
+  switch (faceRecState) {
+    case FACE_DETECTED:
       testMessage = getRandomQuote();
       break;
-    case false:
+    case FACE_NOT_DETECTED:
       testMessage = 'Face not detected';
+      break;
+    case TAKE_SELFIE:
+      testMessage = 'Take a selfie to enter the door';
+      break;
+    case CHECKING_FACE:
+      testMessage = 'We are checking your identity';
       break;
     default:
       testMessage = '';
@@ -89,35 +108,25 @@ function FaceRecognition() {
 
   return (
     <View style={styles.container}>
-      <Camera ref={cam} style={styles.camera} type={type}>
-        <View style={styles.buttons}>
-          <View style={styles.takeButtonContainer}>
-            <TouchableOpacity
-              onPress={_takePicture}
-              style={styles.takeButton}
-            />
-          </View>
-        </View>
-        {faceDetected !== null ? (
-          <View>
-            <Text style={styles.text}>{testMessage}</Text>
-          </View>
-        ) : null}
-        <View style={styles.flipButtonContainer}>
+      <Camera
+        ref={cam}
+        style={styles.camera}
+        type={Camera.Constants.Type.front}
+      >
+        <View style={styles.takeButtonContainer}>
           <TouchableOpacity
-            style={styles.flipButton}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back,
-              );
-            }}
-          >
-            <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>
+            onPress={_takePicture}
+            style={
+              faceRecState === TAKE_SELFIE
+                ? styles.takeButton
+                : styles.takeButtonDis
+            }
+          />
         </View>
       </Camera>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{testMessage}</Text>
+      </View>
     </View>
   );
 }
@@ -127,30 +136,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   camera: {
-    flex: 1,
-  },
-  buttons: {
-    position: 'absolute',
-    bottom: 0,
-    flexDirection: 'row',
-    flex: 1,
-    width: '100%',
-    padding: 20,
-    justifyContent: 'space-between',
-  },
-  flipButtonContainer: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    margin: 20,
-  },
-  flipButton: {
-    flex: 0.1,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width * 1.4,
   },
   takeButtonContainer: {
-    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    padding: 20,
     flex: 1,
     alignItems: 'center',
   },
@@ -161,9 +154,18 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#fff',
   },
+  takeButtonDis: {
+    opacity: 0,
+  },
+  textContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+  },
   text: {
-    fontSize: 18,
-    color: 'white',
+    fontSize: 20,
+    color: 'black',
   },
 });
 
