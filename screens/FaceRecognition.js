@@ -9,19 +9,7 @@ import {
 import { Camera } from 'expo-camera';
 import { useSelector } from 'react-redux';
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
-import axios from 'axios'; // for making requests to the cognitive services API
-
-const key = 'dab23811cac547258589f18bd4aaf214';
-const loc = 'westeurope.api.cognitive.microsoft.com'; // replace with the server nearest to you
-
-const azureOptions = {
-  baseURL: `https://${loc}/face/v1.0`,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/octet-stream',
-    'Ocp-Apim-Subscription-Key': key,
-  },
-};
+import detectFace from './../services/azureAPI';
 
 function FaceRecognition() {
   const TAKE_SELFIE = 1;
@@ -37,7 +25,7 @@ function FaceRecognition() {
 
   const cam = useRef();
 
-  const getRandomQuote = () => {
+  const _getRandomQuote = () => {
     const index = Math.floor(Math.random() * quotes.length);
     return quotes[index];
   };
@@ -52,12 +40,8 @@ function FaceRecognition() {
     try {
       const picture = await cam.current.takePictureAsync(option);
       const octetStream = base64ToArrayBuffer.decode(picture.base64);
-      const faceDetectInstance = axios.create(azureOptions);
+      const faceDetectRes = await detectFace(octetStream);
 
-      const faceDetectRes = await faceDetectInstance.post(
-        '/detect?returnFaceId=true&returnFaceAttributes=smile',
-        octetStream,
-      );
       // TODO: send the face id and the selected door to the back end
       // Wait for the answer
       // If the user is allowed send the request to open the door
@@ -91,7 +75,7 @@ function FaceRecognition() {
   let testMessage;
   switch (faceRecState) {
     case FACE_DETECTED:
-      testMessage = getRandomQuote();
+      testMessage = _getRandomQuote();
       break;
     case FACE_NOT_DETECTED:
       testMessage = 'Face not detected';
