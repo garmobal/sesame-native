@@ -45,7 +45,7 @@ function FaceRecognition() {
       // TODO: send the face id and the selected door to the back end
       // Wait for the answer
       // If the user is allowed send the request to open the door
-      if (faceDetectRes.data.length === 0) {
+      if (faceDetectRes.length === 0) {
         setFaceRecState(FACE_NOT_DETECTED);
       } else {
         setFaceRecState(FACE_DETECTED);
