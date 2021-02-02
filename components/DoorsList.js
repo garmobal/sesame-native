@@ -8,7 +8,7 @@ function DoorsList({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {doors.length !== 0 ? (
           doors.map((door) => (
             <Door door={door} key={door.id} navigation={navigation} />
