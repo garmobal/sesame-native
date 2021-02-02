@@ -1,5 +1,6 @@
 // For doors
 export const SET_DOORS = 'SET_DOORS';
+export const SET_SELECTED_DOOR = 'SET_SELECTED_DOOR';
 
 // For quotes
 export const SET_QUOTES = 'SET_QUOTES';

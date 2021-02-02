@@ -5,13 +5,14 @@ import { Provider } from 'react-redux';
 
 import AppContainer from './AppContainer';
 import registrationReducer from './store/reducers/registration';
-import doorsReducer from './store/reducers/doors';
+import { doorsReducer, selectedDoorReducer } from './store/reducers/doors';
 import quotesReducer from './store/reducers/quotes';
 
 const rootReducer = combineReducers({
   registration: registrationReducer,
   doors: doorsReducer,
   quotes: quotesReducer,
+  selectedDoor: selectedDoorReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
