@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
-
+import { useSelector } from 'react-redux';
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import axios from 'axios'; // for making requests to the cognitive services API
 
@@ -22,7 +22,14 @@ function FaceRecognition() {
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [faceDetected, setFaceDetected] = useState(null);
 
+  const quotes = useSelector((state) => state.quotes);
+
   const cam = useRef();
+
+  const getRandomQuote = () => {
+    const index = Math.floor(Math.random() * quotes.length);
+    return quotes[index];
+  };
 
   const _takePicture = async () => {
     const option = {
@@ -71,7 +78,7 @@ function FaceRecognition() {
   let testMessage;
   switch (faceDetected) {
     case true:
-      testMessage = 'Face detected';
+      testMessage = getRandomQuote();
       break;
     case false:
       testMessage = 'Face not detected';
@@ -91,9 +98,11 @@ function FaceRecognition() {
             />
           </View>
         </View>
-        <View>
-          <Text style={styles.text}>{testMessage}</Text>
-        </View>
+        {faceDetected !== null ? (
+          <View>
+            <Text style={styles.text}>{testMessage}</Text>
+          </View>
+        ) : null}
         <View style={styles.flipButtonContainer}>
           <TouchableOpacity
             style={styles.flipButton}
