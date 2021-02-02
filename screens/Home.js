@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     ...centerItem,
   },
   logoContainer: {
-    flex: 2,
+    flex: 1.5,
     ...centerItem,
   },
   logo: {
