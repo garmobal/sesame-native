@@ -7,6 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Camera } from 'expo-camera';
+import * as FaceDetector from 'expo-face-detector';
 import { useSelector } from 'react-redux';
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import detectFace from './../services/azureAPI';
@@ -20,6 +21,7 @@ function FaceRecognition() {
 
   const [hasPermission, setHasPermission] = useState(null);
   const [faceRecState, setFaceRecState] = useState(TAKE_SELFIE);
+  const [detectedFaces, setDetectedFaces] = useState([]);
 
   const quotes = useSelector((state) => state.quotes);
   const selectedDoor = useSelector((state) => state.selectedDoor);
@@ -91,12 +93,51 @@ function FaceRecognition() {
       testMessage = '';
   }
 
+  const _handleFacesDetected = ({ faces }) => {
+    setDetectedFaces(faces);
+  };
+
+  const renderFace = ({ bounds, faceID, rollAngle, yawAngle }) => {
+    return (
+      <View
+        key={faceID}
+        transform={[
+          { perspective: 600 },
+          { rotateZ: `${rollAngle.toFixed(0)}deg` },
+          { rotateY: `${yawAngle.toFixed(0)}deg` },
+        ]}
+        style={[
+          styles.face,
+          {
+            ...bounds.size,
+            left: bounds.origin.x,
+            top: bounds.origin.y,
+          },
+        ]}
+      />
+    );
+  };
+
+  const renderFaces = () => (
+    <View style={styles.facesContainer} pointerEvents="none">
+      {detectedFaces.map(renderFace)}
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <Camera
         ref={cam}
         style={styles.camera}
         type={Camera.Constants.Type.front}
+        onFacesDetected={_handleFacesDetected}
+        faceDetectorSettings={{
+          mode: FaceDetector.Constants.Mode.fast,
+          detectLandmarks: FaceDetector.Constants.Landmarks.none,
+          runClassifications: FaceDetector.Constants.Classifications.none,
+          minDetectionInterval: 100,
+          tracking: true,
+        }}
       >
         <View style={styles.takeButtonContainer}>
           <TouchableOpacity
@@ -109,6 +150,7 @@ function FaceRecognition() {
           />
         </View>
       </Camera>
+      {renderFaces()}
       <View style={styles.textContainer}>
         <Text style={styles.text}>{testMessage}</Text>
       </View>
@@ -151,6 +193,21 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: 'black',
+  },
+  face: {
+    padding: 10,
+    borderWidth: 5,
+    borderRadius: 2,
+    position: 'absolute',
+    borderColor: 'orange',
+    justifyContent: 'center',
+  },
+  facesContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    left: 0,
+    top: 0,
   },
 });
 
