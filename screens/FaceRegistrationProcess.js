@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Text, Image } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { addImage } from '../store/actions/registrationActions';
+import { useSelector } from 'react-redux';
 
 function FaceRegistrationProcess({ navigation }) {
   const user = useSelector((state) => state.user);

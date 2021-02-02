@@ -15,7 +15,6 @@ import {
   imageRegistration,
   userRegistration,
 } from './store/reducers/registration';
-import doorsReducer from './store/reducers/doors';
 
 const Stack = createStackNavigator();
 
