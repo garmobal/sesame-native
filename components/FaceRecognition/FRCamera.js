@@ -7,8 +7,8 @@ import * as AzureAPI from './../../services/azureAPI';
 
 function FRCamera({
   eFaceRecState,
-  faceRecState,
   setFaceRecState,
+  detectedFaces,
   setDetectedFaces,
 }) {
   // CONSTANTS
@@ -86,9 +86,9 @@ function FRCamera({
         <TouchableOpacity
           onPress={_takePicture}
           style={
-            faceRecState === eFaceRecState.TAKE_SELFIE
-              ? styles.takeButton
-              : styles.takeButtonDis
+            detectedFaces.length === 0
+              ? styles.takeButtonDis
+              : styles.takeButton
           }
         />
       </View>

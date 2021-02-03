@@ -39,8 +39,8 @@ function FaceRecognition() {
       <View style={styles.container}>
         <FRCamera
           eFaceRecState={eFaceRecState}
-          faceRecState={faceRecState}
           setFaceRecState={setFaceRecState}
+          detectedFaces={detectedFaces}
           setDetectedFaces={setDetectedFaces}
         />
         <FaceSquares detectedFaces={detectedFaces} />
