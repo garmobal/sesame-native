@@ -1,10 +1,11 @@
-import React from 'react';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useDispatch } from 'react-redux';
+import * as FileSystem from 'expo-file-system';
 
+import { fetchDoors } from './store/actions/doorsActions';
+import { fetchQuotes, setQuotes } from './store/actions/quotesActions';
 import Home from './screens/Home';
 import FaceRecognition from './screens/FaceRecognition';
 import FaceRegistration from './screens/FaceRegistration';
@@ -12,32 +13,29 @@ import FaceRegistrationProcess from './screens/FaceRegistrationProcess';
 import FaceRegistrationCamera from './screens/FaceRegistrationCamera';
 import FaceRegistrationSuccess from './screens/FaceRegistrationSuccess';
 
-import {
-  imageRegistration,
-  userRegistration,
-  registrationStatus,
-} from './store/reducers/registration';
-
 const Stack = createStackNavigator();
 
-const rootReducer = combineReducers({
-  imageRegistration: imageRegistration,
-  user: userRegistration,
-  registrationStatus: registrationStatus,
-});
-
-const store = createStore(rootReducer, applyMiddleware(thunk));
-
 export default function AppContainer() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fileUri = FileSystem.documentDirectory + 'quotes.csv';
+    FileSystem.getInfoAsync(fileUri).then((info) => {
+      if (!info.exists) {
+        dispatch(setQuotes(fileUri));
+      } else {
+        dispatch(fetchQuotes(fileUri));
+      }
+    });
+    dispatch(fetchDoors());
+  }, [dispatch]);
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="FaceRegistrationProcess">
-          {/* delete */}
-          <Stack.Screen name="FaceRegistration" component={FaceRegistration} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="FaceRecognition" component={FaceRecognition} />
-          <Stack.Screen
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="FaceRecognition" component={FaceRecognition} />
+        <Stack.Screen name="FaceRegistration" component={FaceRegistration} />
+         <Stack.Screen
             name="FaceRegistrationProcess"
             component={FaceRegistrationProcess}
             // options={{ headerShown: false }}
@@ -50,8 +48,7 @@ export default function AppContainer() {
             name="FaceRegistrationSuccess"
             component={FaceRegistrationSuccess}
           />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
