@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Pressable, Dimensions } from 'react-native';
 
-import DoorsList from './../components/DoorsList';
+import DoorsList from './../components/Home/DoorsList';
 
 function Home({ navigation }) {
   return (

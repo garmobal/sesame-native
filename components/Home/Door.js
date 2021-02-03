@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { setSelectedDoor } from './../store/actions/doorsActions';
+import { setSelectedDoor } from './../../store/actions/doorsActions';
 
 function Door({ door, navigation }) {
   const dispatch = useDispatch();
