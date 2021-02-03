@@ -35,19 +35,19 @@ export default function AppContainer() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FaceRecognition" component={FaceRecognition} />
         <Stack.Screen name="FaceRegistration" component={FaceRegistration} />
-         <Stack.Screen
-            name="FaceRegistrationProcess"
-            component={FaceRegistrationProcess}
-            // options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="FaceRegistrationCamera"
-            component={FaceRegistrationCamera}
-          />
-          <Stack.Screen
-            name="FaceRegistrationSuccess"
-            component={FaceRegistrationSuccess}
-          />
+        <Stack.Screen
+          name="FaceRegistrationProcess"
+          component={FaceRegistrationProcess}
+          // options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="FaceRegistrationCamera"
+          component={FaceRegistrationCamera}
+        />
+        <Stack.Screen
+          name="FaceRegistrationSuccess"
+          component={FaceRegistrationSuccess}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

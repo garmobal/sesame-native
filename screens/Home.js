@@ -24,7 +24,7 @@ function Home({ navigation }) {
             styles.registerBtn,
           ]}
           onPress={() => {
-            // navigation.navigate('FaceRegistration');
+            navigation.navigate('FaceRegistration');
           }}
         >
           <Text style={styles.registerText}>Register</Text>
