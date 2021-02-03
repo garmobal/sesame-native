@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Camera } from 'expo-camera';
 import { useSelector } from 'react-redux';
-import TestMessage from './../components/FaceRecognition/TestMessage';
+import TextMessage from '../components/FaceRecognition/TextMessage';
 import FRCamera from './../components/FaceRecognition/FRCamera';
 import FaceSquares from './../components/FaceRecognition/FaceSquares';
 
@@ -20,9 +20,6 @@ function FaceRecognition() {
 
   // GLOBAL STATE
   const selectedDoor = useSelector((state) => state.selectedDoor);
-
-  // CAMERA REF
-  const cam = useRef();
 
   // HOOKS
   useEffect(() => {
@@ -51,14 +48,13 @@ function FaceRecognition() {
     return (
       <View style={styles.container}>
         <FRCamera
-          cam={cam}
           _handleFacesDetected={_handleFacesDetected}
           eFaceRecState={eFaceRecState}
           faceRecState={faceRecState}
           setFaceRecState={setFaceRecState}
         />
         <FaceSquares detectedFaces={detectedFaces} />
-        <TestMessage
+        <TextMessage
           faceRecState={faceRecState}
           selectedDoor={selectedDoor}
           eFaceRecState={eFaceRecState}

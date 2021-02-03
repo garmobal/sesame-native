@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { useSelector } from 'react-redux';
 
-const TestMessage = React.memo(
+const TextMessage = React.memo(
   ({ faceRecState, selectedDoor, eFaceRecState }) => {
     // GLOBAL STATE
     const quotes = useSelector((state) => state.quotes);
@@ -17,28 +17,28 @@ const TestMessage = React.memo(
       return quotes[index];
     };
 
-    let testMessage;
+    let textMessage;
     switch (faceRecState) {
       case eFaceRecState.FACE_DETECTED:
-        testMessage = _getRandomQuote();
+        textMessage = _getRandomQuote();
         break;
       case eFaceRecState.FACE_NOT_DETECTED:
-        testMessage = 'Face not detected';
+        textMessage = 'Face not detected';
         break;
       case eFaceRecState.TAKE_SELFIE:
-        testMessage = `Take a selfie to enter ${selectedDoor.name}`;
+        textMessage = `Take a selfie to enter ${selectedDoor.name}`;
         break;
       case eFaceRecState.CHECKING_FACE:
-        testMessage = 'We are checking your identity';
+        textMessage = 'We are checking your identity';
         break;
       default:
-        testMessage = '';
+        textMessage = '';
     }
 
     // RENDER
     return (
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{testMessage}</Text>
+        <Text style={styles.text}>{textMessage}</Text>
       </View>
     );
   },
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TestMessage;
+export default TextMessage;

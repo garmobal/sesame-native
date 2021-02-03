@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
@@ -6,7 +6,6 @@ import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 i
 import * as AzureAPI from './../../services/azureAPI';
 
 function FRCamera({
-  cam,
   _handleFacesDetected,
   eFaceRecState,
   faceRecState,
@@ -14,6 +13,9 @@ function FRCamera({
 }) {
   // CONSTANTS
   const SHOW_QUOTE_TIME = 5000; // [ms]
+
+  // CAMERA REF
+  const cam = useRef();
 
   // LOCAL FUNCTIONS
   /**
