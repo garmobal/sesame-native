@@ -8,7 +8,6 @@ import silly from '../assets/registration/3.png';
 import {
   addImage,
   clearCurrentImage,
-  clearCurrentUser,
   // registerCurrentUser,
 } from '../store/actions/registrationActions';
 
@@ -19,45 +18,42 @@ function FaceRegistrationProcess({ navigation }) {
   const emojis = [smile, sad, silly];
   const dispatch = useDispatch();
 
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', (e) => {
-        e.preventDefault();
-        Alert.alert(
-          'Exit registration?',
-          'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
-          [
-            {
-              text: 'Continue registration',
-              style: 'cancel',
-              onPress: () => {},
-            },
-            {
-              text: 'Exit',
-              style: 'destructive',
-              onPress: () => navigation.dispatch(e.data.action),
-            },
-          ],
-        );
-      }),
-    [navigation],
-  );
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      Alert.alert(
+        'Exit registration?',
+        'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
+        [
+          {
+            text: 'Continue registration',
+            style: 'cancel',
+            onPress: () => {},
+          },
+          {
+            text: 'Exit',
+            style: 'destructive',
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ],
+      );
+    });
+  }, [navigation]);
 
-  const saveImageHandler = async () => {
+  const saveImageHandler = () => {
     // Show Spinner
     if (user.images.length === 2) {
       // Register current user when we have a backend
       // dispatch(registerCurrentUser(user, currentImage));
-      if (registrationStatus === 'success') {
+      if (registrationStatus.status === 'success') {
         navigation.navigate('FaceRegistrationSuccess');
-        dispatch(clearCurrentUser(user, currentImage));
       }
     } else {
       // Save image in array -> update counter
       dispatch(addImage(currentImage));
+      dispatch(clearCurrentImage());
     }
     // Set current image to null
-    dispatch(clearCurrentImage());
   };
 
   let options;

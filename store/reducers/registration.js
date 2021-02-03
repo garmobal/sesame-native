@@ -33,7 +33,7 @@ export const userRegistration = (state = initialUserRegistration, action) => {
 };
 
 // Success for now until we have a backend
-const initialRegistrationStatus = 'success';
+const initialRegistrationStatus = { status: 'success', doorKey: '1234' };
 
 export const registrationStatus = (
   state = initialRegistrationStatus,
@@ -41,9 +41,9 @@ export const registrationStatus = (
 ) => {
   switch (action.type) {
     case actions.REGISTRATION_SUCCESS:
-      return 'success';
+      return { status: 'success', doorKey: action.payload };
     case actions.REGISTRATION_FAIL:
-      return 'fail';
+      return { status: 'fail', doorKey: '' };
     default:
       return state;
   }
