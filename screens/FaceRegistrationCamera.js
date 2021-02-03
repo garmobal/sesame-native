@@ -28,9 +28,9 @@ function FaceRegistrationCamera() {
 
   const takePicture = async () => {
     if (camera) {
-      const data = await camera.takePictureAsync(null);
+      const data = await camera.takePictureAsync({ base64: true });
       setImage(data.uri);
-      dispatch(setCurrentImage(data.uri));
+      dispatch(setCurrentImage(data));
     }
   };
   return (

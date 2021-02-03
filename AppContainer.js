@@ -10,10 +10,12 @@ import FaceRecognition from './screens/FaceRecognition';
 import FaceRegistration from './screens/FaceRegistration';
 import FaceRegistrationProcess from './screens/FaceRegistrationProcess';
 import FaceRegistrationCamera from './screens/FaceRegistrationCamera';
+import FaceRegistrationSuccess from './screens/FaceRegistrationSuccess';
 
 import {
   imageRegistration,
   userRegistration,
+  registrationStatus,
 } from './store/reducers/registration';
 
 const Stack = createStackNavigator();
@@ -21,6 +23,7 @@ const Stack = createStackNavigator();
 const rootReducer = combineReducers({
   imageRegistration: imageRegistration,
   user: userRegistration,
+  registrationStatus: registrationStatus,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -42,6 +45,10 @@ export default function AppContainer() {
           <Stack.Screen
             name="FaceRegistrationCamera"
             component={FaceRegistrationCamera}
+          />
+          <Stack.Screen
+            name="FaceRegistrationSuccess"
+            component={FaceRegistrationSuccess}
           />
         </Stack.Navigator>
       </NavigationContainer>
