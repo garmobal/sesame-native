@@ -6,10 +6,10 @@ import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 i
 import * as AzureAPI from './../../services/azureAPI';
 
 function FRCamera({
-  _handleFacesDetected,
   eFaceRecState,
   faceRecState,
   setFaceRecState,
+  setDetectedFaces,
 }) {
   // CONSTANTS
   const SHOW_QUOTE_TIME = 5000; // [ms]
@@ -17,7 +17,16 @@ function FRCamera({
   // CAMERA REF
   const cam = useRef();
 
-  // LOCAL FUNCTIONS
+  // HELPER FUNCTIONS
+  /**
+   * Callback called when a face is detected, it updates the local state.
+   *
+   * @param {array} faces, array containing all the faces detected by the camera.
+   */
+  const _handleFacesDetected = ({ faces }) => {
+    setDetectedFaces(faces);
+  };
+
   /**
    * Callback called when a picture is taken.
    */

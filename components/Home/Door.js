@@ -6,10 +6,16 @@ import { setSelectedDoor } from './../../store/actions/doorsActions';
 function Door({ door, navigation }) {
   const dispatch = useDispatch();
 
+  // HELPER FUNCTIONS
+  /**
+   * Set the selected door in the global state and navigate to the FaceRecognition component.
+   */
   const _setSelectedDoor = () => {
     dispatch(setSelectedDoor(door));
     navigation.navigate('FaceRecognition');
   };
+
+  // RENDER
   return (
     <TouchableOpacity onPress={_setSelectedDoor}>
       <View style={styles.container}>

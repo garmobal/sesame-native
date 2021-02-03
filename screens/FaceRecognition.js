@@ -29,16 +29,6 @@ function FaceRecognition() {
     })();
   }, []);
 
-  // HELPER FUNCTIONS
-  /**
-   * Callback called when a face is detected, it updates the local state.
-   *
-   * @param {array} faces, array containing all the faces detected by the camera.
-   */
-  const _handleFacesDetected = ({ faces }) => {
-    setDetectedFaces(faces);
-  };
-
   // RENDER
   if (hasPermission === null) {
     return <View />;
@@ -48,10 +38,10 @@ function FaceRecognition() {
     return (
       <View style={styles.container}>
         <FRCamera
-          _handleFacesDetected={_handleFacesDetected}
           eFaceRecState={eFaceRecState}
           faceRecState={faceRecState}
           setFaceRecState={setFaceRecState}
+          setDetectedFaces={setDetectedFaces}
         />
         <FaceSquares detectedFaces={detectedFaces} />
         <TextMessage

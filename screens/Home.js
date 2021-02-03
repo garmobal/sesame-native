@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Pressable, Dimensions } from 'react-native';
 import DoorsList from './../components/Home/DoorsList';
 
 function Home({ navigation }) {
+  // RENDER
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
