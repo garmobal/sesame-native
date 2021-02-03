@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, Pressable, Text, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Pressable, Text, Image, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import smile from '../assets/registration/1.png';
@@ -18,6 +18,30 @@ function FaceRegistrationProcess({ navigation }) {
   const registrationStatus = useSelector((state) => state.registrationStatus);
   const emojis = [smile, sad, silly];
   const dispatch = useDispatch();
+
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', (e) => {
+        e.preventDefault();
+        Alert.alert(
+          'Exit registration?',
+          'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
+          [
+            {
+              text: 'Continue registration',
+              style: 'cancel',
+              onPress: () => {},
+            },
+            {
+              text: 'Exit',
+              style: 'destructive',
+              onPress: () => navigation.dispatch(e.data.action),
+            },
+          ],
+        );
+      }),
+    [navigation],
+  );
 
   const saveImageHandler = async () => {
     // Show Spinner
