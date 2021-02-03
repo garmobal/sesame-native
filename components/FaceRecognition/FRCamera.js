@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
-import { checkUserAuth } from './../../services/userAPI';
 import * as FaceDetector from 'expo-face-detector';
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import * as AzureAPI from './../../services/azureAPI';
@@ -54,9 +53,6 @@ function FRCamera({
   const _checkPicture = async (picture) => {
     const octetStream = base64ToArrayBuffer.decode(picture.base64);
     const faceDetectRes = await AzureAPI.detectFace(octetStream);
-    console.log('faceDetectRes :>> ', faceDetectRes);
-    const res = await checkUserAuth(faceDetectRes[0].faceId);
-    console.log('res :>> ', res);
 
     // TODO: send the face id and the selected door to the back end
     // Wait for the answer
