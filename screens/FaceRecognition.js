@@ -11,22 +11,24 @@ import * as FaceDetector from 'expo-face-detector';
 import { useSelector } from 'react-redux';
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import * as AzureAPI from './../services/azureAPI';
+import TestMessage from './../components/FaceRecognition/TestMessage';
 
 function FaceRecognition() {
   // CONSTANTS
-  const TAKE_SELFIE = 1;
-  const CHECKING_FACE = 2;
-  const FACE_DETECTED = 3;
-  const FACE_NOT_DETECTED = 4;
   const SHOW_QUOTE_TIME = 5000; // [ms]
 
   // LOCAL STATE
+  const [eFaceRecState] = useState({
+    TAKE_SELFIE: 1,
+    CHECKING_FACE: 2,
+    FACE_DETECTED: 3,
+    FACE_NOT_DETECTED: 4,
+  });
   const [hasPermission, setHasPermission] = useState(null);
-  const [faceRecState, setFaceRecState] = useState(TAKE_SELFIE);
+  const [faceRecState, setFaceRecState] = useState(eFaceRecState.TAKE_SELFIE);
   const [detectedFaces, setDetectedFaces] = useState([]);
 
   // GLOBAL STATE
-  const quotes = useSelector((state) => state.quotes);
   const selectedDoor = useSelector((state) => state.selectedDoor);
 
   // CAMERA REF
@@ -42,18 +44,10 @@ function FaceRecognition() {
 
   // HELPER FUNCTIONS
   /**
-   * Return a random quote from the quotes saved in the .csv file.
-   */
-  const _getRandomQuote = () => {
-    const index = Math.floor(Math.random() * quotes.length);
-    return quotes[index];
-  };
-
-  /**
    * Callback called when a picture is taken.
    */
   const _takePicture = async () => {
-    setFaceRecState(CHECKING_FACE);
+    setFaceRecState(eFaceRecState.CHECKING_FACE);
 
     const option = {
       quality: 0.25,
@@ -80,12 +74,12 @@ function FaceRecognition() {
     // Wait for the answer
     // If the user is allowed send the request to open the door
     if (faceDetectRes.length === 0) {
-      setFaceRecState(FACE_NOT_DETECTED);
+      setFaceRecState(eFaceRecState.FACE_NOT_DETECTED);
     } else {
-      setFaceRecState(FACE_DETECTED);
+      setFaceRecState(eFaceRecState.FACE_DETECTED);
     }
     setTimeout(() => {
-      setFaceRecState(TAKE_SELFIE);
+      setFaceRecState(eFaceRecState.TAKE_SELFIE);
     }, SHOW_QUOTE_TIME);
   };
 
@@ -131,7 +125,7 @@ function FaceRecognition() {
       <TouchableOpacity
         onPress={_takePicture}
         style={
-          faceRecState === TAKE_SELFIE
+          faceRecState === eFaceRecState.TAKE_SELFIE
             ? styles.takeButton
             : styles.takeButtonDis
         }
@@ -157,31 +151,6 @@ function FaceRecognition() {
     </Camera>
   );
 
-  const renderTestMessage = () => {
-    let testMessage;
-    switch (faceRecState) {
-      case FACE_DETECTED:
-        testMessage = _getRandomQuote();
-        break;
-      case FACE_NOT_DETECTED:
-        testMessage = 'Face not detected';
-        break;
-      case TAKE_SELFIE:
-        testMessage = `Take a selfie to enter ${selectedDoor.name}`;
-        break;
-      case CHECKING_FACE:
-        testMessage = 'We are checking your identity';
-        break;
-      default:
-        testMessage = '';
-    }
-    return (
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>{testMessage}</Text>
-      </View>
-    );
-  };
-
   // RENDER
   if (hasPermission === null) {
     return <View />;
@@ -192,7 +161,11 @@ function FaceRecognition() {
       <View style={styles.container}>
         {renderCamera()}
         {renderFaces()}
-        {renderTestMessage()}
+        <TestMessage
+          faceRecState={faceRecState}
+          selectedDoor={selectedDoor}
+          eFaceRecState={eFaceRecState}
+        />
       </View>
     );
   }
