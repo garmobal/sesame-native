@@ -1,63 +1,16 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
-import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
-import * as AzureAPI from './../../services/azureAPI';
 
 function FRCamera({
+  detectedFaces,
   _handleFacesDetected,
-  eFaceRecState,
+  _takePicture,
+  cam,
   faceRecState,
-  setFaceRecState,
+  eFaceRecState,
 }) {
-  // CONSTANTS
-  const SHOW_QUOTE_TIME = 5000; // [ms]
-
-  // CAMERA REF
-  const cam = useRef();
-
-  // LOCAL FUNCTIONS
-  /**
-   * Callback called when a picture is taken.
-   */
-  const _takePicture = async () => {
-    setFaceRecState(eFaceRecState.CHECKING_FACE);
-
-    const option = {
-      quality: 0.25,
-      base64: true,
-    };
-    try {
-      const picture = await cam.current.takePictureAsync(option);
-      _checkPicture(picture);
-    } catch (error) {
-      console.log('error :>> ', error);
-    }
-  };
-
-  /**
-   * Check if a picture contains a face calling the Azure API.
-   *
-   * @param {object} picture, picture taken with the camera.
-   */
-  const _checkPicture = async (picture) => {
-    const octetStream = base64ToArrayBuffer.decode(picture.base64);
-    const faceDetectRes = await AzureAPI.detectFace(octetStream);
-
-    // TODO: send the face id and the selected door to the back end
-    // Wait for the answer
-    // If the user is allowed send the request to open the door
-    if (faceDetectRes.length === 0) {
-      setFaceRecState(eFaceRecState.FACE_NOT_DETECTED);
-    } else {
-      setFaceRecState(eFaceRecState.FACE_DETECTED);
-    }
-    setTimeout(() => {
-      setFaceRecState(eFaceRecState.TAKE_SELFIE);
-    }, SHOW_QUOTE_TIME);
-  };
-
   // RENDER
   return (
     <Camera
@@ -77,9 +30,10 @@ function FRCamera({
         <TouchableOpacity
           onPress={_takePicture}
           style={
-            faceRecState === eFaceRecState.TAKE_SELFIE
-              ? styles.takeButton
-              : styles.takeButtonDis
+            faceRecState !== eFaceRecState.TAKE_SELFIE ||
+            detectedFaces.length === 0
+              ? styles.takeButtonDis
+              : styles.takeButton
           }
         />
       </View>
@@ -108,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   takeButtonDis: {
-    opacity: 0,
+    display: 'none',
   },
 });
 

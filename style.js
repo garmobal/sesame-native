@@ -1,7 +1,3 @@
-export const globalStyle = {
-  font: 'Roboto',
-};
-
 export const colors = {
   highlight: '#B00E23',
   background: '#F0F0F0',
@@ -20,6 +16,10 @@ export const door = {
 };
 
 export const whiteCard = {
+
+};
+
+export const card = {
   borderWidth: 3,
   height: '100%',
   width: 200,
@@ -44,3 +44,5 @@ export const redButtonText = {
 };
 
 export const textInput = {};
+
+
