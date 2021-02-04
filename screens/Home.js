@@ -1,18 +1,28 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Dimensions,
+  Image,
+} from 'react-native';
 
+import { redButton, colors } from './../style';
 import DoorsList from './../components/Home/DoorsList';
+import logo from './../assets/logo_placeholder.png';
 
 function Home({ navigation }) {
   // RENDER
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Text style={styles.logo}>Sesame Logo</Text>
+        <Image style={styles.logo} source={logo} />
+        {/* <Text style={styles.logo}>Sesame Logo</Text> */}
       </View>
-      <View style={styles.titleContainer}>
+      {/* <View style={styles.titleContainer}>
         <Text style={styles.title}>Sesame</Text>
-      </View>
+      </View> */}
       <View style={styles.doorsListContainer}>
         <DoorsList navigation={navigation} />
       </View>
@@ -39,13 +49,15 @@ const centerItem = {
   justifyContent: 'center',
   alignItems: 'center',
   width: Dimensions.get('window').width,
+  // borderWidth: 3,
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    padding: 10,
+    // padding: 10,
+    backgroundColor: colors.background,
     ...centerItem,
   },
   logoContainer: {
@@ -53,15 +65,17 @@ const styles = StyleSheet.create({
     ...centerItem,
   },
   logo: {
-    fontSize: 30,
+    // width: 100,
+    resizeMode: 'contain',
+    width: '30%',
   },
-  titleContainer: {
-    flex: 1,
-    ...centerItem,
-  },
-  title: {
-    fontSize: 20,
-  },
+  // titleContainer: {
+  //   flex: 1,
+  //   ...centerItem,
+  // },
+  // title: {
+  //   fontSize: 20,
+  // },
   doorsListContainer: {
     flex: 4,
     ...centerItem,
@@ -71,13 +85,12 @@ const styles = StyleSheet.create({
     ...centerItem,
   },
   registerBtn: {
-    fontSize: 30,
-    padding: 10,
-    borderRadius: 10,
+    ...redButton,
   },
   registerText: {
     fontSize: 20,
     padding: 5,
+    color: '#FFF',
   },
 });
 export default Home;
