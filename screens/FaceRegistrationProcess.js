@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, StyleSheet, Pressable, Text, Image, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -8,7 +8,7 @@ import silly from '../assets/registration/3.png';
 import {
   addImage,
   clearCurrentImage,
-  // registerCurrentUser,
+  registerCurrentUser,
 } from '../store/actions/registrationActions';
 
 function FaceRegistrationProcess({ navigation }) {
@@ -18,35 +18,46 @@ function FaceRegistrationProcess({ navigation }) {
   const emojis = [smile, sad, silly];
   const dispatch = useDispatch();
 
+  const regStatus = useCallback(() => registrationStatus.status, [
+    registrationStatus.status,
+  ]);
+
   useEffect(() => {
-    navigation.addListener('beforeRemove', (e) => {
+    const unsbuscribe = navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
-      Alert.alert(
-        'Exit registration?',
-        'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
-        [
-          {
-            text: 'Continue registration',
-            style: 'cancel',
-            onPress: () => {},
-          },
-          {
-            text: 'Exit',
-            style: 'destructive',
-            onPress: () => navigation.dispatch(e.data.action),
-          },
-        ],
-      );
+      if (regStatus() !== 'success') {
+        Alert.alert(
+          'Exit registration?',
+          'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
+          [
+            {
+              text: 'Continue registration',
+              style: 'cancel',
+              onPress: () => {},
+            },
+            {
+              text: 'Exit',
+              style: 'destructive',
+              onPress: () => navigation.dispatch(e.data.action),
+            },
+          ],
+        );
+      } else {
+        navigation.dispatch(e.data.action);
+      }
     });
-  }, [navigation]);
+    return unsbuscribe;
+  }, [navigation, regStatus]);
 
   const saveImageHandler = () => {
     // Show Spinner
-    if (user.images.length === 2) {
+    if (user.images.length === 0) {
       // Register current user when we have a backend
-      // dispatch(registerCurrentUser(user, currentImage));
+      dispatch(registerCurrentUser(user, currentImage));
+
       if (registrationStatus.status === 'success') {
-        navigation.navigate('FaceRegistrationSuccess');
+        // navigation.removeListener();
+        // navigation.navigate('FaceRegistrationSuccess');
       }
     } else {
       // Save image in array -> update counter

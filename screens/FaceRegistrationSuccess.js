@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, BackHandler } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 
 import {
@@ -15,11 +15,14 @@ const FaceRegistrationSuccess = ({ navigation }) => {
   useEffect(() => {
     dispatch(clearCurrentImage());
     dispatch(clearCurrentUser());
-    //   navigation.addListener('beforeRemove', (e) => {
-    //     e.preventDefault();
-    //     navigation.dispatch(StackActions.popToTop());
-    //   });
-    //   console.log(StackActions.popToTop());
+    const handleBackButton = (e) => {
+      navigation.navigate('Home');
+      return true;
+    };
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
   }, [dispatch, navigation]);
 
   return (
@@ -31,8 +34,8 @@ const FaceRegistrationSuccess = ({ navigation }) => {
       </Text>
       <Pressable
         style={styles.goHomeButton}
-        // onPress={() => navigation.dispatch(StackActions.pop(1))}
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.dispatch(StackActions.popToTop())}
+        // onPress={() => navigation.navigate('Home')}
       >
         <Text style={styles.goHomeButtonText}>Done</Text>
       </Pressable>

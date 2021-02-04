@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';
+import * as style from '../style';
 
 function FaceRegistration({ navigation }) {
   return (
