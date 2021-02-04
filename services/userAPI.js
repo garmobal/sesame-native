@@ -1,4 +1,4 @@
-const apiUrl = 'http://192.168.1.169:5007/azure/identify';
+const apiUrl = 'http://192.168.1.169:5001/azure/identify';
 
 export const checkUserAuth = (faceId) => {
   console.log(`${apiUrl}/${faceId}`);
