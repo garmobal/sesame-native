@@ -3,7 +3,14 @@ import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
 
-function FRCamera({ detectedFaces, _handleFacesDetected, _takePicture, cam }) {
+function FRCamera({
+  detectedFaces,
+  _handleFacesDetected,
+  _takePicture,
+  cam,
+  faceRecState,
+  eFaceRecState,
+}) {
   // RENDER
   return (
     <Camera
@@ -23,6 +30,7 @@ function FRCamera({ detectedFaces, _handleFacesDetected, _takePicture, cam }) {
         <TouchableOpacity
           onPress={_takePicture}
           style={
+            faceRecState !== eFaceRecState.TAKE_SELFIE ||
             detectedFaces.length === 0
               ? styles.takeButtonDis
               : styles.takeButton

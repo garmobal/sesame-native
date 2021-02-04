@@ -31,6 +31,9 @@ const TextMessage = React.memo(
       case eFaceRecState.CHECKING_FACE:
         textMessage = 'We are checking your identity';
         break;
+      case eFaceRecState.TAKING_PICTURE:
+        textMessage = 'Taking the picture';
+        break;
       default:
         textMessage = '';
     }

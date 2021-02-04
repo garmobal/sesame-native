@@ -17,9 +17,10 @@ function FaceRecognition() {
   // LOCAL STATE
   const [eFaceRecState] = useState({
     TAKE_SELFIE: 1,
-    CHECKING_FACE: 2,
-    FACE_DETECTED: 3,
-    FACE_NOT_DETECTED: 4,
+    TAKING_PICTURE: 2,
+    CHECKING_FACE: 3,
+    FACE_DETECTED: 4,
+    FACE_NOT_DETECTED: 5,
   });
   const [hasPermission, setHasPermission] = useState(null);
   const [faceRecState, setFaceRecState] = useState(eFaceRecState.TAKE_SELFIE);
@@ -53,14 +54,14 @@ function FaceRecognition() {
    * Callback called when a picture is taken.
    */
   const _takePicture = async () => {
-    setFaceRecState(eFaceRecState.CHECKING_FACE);
-
+    setFaceRecState(eFaceRecState.TAKING_PICTURE);
     const option = {
       quality: 0.25,
       base64: true,
     };
     try {
       const picture = await cam.current.takePictureAsync(option);
+      setFaceRecState(eFaceRecState.CHECKING_FACE);
       _checkPicture(picture);
     } catch (error) {
       console.log('error :>> ', error);
@@ -97,13 +98,22 @@ function FaceRecognition() {
   } else {
     return (
       <View style={styles.container}>
-        <FRCamera
-          detectedFaces={detectedFaces}
-          _handleFacesDetected={_handleFacesDetected}
-          _takePicture={_takePicture}
-          cam={cam}
-        />
-        <FaceSquares detectedFaces={detectedFaces} />
+        {faceRecState === eFaceRecState.TAKE_SELFIE ||
+        faceRecState === eFaceRecState.TAKING_PICTURE ? (
+          <FRCamera
+            detectedFaces={detectedFaces}
+            _handleFacesDetected={_handleFacesDetected}
+            _takePicture={_takePicture}
+            cam={cam}
+            faceRecState={faceRecState}
+            eFaceRecState={eFaceRecState}
+          />
+        ) : null}
+        {faceRecState === eFaceRecState.TAKE_SELFIE ||
+        faceRecState === eFaceRecState.TAKING_PICTURE ? (
+          <FaceSquares detectedFaces={detectedFaces} />
+        ) : null}
+
         <TextMessage
           faceRecState={faceRecState}
           selectedDoor={selectedDoor}
