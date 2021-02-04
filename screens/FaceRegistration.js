@@ -1,13 +1,15 @@
 import React from 'react';
 import { Text, View, Pressable, StyleSheet } from 'react-native';
-import * as s from '../style';
+import * as cStyle from '../style';
 
 function FaceRegistration({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>
-        Welcome to the registration process
-      </Text>
+      <View style={styles.welcomeCard}>
+        <Text style={styles.welcomeText}>
+          Welcome to the registration process
+        </Text>
+      </View>
       <Pressable
         style={styles.startButton}
         onPress={() => navigation.navigate('FaceRegistrationProcess')}
@@ -26,13 +28,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
+  welcomeCard: {
+    ...cStyle.whiteCard,
+    width: '50%',
+  },
   welcomeText: {},
   startButton: {
-    ...s.redButton,
+    ...cStyle.redButton,
     width: '30%',
   },
   startButtonText: {
-    ...s.redButtonText,
+    ...cStyle.redButtonText,
     fontSize: 20,
   },
 });

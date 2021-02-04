@@ -16,7 +16,10 @@ export const door = {
 };
 
 export const whiteCard = {
-
+  backgroundColor: colors.lightest,
+  borderRadius: 20,
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 export const card = {
@@ -44,5 +47,3 @@ export const redButtonText = {
 };
 
 export const textInput = {};
-
-
