@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   takeButtonDis: {
-    opacity: 0,
+    display: 'none',
   },
 });
 
