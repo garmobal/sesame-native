@@ -22,6 +22,7 @@ function FaceRecognition() {
     FACE_DETECTED: 4,
     FACE_NOT_DETECTED: 5,
   });
+
   const [hasPermission, setHasPermission] = useState(null);
   const [faceRecState, setFaceRecState] = useState(eFaceRecState.TAKE_SELFIE);
   const [detectedFaces, setDetectedFaces] = useState([]);

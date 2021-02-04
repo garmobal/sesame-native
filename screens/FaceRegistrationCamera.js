@@ -3,8 +3,9 @@ import { Text, View, Button, StyleSheet, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import { setCurrentImage } from '../store/actions/registrationActions';
 import { useDispatch } from 'react-redux';
+// import { StackActions } from '@react-navigation/native';
 
-function FaceRegistrationCamera() {
+function FaceRegistrationCamera({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
@@ -31,6 +32,7 @@ function FaceRegistrationCamera() {
       const data = await camera.takePictureAsync({ base64: true });
       setImage(data.uri);
       dispatch(setCurrentImage(data));
+      navigation.navigate('FaceRegistrationProcess');
     }
   };
   return (
@@ -44,19 +46,8 @@ function FaceRegistrationCamera() {
           focusDepth={'0'}
         />
       </View>
-      <Button
-        style={styles.button}
-        title="Alexandra"
-        onPress={() => {
-          setType(
-            type === Camera.Constants.Type.front
-              ? Camera.Constants.Type.back
-              : Camera.Constants.Type.front,
-          );
-        }}
-      />
       <Button title="Take picture" onPress={() => takePicture()} />
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      {/* {image && <Image source={{ uri: image }} style={styles.image} />} */}
     </View>
   );
 }
@@ -65,6 +56,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    paddingVertical: 40,
   },
   cameraContainer: {
     flex: 1,
