@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import * as cStyle from './../../style';
 
 function FaceSquares({ detectedFaces }) {
   // RENDERING FUNCTIONS
@@ -34,10 +35,10 @@ function FaceSquares({ detectedFaces }) {
 const styles = StyleSheet.create({
   face: {
     padding: 10,
-    borderWidth: 5,
+    borderWidth: 6,
     borderRadius: 2,
     position: 'absolute',
-    borderColor: 'orange',
+    borderColor: cStyle.colors.highlight,
     justifyContent: 'center',
   },
   facesContainer: {

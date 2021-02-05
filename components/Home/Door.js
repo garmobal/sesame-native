@@ -5,10 +5,10 @@ import { setSelectedDoor } from './../../store/actions/doorsActions';
 
 import * as cStyle from './../../style';
 
-import main from './../../assets/main.png';
-import cafe from './../../assets/cafe.png';
-import berta from './../../assets/berta.png';
-import leo from './../../assets/leo.png';
+import main from './../../assets/main.jpeg';
+import cafe from './../../assets/cafe.jpeg';
+import berta from './../../assets/berta.jpeg';
+import leo from './../../assets/leo.jpeg';
 
 function Door({ door, navigation }) {
   const dispatch = useDispatch();
@@ -40,8 +40,8 @@ function Door({ door, navigation }) {
   return (
     <TouchableOpacity onPress={_setSelectedDoor}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={image} />
-        <Text>{door.name}</Text>
+        <Image style={styles.doorImage} source={image} />
+        <Text style={styles.doorName}>{door.name}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -49,12 +49,26 @@ function Door({ door, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    ...cStyle.door,
+    height: '80%',
+    width: 200,
+    marginLeft: 15,
+    marginRight: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    overflow: 'hidden',
+    position: 'relative',
   },
-  logo: {
-    // width: 100,
+  doorImage: {
+    position: 'absolute',
     resizeMode: 'contain',
-    width: '30%',
+    width: '100%',
+  },
+  doorName: {
+    position: 'absolute',
+    fontFamily: cStyle.fonts.medium,
+    color: cStyle.colors.lightest,
+    fontSize: 30,
   },
 });
 

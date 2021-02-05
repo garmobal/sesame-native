@@ -8,6 +8,17 @@ export const colors = {
   darkest: '#000',
 };
 
+export const container = {
+  flexDirection: 'column',
+  flex: 1,
+  ...centerItem,
+};
+
+export const content = {
+  flex: 5,
+  backgroundColor: colors.background,
+};
+
 export const centerItem = {
   justifyContent: 'center',
   alignItems: 'center',
@@ -16,20 +27,15 @@ export const centerItem = {
 
 export const fonts = {
   light: 'Roboto_300Light',
+  light_italic: 'Roboto_300Light_Italic',
   regular: 'Roboto_400Regular',
+  regular_italic: 'Roboto_400Regular_Italic',
   medium: 'Roboto_500Medium',
+  medium_italic: 'Roboto_500Medium_Italic',
   bold: 'Roboto_700Bold',
+  bold_italic: 'Roboto_700Bold_Italic',
   black: 'Roboto_900Black',
-};
-
-export const door = {
-  borderWidth: 3,
-  height: '100%',
-  width: 200,
-  marginLeft: 30,
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 15,
+  black_italic: 'Roboto_900Black_Italic',
 };
 
 export const whiteCard = {
