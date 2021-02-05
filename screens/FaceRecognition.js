@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Camera } from 'expo-camera';
-import { useSelector } from 'react-redux';
 
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import * as AzureAPI from './../services/azureAPI';
 
-import TextMessage from '../components/FaceRecognition/TextMessage';
 import FRCamera from './../components/FaceRecognition/FRCamera';
 import FaceSquares from './../components/FaceRecognition/FaceSquares';
+import Logo from './../components/Logo';
+
+import * as cStyle from './../style';
 
 function FaceRecognition() {
   // CONSTANTS
@@ -26,9 +27,6 @@ function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
   const [faceRecState, setFaceRecState] = useState(eFaceRecState.TAKE_SELFIE);
   const [detectedFaces, setDetectedFaces] = useState([]);
-
-  // GLOBAL STATE
-  const selectedDoor = useSelector((state) => state.selectedDoor);
 
   // CAMERA REF
   const cam = useRef();
@@ -98,37 +96,28 @@ function FaceRecognition() {
     return <Text>No access to camera</Text>;
   } else {
     return (
-      <View style={styles.container}>
-        {faceRecState === eFaceRecState.TAKE_SELFIE ||
-        faceRecState === eFaceRecState.TAKING_PICTURE ? (
-          <FRCamera
-            detectedFaces={detectedFaces}
-            _handleFacesDetected={_handleFacesDetected}
-            _takePicture={_takePicture}
-            cam={cam}
-            faceRecState={faceRecState}
-            eFaceRecState={eFaceRecState}
-          />
-        ) : null}
-        {faceRecState === eFaceRecState.TAKE_SELFIE ||
-        faceRecState === eFaceRecState.TAKING_PICTURE ? (
-          <FaceSquares detectedFaces={detectedFaces} />
-        ) : null}
-
-        <TextMessage
-          faceRecState={faceRecState}
-          selectedDoor={selectedDoor}
-          eFaceRecState={eFaceRecState}
-        />
+      <View style={{ ...cStyle.container }}>
+        <Logo />
+        <View style={{ ...cStyle.content }}>
+          {faceRecState === eFaceRecState.TAKE_SELFIE ||
+          faceRecState === eFaceRecState.TAKING_PICTURE ? (
+            <FRCamera
+              detectedFaces={detectedFaces}
+              _handleFacesDetected={_handleFacesDetected}
+              _takePicture={_takePicture}
+              cam={cam}
+              faceRecState={faceRecState}
+              eFaceRecState={eFaceRecState}
+            />
+          ) : null}
+          {faceRecState === eFaceRecState.TAKE_SELFIE ||
+          faceRecState === eFaceRecState.TAKING_PICTURE ? (
+            <FaceSquares detectedFaces={detectedFaces} />
+          ) : null}
+        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default FaceRecognition;

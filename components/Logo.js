@@ -15,7 +15,7 @@ function Logo() {
 
 const styles = StyleSheet.create({
   logoContainer: {
-    flex: 1,
+    flex: 0.8,
     ...cStyle.centerItem,
     backgroundColor: cStyle.colors.lightest,
   },

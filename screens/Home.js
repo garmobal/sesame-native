@@ -8,9 +8,9 @@ import Logo from './../components/Logo';
 function Home({ navigation }) {
   // RENDER
   return (
-    <View style={styles.container}>
+    <View style={{ ...cStyle.container }}>
       <Logo />
-      <View style={styles.content}>
+      <View style={{ ...cStyle.content }}>
         <View style={styles.chooseDoorContainer}>
           <View style={styles.chooseDoorCard}>
             <Text style={styles.chooseDoorText}>
@@ -42,15 +42,6 @@ function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    flex: 1,
-    ...cStyle.centerItem,
-  },
-  content: {
-    flex: 5,
-    backgroundColor: cStyle.colors.background,
-  },
   chooseDoorContainer: {
     flex: 2,
     ...cStyle.centerItem,

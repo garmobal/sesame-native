@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
+import * as cStyle from './../../style';
 
 function FRCamera({
   detectedFaces,
@@ -60,6 +61,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     borderRadius: 50,
     backgroundColor: '#fff',
+    borderWidth: 5,
+    borderColor: cStyle.colors.highlight,
   },
   takeButtonDis: {
     display: 'none',

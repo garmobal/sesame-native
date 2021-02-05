@@ -8,6 +8,17 @@ export const colors = {
   darkest: '#000',
 };
 
+export const container = {
+  flexDirection: 'column',
+  flex: 1,
+  ...centerItem,
+};
+
+export const content = {
+  flex: 5,
+  backgroundColor: colors.background,
+};
+
 export const centerItem = {
   justifyContent: 'center',
   alignItems: 'center',
