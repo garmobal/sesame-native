@@ -31,7 +31,7 @@ export default function AppContainer() {
   }, [dispatch]);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'FaceRegistration'}>
+      <Stack.Navigator initialRouteName={'FaceRegistrationProcess'}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FaceRecognition" component={FaceRecognition} />
         <Stack.Screen name="FaceRegistration" component={FaceRegistration} />

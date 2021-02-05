@@ -10,6 +10,7 @@ import {
   clearCurrentImage,
   registerCurrentUser,
 } from '../store/actions/registrationActions';
+import * as cStyle from '../style';
 
 function FaceRegistrationProcess({ navigation }) {
   const user = useSelector((state) => state.user);
@@ -98,7 +99,7 @@ function FaceRegistrationProcess({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{user.images.length + 1}</Text>
+        <Text style={styles.title}>Step {user.images.length + 1}</Text>
       </View>
       <View style={styles.imageContainer}>
         <Image source={emojis[user.images.length]} style={styles.image} />
@@ -116,6 +117,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
+    borderWidth: 3,
+    borderColor: 'green',
   },
   titleContainer: {
     flex: 1,
@@ -127,11 +130,15 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    color: 'red',
-    fontSize: 20,
-    fontWeight: 'bold',
-    backgroundColor: '#ddd',
-    borderRadius: 5,
+    color: cStyle.colors.highlight,
+    fontSize: 40,
+    fontFamily: cStyle.fonts.medium,
+    backgroundColor: cStyle.colors.lightest,
+    // borderRadius: 100,
+    // borderWidth: 3,
+    // borderColor: cStyle.colors.highlight,
+    padding: 20,
+    paddingHorizontal: 40,
     width: '100%',
     textAlign: 'center',
   },
@@ -151,26 +158,20 @@ const styles = StyleSheet.create({
   },
   optionsContainer: {
     flex: 1,
-    // width: '100%',
+    width: '100%',
     borderWidth: 3,
     borderColor: 'red',
     flexDirection: 'row',
-  },
-  buttonTakePicture: {
-    flex: 1,
-    borderWidth: 3,
-    borderColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  buttonTakePicture: {
+    ...cStyle.redButton,
+    width: '50%',
+  },
   buttonText: {
-    color: 'red',
+    ...cStyle.redButtonText,
     fontSize: 20,
-    fontWeight: 'bold',
-    backgroundColor: '#ddd',
-    borderRadius: 5,
-    width: '80%',
-    textAlign: 'center',
   },
 });
 

@@ -1,8 +1,19 @@
+import * as font from '@expo-google-fonts/roboto';
+
 export const colors = {
   highlight: '#B00E23',
   background: '#F0F0F0',
   fontColor: '#8E8E8E',
   lightest: '#FFF',
+  darkest: '#000',
+};
+
+export const fonts = {
+  light: 'Roboto_300Light',
+  regular: 'Roboto_400Regular',
+  medium: 'Roboto_500Medium',
+  bold: 'Roboto_700Bold',
+  black: 'Roboto_900Black',
 };
 
 export const door = {
@@ -23,10 +34,7 @@ export const whiteCard = {
 };
 
 export const card = {
-  borderWidth: 3,
-  height: '100%',
-  width: 200,
-  marginLeft: 30,
+  backgroundColor: colors.lightest,
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: 15,
@@ -44,6 +52,8 @@ export const redButton = {
 export const redButtonText = {
   fontSize: 30,
   color: colors.lightest,
+  textAlign: 'center',
+  fontFamily: fonts.regular,
 };
 
 export const textInput = {};
