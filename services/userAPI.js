@@ -1,16 +1,23 @@
-// const apiUrl = 'localhost:5002/azure/register';
-const apiUrl = '192.168.1.169:5005/azure/register';
+const apiUrl = 'http://192.168.1.169:5002/azure';
 
-export const checkRegistrationCode = (code) => {
-  return fetchUser(`${apiUrl}/${code}`, {
+export const checkUserAuth = (doorId, faceId) => {
+  console.log(`${apiUrl}/identify/${doorId}/${faceId}`);
+  return sendRequest(`${apiUrl}/identify/${doorId}/${faceId}`, {
     method: 'GET',
   });
 };
+
+export const checkRegistrationCode = (code) => {
+  return sendRequest(`${apiUrl}/register/${code}`, {
+    method: 'GET',
+  });
+};
+
 // const aid = '022c4ae2-c730-4488-bbab-825441367e8a';
 export const registerUser = (id, images) => {
   console.log(images);
   // return fetchUser('192.168.1.169:5001/azure/register/1234');
-  return fetchUser(
+  return sendRequest(
     'http://192.168.1.169:5001/azure/register/022c4ae2-c730-4488-bbab-825441367e8a',
     {
       method: 'PUT',
@@ -23,7 +30,7 @@ export const registerUser = (id, images) => {
   );
 };
 
-function fetchUser(url, options) {
+function sendRequest(url, options) {
   return fetch(url, options)
     .then((res) => {
       if (res.status < 400) {

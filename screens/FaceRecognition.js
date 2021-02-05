@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import * as AzureAPI from './../services/azureAPI';
+import { checkUserAuth } from './../services/userAPI';
 
 import FRCamera from './../components/FaceRecognition/FRCamera';
 import FaceSquares from './../components/FaceRecognition/FaceSquares';
@@ -21,8 +22,9 @@ function FaceRecognition() {
     TAKE_SELFIE: 1,
     TAKING_PICTURE: 2,
     CHECKING_FACE: 3,
-    FACE_DETECTED: 4,
-    FACE_NOT_DETECTED: 5,
+    ALLOWED: 4,
+    NOT_ALLOWED: 5,
+    NOT_RECOGNIZED: 6,
   });
 
   // GLOBAL STATE
@@ -31,6 +33,7 @@ function FaceRecognition() {
   const [hasPermission, setHasPermission] = useState(null);
   const [faceRecState, setFaceRecState] = useState(eFaceRecState.TAKE_SELFIE);
   const [detectedFaces, setDetectedFaces] = useState([]);
+  const [userName, setUserName] = useState('');
 
   // CAMERA REF
   const cam = useRef();
@@ -79,16 +82,18 @@ function FaceRecognition() {
   const _checkPicture = async (picture) => {
     const octetStream = base64ToArrayBuffer.decode(picture.base64);
     const faceDetectRes = await AzureAPI.detectFace(octetStream);
+    const res = await checkUserAuth(selectedDoor.did, faceDetectRes[0].faceId);
 
-    // TODO: send the face id and the selected door to the back end
-    console.log('selectedDoor :>> ', selectedDoor);
-    // Wait for the answer
-    // If the user is allowed send the request to open the door
-    if (faceDetectRes.length === 0) {
-      setFaceRecState(eFaceRecState.FACE_NOT_DETECTED);
+    if (res.access === true) {
+      setFaceRecState(eFaceRecState.ALLOWED);
+      setUserName(res.firstName);
+    } else if (res.access === false) {
+      setFaceRecState(eFaceRecState.NOT_ALLOWED);
+      setUserName(res.firstName);
     } else {
-      setFaceRecState(eFaceRecState.FACE_DETECTED);
+      setFaceRecState(eFaceRecState.NOT_RECOGNIZED);
     }
+
     setTimeout(() => {
       setFaceRecState(eFaceRecState.TAKE_SELFIE);
     }, SHOW_QUOTE_TIME);
@@ -126,6 +131,7 @@ function FaceRecognition() {
             <TextMessage
               faceRecState={faceRecState}
               eFaceRecState={eFaceRecState}
+              userName={userName}
             />
           ) : null}
         </View>
