@@ -1,4 +1,4 @@
-const apiUrl = 'https://private-bcb07f-sesame2.apiary-mock.com/api/door';
+const apiUrl = 'http://192.168.1.169:5002/door/list';
 
 export const getDoors = () => {
   return fetchDoors(apiUrl, {

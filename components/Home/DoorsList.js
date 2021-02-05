@@ -13,7 +13,7 @@ function DoorsList({ navigation }) {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {doors.length !== 0 ? (
           doors.map((door) => (
-            <Door door={door} key={door.id} navigation={navigation} />
+            <Door door={door} key={door.did} navigation={navigation} />
           ))
         ) : (
           <Text>Loading doors</Text>

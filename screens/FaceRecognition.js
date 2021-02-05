@@ -42,6 +42,7 @@ function FaceRecognition() {
           setFaceRecState={setFaceRecState}
           detectedFaces={detectedFaces}
           setDetectedFaces={setDetectedFaces}
+          selectedDoorId={selectedDoor.did}
         />
         <FaceSquares detectedFaces={detectedFaces} />
         <TextMessage

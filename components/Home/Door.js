@@ -19,7 +19,7 @@ function Door({ door, navigation }) {
   return (
     <TouchableOpacity onPress={_setSelectedDoor}>
       <View style={styles.container}>
-        <Text>{door.name}</Text>
+        <Text>{door.doorName}</Text>
       </View>
     </TouchableOpacity>
   );

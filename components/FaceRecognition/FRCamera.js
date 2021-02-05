@@ -11,6 +11,7 @@ function FRCamera({
   setFaceRecState,
   detectedFaces,
   setDetectedFaces,
+  selectedDoorId,
 }) {
   // CONSTANTS
   const SHOW_QUOTE_TIME = 5000; // [ms]
@@ -52,23 +53,26 @@ function FRCamera({
    * @param {object} picture, picture taken with the camera.
    */
   const _checkPicture = async (picture) => {
-    const octetStream = base64ToArrayBuffer.decode(picture.base64);
-    const faceDetectRes = await AzureAPI.detectFace(octetStream);
-    console.log('faceDetectRes :>> ', faceDetectRes);
-    const res = await checkUserAuth(faceDetectRes[0].faceId);
-    console.log('res :>> ', res);
+    try {
+      const octetStream = base64ToArrayBuffer.decode(picture.base64);
+      const faceDetectRes = await AzureAPI.detectFace(octetStream);
+      const res = await checkUserAuth(selectedDoorId, faceDetectRes[0].faceId);
+      console.log('res :>> ', res);
 
-    // TODO: send the face id and the selected door to the back end
-    // Wait for the answer
-    // If the user is allowed send the request to open the door
-    if (faceDetectRes.length === 0) {
-      setFaceRecState(eFaceRecState.FACE_NOT_DETECTED);
-    } else {
-      setFaceRecState(eFaceRecState.FACE_DETECTED);
+      // TODO: send the face id and the selected door to the back end
+      // Wait for the answer
+      // If the user is allowed send the request to open the door
+      if (faceDetectRes.length === 0) {
+        setFaceRecState(eFaceRecState.FACE_NOT_DETECTED);
+      } else {
+        setFaceRecState(eFaceRecState.FACE_DETECTED);
+      }
+      setTimeout(() => {
+        setFaceRecState(eFaceRecState.TAKE_SELFIE);
+      }, SHOW_QUOTE_TIME);
+    } catch (error) {
+      console.log('error :>> ', error);
     }
-    setTimeout(() => {
-      setFaceRecState(eFaceRecState.TAKE_SELFIE);
-    }, SHOW_QUOTE_TIME);
   };
 
   // RENDER
