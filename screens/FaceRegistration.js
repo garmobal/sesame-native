@@ -14,7 +14,7 @@ function FaceRegistration({ navigation }) {
         style={styles.startButton}
         onPress={() => navigation.navigate('FaceRegistrationProcess')}
       >
-        <Text style={styles.startButtonText}>Start</Text>
+        <Text style={styles.startButtonText}>Get started!</Text>
       </Pressable>
     </View>
   );
@@ -29,16 +29,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   welcomeCard: {
+    flex: 4,
     ...cStyle.whiteCard,
-    width: '50%',
+    width: '80%',
+    marginTop: 30,
   },
-  welcomeText: {},
+  welcomeText: {
+    fontFamily: cStyle.fonts.light,
+  },
   startButton: {
     ...cStyle.redButton,
-    width: '30%',
+    width: '60%',
+    marginVertical: 30,
   },
   startButtonText: {
     ...cStyle.redButtonText,
-    fontSize: 20,
+    fontFamily: cStyle.fonts.regular,
+    fontSize: 18,
   },
 });
