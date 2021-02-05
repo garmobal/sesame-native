@@ -10,7 +10,6 @@ import FaceSquares from './../components/FaceRecognition/FaceSquares';
 import TextMessage from './../components/FaceRecognition/TextMessage';
 import Logo from './../components/Logo';
 
-import * as cStyle from './../style';
 import { useSelector } from 'react-redux';
 
 function FaceRecognition() {

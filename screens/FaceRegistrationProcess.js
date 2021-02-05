@@ -1,13 +1,5 @@
-import React, { useEffect, useCallback } from 'react';
-import {
-  View,
-  StyleSheet,
-  Pressable,
-  Text,
-  Image,
-  Alert,
-  CommonActions,
-} from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Pressable, Text, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import smile from '../assets/registration/1.png';
@@ -17,7 +9,6 @@ import {
   addImage,
   clearCurrentImage,
   registerCurrentUser,
-  clearCurrentUserImages,
 } from '../store/actions/registrationActions';
 import * as cStyle from '../style';
 

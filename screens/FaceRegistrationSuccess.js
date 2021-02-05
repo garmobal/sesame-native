@@ -1,17 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { View, Text, Pressable, StyleSheet, BackHandler } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 
-import {
-  clearCurrentImage,
-  clearCurrentUser,
-} from '../store/actions/registrationActions';
 import * as cStyle from '../style';
 
 const FaceRegistrationSuccess = ({ navigation }) => {
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.registrationStatus);
 
   useEffect(() => {
     // dispatch(clearCurrentImage());
