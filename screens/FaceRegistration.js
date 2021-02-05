@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontFamily: cStyle.fonts.light,
+    fontSize: 30,
+    textAlign: 'center',
+    color: '#8E8E8E',
   },
   startButton: {
     ...cStyle.redButton,

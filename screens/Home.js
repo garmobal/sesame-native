@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   },
   registerText: {
     ...cStyle.redButtonText,
+    fontSize: 18,
   },
 });
 export default Home;

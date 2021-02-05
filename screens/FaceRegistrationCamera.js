@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     bottom: 40,
     borderRadius: 50,
     backgroundColor: '#fff',
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: cStyle.colors.highlight,
     position: 'absolute',
   },

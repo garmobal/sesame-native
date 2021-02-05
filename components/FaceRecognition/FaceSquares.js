@@ -35,7 +35,7 @@ function FaceSquares({ detectedFaces }) {
 const styles = StyleSheet.create({
   face: {
     padding: 10,
-    borderWidth: 6,
+    borderWidth: 3,
     borderRadius: 2,
     position: 'absolute',
     borderColor: cStyle.colors.highlight,

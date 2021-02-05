@@ -44,8 +44,10 @@ function FRCamera({
 
 const styles = StyleSheet.create({
   camera: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 1.4,
+    // width: Dimensions.get('window').width,
+    // height: Dimensions.get('window').width * 1.4,
+    width: '100%',
+    height: '100%',
   },
   takeButtonContainer: {
     position: 'absolute',
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     borderRadius: 50,
     backgroundColor: '#fff',
-    borderWidth: 5,
+    borderWidth: 3,
     borderColor: cStyle.colors.highlight,
   },
   takeButtonDis: {

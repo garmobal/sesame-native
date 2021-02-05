@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
@@ -102,9 +102,11 @@ function FaceRecognition() {
     return <Text>No access to camera</Text>;
   } else {
     return (
-      <View style={{ ...cStyle.container }}>
+      // <View style={{ ...cStyle.container }}>
+      <View style={styles.container}>
         <Logo />
-        <View style={{ ...cStyle.content }}>
+        {/* <View style={{ ...cStyle.content }}> */}
+        <View style={styles.cameraContainer}>
           {faceRecState === eFaceRecState.TAKE_SELFIE ||
           faceRecState === eFaceRecState.TAKING_PICTURE ? (
             <FRCamera
@@ -134,3 +136,23 @@ function FaceRecognition() {
 }
 
 export default FaceRecognition;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // paddingVertical: 40,
+  },
+  cameraContainer: {
+    flex: 1,
+    width: '90%',
+    // height: '70%',
+    // flexDirection: 'row',
+    borderRadius: 15,
+    marginTop: 55,
+    marginBottom: 70,
+    overflow: 'hidden',
+  },
+});
