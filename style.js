@@ -33,16 +33,6 @@ export const fonts = {
   black: 'Roboto_900Black',
 };
 
-export const door = {
-  borderWidth: 3,
-  height: '100%',
-  width: 200,
-  marginLeft: 30,
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 15,
-};
-
 export const whiteCard = {
   backgroundColor: colors.lightest,
   borderRadius: 15,
