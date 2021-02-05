@@ -39,3 +39,9 @@ export const clearCurrentUser = () => {
     dispatch({ type: actions.CLEAR_CURRENT_USER });
   };
 };
+
+export const clearCurrentUserImages = () => {
+  return (dispatch) => {
+    dispatch({ type: actions.CLEAR_CURRENT_USER_IMAGES });
+  };
+};
