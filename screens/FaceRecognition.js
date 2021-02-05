@@ -7,9 +7,11 @@ import * as AzureAPI from './../services/azureAPI';
 
 import FRCamera from './../components/FaceRecognition/FRCamera';
 import FaceSquares from './../components/FaceRecognition/FaceSquares';
+import TextMessage from './../components/FaceRecognition/TextMessage';
 import Logo from './../components/Logo';
 
 import * as cStyle from './../style';
+import { useSelector } from 'react-redux';
 
 function FaceRecognition() {
   // CONSTANTS
@@ -23,6 +25,9 @@ function FaceRecognition() {
     FACE_DETECTED: 4,
     FACE_NOT_DETECTED: 5,
   });
+
+  // GLOBAL STATE
+  const selectedDoor = useSelector((state) => state.selectedDoor);
 
   const [hasPermission, setHasPermission] = useState(null);
   const [faceRecState, setFaceRecState] = useState(eFaceRecState.TAKE_SELFIE);
@@ -77,6 +82,7 @@ function FaceRecognition() {
     const faceDetectRes = await AzureAPI.detectFace(octetStream);
 
     // TODO: send the face id and the selected door to the back end
+    console.log('selectedDoor :>> ', selectedDoor);
     // Wait for the answer
     // If the user is allowed send the request to open the door
     if (faceDetectRes.length === 0) {
@@ -113,6 +119,13 @@ function FaceRecognition() {
           {faceRecState === eFaceRecState.TAKE_SELFIE ||
           faceRecState === eFaceRecState.TAKING_PICTURE ? (
             <FaceSquares detectedFaces={detectedFaces} />
+          ) : null}
+          {faceRecState !== eFaceRecState.TAKE_SELFIE &&
+          faceRecState !== eFaceRecState.TAKING_PICTURE ? (
+            <TextMessage
+              faceRecState={faceRecState}
+              eFaceRecState={eFaceRecState}
+            />
           ) : null}
         </View>
       </View>
