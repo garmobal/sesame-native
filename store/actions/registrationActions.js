@@ -18,9 +18,9 @@ export const addImage = (img) => {
 
 export const registerCurrentUser = (user, img) => {
   const id = user.aid;
-  const octetStream = base64ToArrayBuffer.decode(img.base64);
+  // const octetStream = base64ToArrayBuffer.decode(img.base64);
   // const octetStream = img;
-  const images = [...user.images, octetStream];
+  // const images = [...user.images, octetStream];
   return (dispatch) => {
     registerUser(id, img)
       .then((key) => {

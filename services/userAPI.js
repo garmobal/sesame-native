@@ -6,7 +6,7 @@ export const checkRegistrationCode = (code) => {
     method: 'GET',
   });
 };
-const aid = '022c4ae2-c730-4488-bbab-825441367e8a';
+// const aid = '022c4ae2-c730-4488-bbab-825441367e8a';
 export const registerUser = (id, images) => {
   console.log(images);
   // return fetchUser('192.168.1.169:5001/azure/register/1234');
