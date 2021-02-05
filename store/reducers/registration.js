@@ -24,8 +24,6 @@ export const userRegistration = (state = initialUserRegistration, action) => {
       return { name: 'Francesco', id: '12345', images: [] };
     // return {} when we have a backend;
     case actions.ADD_CURRENT_USER_IMAGE:
-      console.log(action.payload);
-      console.log(state.images);
       return { ...state, images: [...state.images, action.payload] };
     case actions.CLEAR_CURRENT_USER_IMAGES:
       return { ...state, images: [] };
@@ -35,7 +33,7 @@ export const userRegistration = (state = initialUserRegistration, action) => {
 };
 
 // Success for now until we have a backend
-const initialRegistrationStatus = { status: 'success', doorKey: '1234' };
+const initialRegistrationStatus = { status: 'pending', doorKey: '1234' };
 
 export const registrationStatus = (
   state = initialRegistrationStatus,

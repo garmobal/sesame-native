@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
 import { setCurrentImage } from '../store/actions/registrationActions';
 import { useDispatch } from 'react-redux';
-// import { StackActions } from '@react-navigation/native';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import * as cStyle from '../style';
 
 function FaceRegistrationCamera({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
-  const [setImage] = useState(null);
-  const [type] = useState(Camera.Constants.Type.front);
+  const [type, setType] = useState(Camera.Constants.Type.front);
 
   const dispatch = useDispatch();
 
@@ -30,7 +30,6 @@ function FaceRegistrationCamera({ navigation }) {
   const takePicture = async () => {
     if (camera) {
       const data = await camera.takePictureAsync({ base64: true });
-      setImage(data.uri);
       dispatch(setCurrentImage(data));
       navigation.navigate('FaceRegistrationProcess');
     }
@@ -40,14 +39,15 @@ function FaceRegistrationCamera({ navigation }) {
       <View style={styles.cameraContainer}>
         <Camera
           ref={(ref) => setCamera(ref)}
-          style={styles.fixedRatio}
+          style={styles.camera}
           type={type}
-          ratio={'1:1'}
-          focusDepth={'0'}
         />
       </View>
-      <Button title="Take picture" onPress={() => takePicture()} />
-      {/* {image && <Image source={{ uri: image }} style={styles.image} />} */}
+      <Pressable
+        style={styles.cameraClick}
+        title="Take picture"
+        onPress={() => takePicture()}
+      />
     </View>
   );
 }
@@ -56,23 +56,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    paddingVertical: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // paddingVertical: 40,
   },
   cameraContainer: {
     flex: 1,
-    flexDirection: 'row',
+    width: '90%',
+    // height: '70%',
+    // flexDirection: 'row',
+    borderRadius: 15,
+    marginTop: 80,
+    marginBottom: 150,
+    overflow: 'hidden',
   },
-  fixedRatio: {
-    flex: 1,
-    aspectRatio: 1,
+  camera: {
+    // width: Dimensions.get('window').width,
+    // height: Dimensions.get('window').width * 1.4,
+    width: '100%',
+    height: '100%',
+    // borderRadius: 15,
   },
-  button: {
-    flex: 1,
-    color: 'black',
-    width: 0.5,
-  },
-  image: {
-    flex: 1,
+  cameraClick: {
+    width: 70,
+    height: 70,
+    bottom: 40,
+    borderRadius: 50,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: cStyle.colors.highlight,
+    position: 'absolute',
   },
 });
 
