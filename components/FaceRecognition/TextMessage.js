@@ -27,7 +27,7 @@ const TextMessage = React.memo(({ faceRecState, eFaceRecState }) => {
   let textMessage;
   switch (faceRecState) {
     case eFaceRecState.FACE_DETECTED:
-      textMessage = 'Welcome, Francesco!';
+      textMessage = 'Welcome, Alba!';
       break;
     case eFaceRecState.FACE_NOT_DETECTED:
       textMessage = "Sorry, we can't recognize you";
@@ -49,9 +49,7 @@ const TextMessage = React.memo(({ faceRecState, eFaceRecState }) => {
       </View>
       {faceRecState === eFaceRecState.FACE_DETECTED ? (
         <View style={styles.quoteContainer}>
-          <View style={styles.quoteCard}>
-            <Text style={styles.quoteText}>{quote}</Text>
-          </View>
+          <Text style={styles.quoteText}>{quote}</Text>
         </View>
       ) : null}
     </View>
@@ -71,21 +69,18 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   text: {
-    fontFamily: 'Roboto',
-    fontSize: 18,
+    fontFamily: cStyle.fonts.regular,
+    fontSize: 27,
     color: 'black',
   },
   quoteContainer: {
-    flex: 3,
-    padding: 20,
-  },
-  quoteCard: {
-    ...cStyle.whiteCard,
-    padding: 30,
+    flex: 0.4,
+    padding: 40,
+    ...cStyle.centerItem,
   },
   quoteText: {
-    fontFamily: 'Roboto',
-    fontSize: 27,
+    fontFamily: cStyle.fonts.regular_italic,
+    fontSize: 20,
     color: cStyle.colors.highlight,
   },
 });
