@@ -1,96 +1,83 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-  Dimensions,
-  Image,
-} from 'react-native';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
 
-import { redButton, colors } from './../style';
+import * as cStyle from './../style';
 import DoorsList from './../components/Home/DoorsList';
-import logo from './../assets/logo_placeholder.png';
+import Logo from './../components/Logo';
 
 function Home({ navigation }) {
   // RENDER
   return (
     <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={logo} />
-        {/* <Text style={styles.logo}>Sesame Logo</Text> */}
-      </View>
-      {/* <View style={styles.titleContainer}>
-        <Text style={styles.title}>Sesame</Text>
-      </View> */}
-      <View style={styles.doorsListContainer}>
-        <DoorsList navigation={navigation} />
-      </View>
-      <View style={styles.registerBtnContainer}>
-        <Pressable
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-            },
-            styles.registerBtn,
-          ]}
-          onPress={() => {
-            navigation.navigate('FaceRegistration');
-          }}
-        >
-          <Text style={styles.registerText}>Register</Text>
-        </Pressable>
+      <Logo />
+      <View style={styles.content}>
+        <View style={styles.chooseDoorContainer}>
+          <View style={styles.chooseDoorCard}>
+            <Text style={styles.chooseDoorText}>
+              Please choose the door to enter.
+            </Text>
+          </View>
+        </View>
+        <View style={styles.doorsListContainer}>
+          <DoorsList navigation={navigation} />
+        </View>
+        <View style={styles.registerBtnContainer}>
+          <Pressable
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+              },
+              styles.registerBtn,
+            ]}
+            onPress={() => {
+              navigation.navigate('FaceRegistration');
+            }}
+          >
+            <Text style={styles.registerText}>Register</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
 }
 
-const centerItem = {
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: Dimensions.get('window').width,
-  // borderWidth: 3,
-};
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    // padding: 10,
-    backgroundColor: colors.background,
-    ...centerItem,
+    ...cStyle.centerItem,
   },
-  logoContainer: {
-    flex: 1.5,
-    ...centerItem,
+  content: {
+    flex: 5,
+    backgroundColor: cStyle.colors.background,
   },
-  logo: {
-    // width: 100,
-    resizeMode: 'contain',
-    width: '30%',
+  chooseDoorContainer: {
+    flex: 2,
+    ...cStyle.centerItem,
   },
-  // titleContainer: {
-  //   flex: 1,
-  //   ...centerItem,
-  // },
-  // title: {
-  //   fontSize: 20,
-  // },
+  chooseDoorCard: {
+    ...cStyle.whiteCard,
+    padding: 40,
+  },
+  chooseDoorText: {
+    fontFamily: 'Roboto',
+    fontSize: 18,
+    color: 'black',
+  },
   doorsListContainer: {
-    flex: 4,
-    ...centerItem,
+    flex: 2,
+    ...cStyle.centerItem,
   },
   registerBtnContainer: {
     flex: 1,
-    ...centerItem,
+    ...cStyle.centerItem,
   },
   registerBtn: {
-    ...redButton,
+    ...cStyle.redButton,
+    width: '85%',
   },
   registerText: {
-    fontSize: 20,
-    padding: 5,
-    color: '#FFF',
+    ...cStyle.redButtonText,
   },
 });
 export default Home;

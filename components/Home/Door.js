@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setSelectedDoor } from './../../store/actions/doorsActions';
 
-import { card } from './../../style';
+import * as cStyle from './../../style';
 
 import main from './../../assets/main.png';
 import cafe from './../../assets/cafe.png';
@@ -49,7 +49,7 @@ function Door({ door, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    ...card,
+    ...cStyle.door,
   },
   logo: {
     // width: 100,

@@ -1,11 +1,17 @@
-import * as font from '@expo-google-fonts/roboto';
+import { Dimensions } from 'react-native';
 
 export const colors = {
   highlight: '#B00E23',
-  background: '#F0F0F0',
+  background: '#E8E8E8',
   fontColor: '#8E8E8E',
   lightest: '#FFF',
   darkest: '#000',
+};
+
+export const centerItem = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: Dimensions.get('window').width,
 };
 
 export const fonts = {
@@ -28,7 +34,7 @@ export const door = {
 
 export const whiteCard = {
   backgroundColor: colors.lightest,
-  borderRadius: 20,
+  borderRadius: 15,
   alignItems: 'center',
   justifyContent: 'center',
 };
