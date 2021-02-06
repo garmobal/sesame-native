@@ -9,7 +9,8 @@ import mockQuotes from './../../mockData/quotes.mock';
  */
 export const setQuotes = (fileUri) => {
   return (dispatch) => {
-    FileSystem.writeAsStringAsync(fileUri, mockQuotes.join(';')).then(() => {
+    const quotes = mockQuotes.map((quote) => quote.text);
+    FileSystem.writeAsStringAsync(fileUri, quotes.join(';')).then(() => {
       dispatch({ type: actionTypes.SET_QUOTES, payload: mockQuotes });
     });
   };
@@ -24,7 +25,11 @@ export const fetchQuotes = (fileUri) => {
   return (dispatch) => {
     FileSystem.readAsStringAsync(fileUri).then((data) => {
       const payload = data.split(';');
-      dispatch({ type: actionTypes.SET_QUOTES, payload: payload });
+      let id = 0;
+      const quotes = payload.map((quote) => {
+        return { id: id++, text: quote };
+      });
+      dispatch({ type: actionTypes.SET_QUOTES, payload: quotes });
     });
   };
 };

@@ -19,7 +19,7 @@ const TextMessage = React.memo(({ faceRecState, eFaceRecState, userName }) => {
      */
     const _getRandomQuote = () => {
       const index = Math.floor(Math.random() * quotes.length);
-      return quotes[index];
+      return quotes[index].text;
     };
     setQuote(`"${_getRandomQuote()}"`);
   }, [quotes]);
