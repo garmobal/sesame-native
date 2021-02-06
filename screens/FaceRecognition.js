@@ -11,6 +11,7 @@ import FaceSquares from './../components/FaceRecognition/FaceSquares';
 import TextMessage from './../components/FaceRecognition/TextMessage';
 import Logo from './../components/Logo';
 
+import * as cStyle from './../style';
 import { useSelector } from 'react-redux';
 
 function FaceRecognition() {
@@ -106,13 +107,11 @@ function FaceRecognition() {
     return <Text>No access to camera</Text>;
   } else {
     return (
-      // <View style={{ ...cStyle.container }}>
       <View style={styles.container}>
         <Logo />
-        {/* <View style={{ ...cStyle.content }}> */}
-        <View style={styles.cameraContainer}>
-          {faceRecState === eFaceRecState.TAKE_SELFIE ||
-          faceRecState === eFaceRecState.TAKING_PICTURE ? (
+        {faceRecState === eFaceRecState.TAKE_SELFIE ||
+        faceRecState === eFaceRecState.TAKING_PICTURE ? (
+          <View style={styles.cameraContainer}>
             <FRCamera
               detectedFaces={detectedFaces}
               _handleFacesDetected={_handleFacesDetected}
@@ -121,20 +120,19 @@ function FaceRecognition() {
               faceRecState={faceRecState}
               eFaceRecState={eFaceRecState}
             />
-          ) : null}
-          {faceRecState === eFaceRecState.TAKE_SELFIE ||
-          faceRecState === eFaceRecState.TAKING_PICTURE ? (
             <FaceSquares detectedFaces={detectedFaces} />
-          ) : null}
-          {faceRecState !== eFaceRecState.TAKE_SELFIE &&
-          faceRecState !== eFaceRecState.TAKING_PICTURE ? (
+          </View>
+        ) : null}
+        {faceRecState !== eFaceRecState.TAKE_SELFIE &&
+        faceRecState !== eFaceRecState.TAKING_PICTURE ? (
+          <View style={styles.textContainer}>
             <TextMessage
               faceRecState={faceRecState}
               eFaceRecState={eFaceRecState}
               userName={userName}
             />
-          ) : null}
-        </View>
+          </View>
+        ) : null}
       </View>
     );
   }
@@ -148,16 +146,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    // paddingVertical: 40,
   },
   cameraContainer: {
     flex: 1,
     width: '90%',
-    // height: '70%',
-    // flexDirection: 'row',
     borderRadius: 15,
     marginTop: 55,
     marginBottom: 70,
     overflow: 'hidden',
+  },
+  textContainer: {
+    ...cStyle.content,
   },
 });

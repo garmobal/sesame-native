@@ -1,7 +1,6 @@
 const apiUrl = 'http://192.168.1.169:5002/azure';
 
 export const checkUserAuth = (doorId, faceId) => {
-  console.log(`${apiUrl}/identify/${doorId}/${faceId}`);
   return sendRequest(`${apiUrl}/identify/${doorId}/${faceId}`, {
     method: 'GET',
   });
@@ -15,7 +14,6 @@ export const checkRegistrationCode = (code) => {
 
 // const aid = '022c4ae2-c730-4488-bbab-825441367e8a';
 export const registerUser = (id, images) => {
-  console.log(images);
   // return fetchUser('192.168.1.169:5001/azure/register/1234');
   return sendRequest(
     'http://192.168.1.169:5001/azure/register/022c4ae2-c730-4488-bbab-825441367e8a',
