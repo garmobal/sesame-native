@@ -13,7 +13,6 @@ function Quote({ quote, removeQuote }) {
           styles.registerBtn,
         ]}
         onPress={() => {
-          console.log('Pressed');
           removeQuote(quote.id);
         }}
       >

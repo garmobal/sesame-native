@@ -27,6 +27,14 @@ export const removeQuote = (fileUri, quotes, quoteId) => {
   };
 };
 
+export const addQuote = (fileUri, quotes, newQuote) => {
+  const updatedQuotes = quotes.slice();
+  updatedQuotes.push({ id: quotes.length, text: newQuote });
+  return (dispatch) => {
+    writeFile(updatedQuotes, fileUri, dispatch, actionTypes.ADD_QUOTE);
+  };
+};
+
 /**
  * Write the .csv file and update the global state once the writing of the .csv is finished.
  *
