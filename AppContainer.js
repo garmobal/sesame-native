@@ -13,6 +13,7 @@ import FaceRegistrationProcess from './screens/FaceRegistrationProcess';
 import FaceRegistrationCamera from './screens/FaceRegistrationCamera';
 import FaceRegistrationSuccess from './screens/FaceRegistrationSuccess';
 import HandleQuotes from './screens/HandleQuotes';
+import fileUri from './fileSystemUri';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,6 @@ export default function AppContainer() {
   const DELETE_FILE = false;
 
   useEffect(() => {
-    const fileUri = FileSystem.documentDirectory + 'quotes.csv';
     if (DELETE_FILE) {
       FileSystem.deleteAsync(fileUri);
     } else {
@@ -37,7 +37,7 @@ export default function AppContainer() {
   }, [dispatch, DELETE_FILE]);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'Home'}>
+      <Stack.Navigator initialRouteName={'HandleQuotes'}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FaceRecognition" component={FaceRecognition} />
         <Stack.Screen name="FaceRegistration" component={FaceRegistration} />

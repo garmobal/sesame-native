@@ -1,13 +1,33 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View, StyleSheet } from 'react-native';
 
-function Quote({ quote }) {
-  console.log('quote :>> ', quote);
+function Quote({ quote, removeQuote }) {
   return (
-    <View>
-      <Text>Test</Text>
+    <View style={styles.quoteContainer}>
+      <Text>{quote.text}</Text>
+      <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+          },
+          styles.registerBtn,
+        ]}
+        onPress={() => {
+          console.log('Pressed');
+          removeQuote(quote.id);
+        }}
+      >
+        <Text>Delete quote</Text>
+      </Pressable>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  quoteContainer: {
+    borderWidth: 3,
+    padding: 30,
+  },
+});
 
 export default Quote;
