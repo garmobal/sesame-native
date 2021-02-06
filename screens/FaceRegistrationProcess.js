@@ -15,44 +15,44 @@ import * as cStyle from '../style';
 function FaceRegistrationProcess({ navigation }) {
   const user = useSelector((state) => state.user);
   const currentImage = useSelector((state) => state.imageRegistration);
-  // const registrationStatus = useSelector((state) => state.registrationStatus);
+  const registrationStatus = useSelector((state) => state.registrationStatus);
   const emojis = [smile, sad, silly];
   const dispatch = useDispatch();
 
-  // const regStatus = useCallback(() => registrationStatus.status, [
-  //   registrationStatus.status,
-  // ]);
+  const regStatus = useCallback(() => registrationStatus.status, [
+    registrationStatus.status,
+  ]);
 
-  // useEffect(() => {
-  //   const unsbuscribe = navigation.addListener('beforeRemove', (e) => {
-  //     e.preventDefault();
-  //     if (regStatus() !== 'success') {
-  //       Alert.alert(
-  //         'Exit registration?',
-  //         'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
-  //         [
-  //           {
-  //             text: 'Continue registration',
-  //             style: 'cancel',
-  //             onPress: () => {},
-  //           },
-  //           {
-  //             text: 'Exit',
-  //             style: 'destructive',
-  //             onPress: () => {
-  //               dispatch(clearCurrentImage());
-  //               dispatch(clearCurrentUserImages());
-  //               navigation.dispatch(e.data.action);
-  //             },
-  //           },
-  //         ],
-  //       );
-  //     } else {
-  //       navigation.dispatch(e.data.action);
-  //     }
-  //   });
-  //   return unsbuscribe;
-  // }, [navigation, regStatus, dispatch]);
+  useEffect(() => {
+    const unsbuscribe = navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      if (regStatus() !== 'success') {
+        Alert.alert(
+          'Exit registration?',
+          'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
+          [
+            {
+              text: 'Continue registration',
+              style: 'cancel',
+              onPress: () => {},
+            },
+            {
+              text: 'Exit',
+              style: 'destructive',
+              onPress: () => {
+                dispatch(clearCurrentImage());
+                dispatch(clearCurrentUserImages());
+                navigation.dispatch(e.data.action);
+              },
+            },
+          ],
+        );
+      } else {
+        navigation.dispatch(e.data.action);
+      }
+    });
+    return unsbuscribe;
+  }, [navigation, regStatus, dispatch]);
 
   const saveImageHandler = () => {
     // Show Spinner
@@ -61,15 +61,15 @@ function FaceRegistrationProcess({ navigation }) {
       dispatch(registerCurrentUser(user, currentImage));
       // navigation.removeListener();
       navigation.navigate('FaceRegistrationSuccess');
-      // navigation.dispatch(
-      //   CommonActions.reset({
-      //     index: 1,
-      //     routes: [
-      //       { name: 'FaceRegistration' },
-      //       { name: 'FaceRegistrationProcess' },
-      //     ],
-      //   }),
-      // );
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            { name: 'FaceRegistration' },
+            { name: 'FaceRegistrationProcess' },
+          ],
+        }),
+      );
     } else {
       // Save image in array -> update counter
       dispatch(addImage(currentImage));
@@ -175,8 +175,6 @@ const styles = StyleSheet.create({
   optionsContainer: {
     flex: 1,
     width: '100%',
-    // borderWidth: 3,
-    // borderColor: 'red',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -202,7 +200,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '40%',
-    // margin: 10,
   },
   buttonText: {
     ...cStyle.redButtonText,
