@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, Pressable, Text } from 'react-native';
+import {
+  ScrollView,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  Text,
+} from 'react-native';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -23,7 +29,7 @@ function HandleQuotes() {
   };
 
   return (
-    <View>
+    <ScrollView>
       <TextInput
         style={styles.textInput}
         onChangeText={(text) => onChangeText(text)}
@@ -45,7 +51,7 @@ function HandleQuotes() {
             <Quote key={quote.id} quote={quote} removeQuote={removeQuote} />
           ))
         : null}
-    </View>
+    </ScrollView>
   );
 }
 
