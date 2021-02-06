@@ -1,4 +1,5 @@
-const apiUrl = 'http://192.168.1.169:5002/azure';
+import serverURL from './serverURL';
+const apiUrl = `${serverURL}/azure`;
 
 export const checkUserAuth = (doorId, faceId) => {
   return sendRequest(`${apiUrl}/identify/${doorId}/${faceId}`, {

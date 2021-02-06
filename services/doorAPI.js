@@ -1,4 +1,5 @@
-const apiUrl = 'http://192.168.1.169:5002/door/list';
+import serverURL from './serverURL';
+const apiUrl = `${serverURL}/door/list`;
 
 export const getDoors = () => {
   return fetchDoors(apiUrl, {
