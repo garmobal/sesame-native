@@ -9,7 +9,6 @@ import * as cStyle from '../style';
 function FaceRegistrationCamera({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.front);
 
   const dispatch = useDispatch();
 
@@ -40,7 +39,7 @@ function FaceRegistrationCamera({ navigation }) {
         <Camera
           ref={(ref) => setCamera(ref)}
           style={styles.camera}
-          type={type}
+          type={Camera.Constants.Type.front}
         />
       </View>
       <Pressable

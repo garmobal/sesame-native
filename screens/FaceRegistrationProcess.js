@@ -15,7 +15,6 @@ import sad from '../assets/registration/2.png';
 import silly from '../assets/registration/3.png';
 import {
   addImage,
-  clearCurrentImage,
   registerCurrentUser,
   clearCurrentUserImages,
 } from '../store/actions/registrationActions';
@@ -49,7 +48,6 @@ function FaceRegistrationProcess({ navigation }) {
               text: 'Exit',
               style: 'destructive',
               onPress: () => {
-                dispatch(clearCurrentImage());
                 dispatch(clearCurrentUserImages());
                 navigation.dispatch(e.data.action);
               },
@@ -64,27 +62,24 @@ function FaceRegistrationProcess({ navigation }) {
   }, [navigation, regStatus, dispatch]);
 
   const saveImageHandler = () => {
-    // Show Spinner
-    if (user.images.length === 1) {
+    if (user.images.length === 2) {
       // Register current user when we have a backend
       dispatch(registerCurrentUser(user, currentImage));
       // navigation.removeListener();
       navigation.navigate('FaceRegistrationSuccess');
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 1,
-          routes: [
-            { name: 'FaceRegistration' },
-            { name: 'FaceRegistrationProcess' },
-          ],
-        }),
-      );
+      // navigation.dispatch(
+      //   CommonActions.reset({
+      //     index: 1,
+      //     routes: [
+      //       { name: 'FaceRegistration' },
+      //       { name: 'FaceRegistrationProcess' },
+      //     ],
+      //   }),
+      // );
     } else {
       // Save image in array -> update counter
       dispatch(addImage(currentImage));
-      dispatch(clearCurrentImage());
     }
-    // Set current image to null
   };
 
   let options;

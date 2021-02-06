@@ -21,7 +21,7 @@ export const userRegistration = (state = initialUserRegistration, action) => {
       return state;
     // return action.payload when we have a backend;
     case actions.CLEAR_CURRENT_USER:
-      return { name: 'Francesco', id: '12345', images: [] };
+      return { name: 'Francesco', aid: '12345', images: [] };
     // return {} when we have a backend;
     case actions.ADD_CURRENT_USER_IMAGE:
       return { ...state, images: [...state.images, action.payload] };
@@ -33,7 +33,11 @@ export const userRegistration = (state = initialUserRegistration, action) => {
 };
 
 // Success for now until we have a backend
-const initialRegistrationStatus = { status: 'pending', doorKey: '1234' };
+const initialRegistrationStatus = {
+  status: 'pending',
+  doorKey: '1234',
+  apiCalls: 0,
+};
 
 export const registrationStatus = (
   state = initialRegistrationStatus,
@@ -41,9 +45,20 @@ export const registrationStatus = (
 ) => {
   switch (action.type) {
     case actions.REGISTRATION_SUCCESS:
-      return { status: 'success', doorKey: action.payload };
+      if (state.status === 'pending' && state.apiCalls < 2) {
+        return { ...state, apiCalls: state.apiCalls + 1 };
+      } else if (state.status === 'pending' && state.apiCalls === 2) {
+        return {
+          status: 'success',
+          doorKey: action.payloadm,
+          apiCalls: state.apiCalls + 1,
+        };
+      }
+      return state;
     case actions.REGISTRATION_FAIL:
-      return { status: 'fail', doorKey: '' };
+      return { ...state, status: 'fail', doorKey: '' };
+    case actions.REGISTRATION_RESET:
+      return { status: 'pending', doorKey: '1235', apiCalls: 0 };
     default:
       return state;
   }
