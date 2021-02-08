@@ -5,31 +5,9 @@ import { setSelectedDoor } from './../../store/actions/doorsActions';
 
 import * as cStyle from './../../style';
 
-import main from './../../assets/main.jpeg';
-import cafe from './../../assets/cafe.jpeg';
-import berta from './../../assets/berta.jpeg';
-import leo from './../../assets/leo.jpeg';
-
 function Door({ door, navigation }) {
   const dispatch = useDispatch();
-  let image;
-  switch (door.did) {
-    case 12:
-      image = main;
-      break;
-    case 15:
-      image = cafe;
-      break;
-    case 13:
-      image = leo;
-      break;
-    case 14:
-      image = berta;
-      break;
-    default:
-      image = main;
-      break;
-  }
+
   // HELPER FUNCTIONS
   /**
    * Set the selected door in the global state and navigate to the FaceRecognition component.
@@ -43,7 +21,7 @@ function Door({ door, navigation }) {
   return (
     <TouchableOpacity onPress={_setSelectedDoor}>
       <View style={styles.container}>
-        <Image style={styles.doorImage} source={image} />
+        <Image style={styles.doorImage} source={{ uri: `${door.doorUrl}` }} />
         <Text style={styles.doorName}>{door.doorName}</Text>
       </View>
     </TouchableOpacity>
@@ -65,7 +43,8 @@ const styles = StyleSheet.create({
   doorImage: {
     position: 'absolute',
     resizeMode: 'contain',
-    width: '100%',
+    width: 500,
+    height: 500,
   },
   doorName: {
     position: 'absolute',
