@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import * as AzureAPI from './../services/azureAPI';
 import { checkUserAuth, checkUserCode } from './../services/userAPI';
 
-import FRCamera from './../components/FaceRecognition/FRCamera';
-import FaceSquares from './../components/FaceRecognition/FaceSquares';
 import TextMessage from './../components/FaceRecognition/TextMessage';
 import EnterCode from './../components/FaceRecognition/EnterCode';
 import Logo from './../components/Logo';
 
 import * as cStyle from './../style';
 import { useSelector } from 'react-redux';
+import Recognize from '../components/FaceRecognition/Recognize';
 
 function FaceRecognition() {
   // CONSTANTS
@@ -134,33 +133,15 @@ function FaceRecognition() {
         <Logo />
         {faceRecState === eFaceRecState.TAKE_SELFIE ||
         faceRecState === eFaceRecState.TAKING_PICTURE ? (
-          <View style={styles.cameraContainer}>
-            <FRCamera
-              detectedFaces={detectedFaces}
-              _handleFacesDetected={_handleFacesDetected}
-              _takePicture={_takePicture}
-              cam={cam}
-              faceRecState={faceRecState}
-              eFaceRecState={eFaceRecState}
-            />
-            <FaceSquares detectedFaces={detectedFaces} />
-          </View>
-        ) : null}
-        {faceRecState === eFaceRecState.TAKE_SELFIE ||
-        faceRecState === eFaceRecState.TAKING_PICTURE ? (
-          <Pressable
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-              },
-              styles.useCodeBtn,
-            ]}
-            onPress={() => {
-              setFaceRecState(eFaceRecState.ENTER_CODE);
-            }}
-          >
-            <Text>Use code instead</Text>
-          </Pressable>
+          <Recognize
+            detectedFaces={detectedFaces}
+            _handleFacesDetected={_handleFacesDetected}
+            _takePicture={_takePicture}
+            cam={cam}
+            faceRecState={faceRecState}
+            eFaceRecState={eFaceRecState}
+            setFaceRecState={setFaceRecState}
+          />
         ) : null}
         {faceRecState === eFaceRecState.ENTER_CODE ? (
           <View style={styles.content}>
@@ -189,6 +170,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  recognizeContainer: {
+    width: '100%',
+    height: '100%',
   },
   cameraContainer: {
     flex: 10,
