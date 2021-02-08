@@ -18,7 +18,6 @@ import * as cStyle from '../style';
 const FaceRegistrationSuccess = ({ navigation }) => {
   const dispatch = useDispatch();
   const registrationStatus = useSelector((state) => state.registrationStatus);
-
   useEffect(() => {
     return () => {
       dispatch(clearCurrentUser());
