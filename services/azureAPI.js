@@ -1,15 +1,14 @@
-// const key = 'dab23811cac547258589f18bd4aaf214'; // Mine
-const key = '6df147ede473450d9c66ac50d3ba8d04'; // Matthieu
-const loc = 'westeurope.api.cognitive.microsoft.com'; // replace with the server nearest to you
+import { AZURE_SERVER, AZURE_KEY } from '@env';
+
 const params =
   'detect?returnFaceId=true&recognitionModel=recognition_03&detectionModel=detection_02';
 
 export const detectFace = async (octetStream) => {
-  const res = await fetch(`https://${loc}/face/v1.0/${params}`, {
+  const res = await fetch(`https://${AZURE_SERVER}/face/v1.0/${params}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/octet-stream',
-      'Ocp-Apim-Subscription-Key': key,
+      'Ocp-Apim-Subscription-Key': AZURE_KEY,
     },
     body: octetStream,
   });
