@@ -5,7 +5,6 @@ const params =
   'detect?returnFaceId=true&recognitionModel=recognition_03&detectionModel=detection_02';
 
 export const detectFace = async (octetStream) => {
-  console.log(`https://${loc}/face/v1.0/${params}`);
   const res = await fetch(`https://${loc}/face/v1.0/${params}`, {
     method: 'POST',
     headers: {
