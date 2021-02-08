@@ -15,55 +15,46 @@ export const addImage = (img) => {
 };
 
 export const registerCurrentUser = (user, img) => {
-  // Spinner
   const id = user.aid;
   const octetStream = base64ToArrayBuffer.decode(img.base64);
   const images = [...user.images, octetStream];
   return (dispatch) => {
-    dispatch({ type: actions.DELETE_CURRENT_IMAGE_REGISTRATION });
-    setTimeout(() => {
-      dispatch({ type: actions.REGISTRATION_SUCCESS, payload: '1235' });
-    }, 200);
-    setTimeout(() => {
-      dispatch({ type: actions.REGISTRATION_SUCCESS, payload: '1235' });
-    }, 3000);
-    setTimeout(() => {
-      dispatch({ type: actions.REGISTRATION_SUCCESS, payload: '1235' });
-    }, 1000);
-    // registerUser(id, images[0])
-    //   .then((key) => {
-    //     dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
-    //   })
-    //   .catch((err) =>
-    //     dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
-    //   );
-    // registerUser(id, images[1])
-    //   .then((key) => {
-    //     dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
-    //   })
-    //   .catch((err) =>
-    //     dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
-    //   );
-    // registerUser(id, images[2])
-    //   .then((key) => {
-    //     dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
-    //   })
-    //   .catch((err) =>
-    //     dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
-    //   );
+    registerUser(id, images[0])
+      .then((key) => {
+        console.log(key);
+        dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
+      })
+      .catch((err) =>
+        dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
+      );
+    registerUser(id, images[1])
+      .then((key) => {
+        dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
+      })
+      .catch((err) =>
+        dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
+      );
+    registerUser(id, images[2])
+      .then((key) => {
+        dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
+      })
+      .catch((err) =>
+        dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
+      );
   };
-  // return { type: actions.REGISTRATION_SUCCESS, payload: '1232131' };
 };
 
 export const clearCurrentUser = () => {
   return (dispatch) => {
     dispatch({ type: actions.CLEAR_CURRENT_USER });
+    dispatch({ type: actions.DELETE_CURRENT_IMAGE_REGISTRATION });
   };
 };
 
 export const clearCurrentUserImages = () => {
   return (dispatch) => {
     dispatch({ type: actions.CLEAR_CURRENT_USER_IMAGES });
+    dispatch({ type: actions.DELETE_CURRENT_IMAGE_REGISTRATION });
   };
 };
 

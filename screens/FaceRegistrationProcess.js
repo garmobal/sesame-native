@@ -6,8 +6,9 @@ import {
   Text,
   Image,
   Alert,
-  CommonActions,
+  BackHandler,
 } from 'react-native';
+import { CommonActions, StackActions } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import smile from '../assets/registration/1.png';
@@ -16,7 +17,6 @@ import silly from '../assets/registration/3.png';
 import {
   addImage,
   registerCurrentUser,
-  clearCurrentUserImages,
 } from '../store/actions/registrationActions';
 import * as cStyle from '../style';
 
@@ -30,54 +30,44 @@ function FaceRegistrationProcess({ navigation }) {
   const regStatus = useCallback(() => registrationStatus.status, [
     registrationStatus.status,
   ]);
-
   useEffect(() => {
-    const unsbuscribe = navigation.addListener('beforeRemove', (e) => {
-      e.preventDefault();
-      if (regStatus() !== 'success') {
-        Alert.alert(
-          'Exit registration?',
-          'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
-          [
-            {
-              text: 'Continue registration',
-              style: 'cancel',
-              onPress: () => {},
+    const handleBackButton = (e) => {
+      Alert.alert(
+        'Exit registration?',
+        'If you leave, your images will not be saved. \n\nAre you sure you want to leave?',
+        [
+          {
+            text: 'Continue registration',
+            style: 'cancel',
+            onPress: () => {},
+          },
+          {
+            text: 'Exit',
+            style: 'destructive',
+            onPress: () => {
+              navigation.dispatch(StackActions.pop(2));
             },
-            {
-              text: 'Exit',
-              style: 'destructive',
-              onPress: () => {
-                dispatch(clearCurrentUserImages());
-                navigation.dispatch(e.data.action);
-              },
-            },
-          ],
-        );
-      } else {
-        navigation.dispatch(e.data.action);
-      }
-    });
-    return unsbuscribe;
+          },
+        ],
+      );
+      return true;
+    };
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
   }, [navigation, regStatus, dispatch]);
 
   const saveImageHandler = () => {
     if (user.images.length === 2) {
-      // Register current user when we have a backend
       dispatch(registerCurrentUser(user, currentImage));
-      // navigation.removeListener();
-      navigation.navigate('FaceRegistrationSuccess');
-      // navigation.dispatch(
-      //   CommonActions.reset({
-      //     index: 1,
-      //     routes: [
-      //       { name: 'FaceRegistration' },
-      //       { name: 'FaceRegistrationProcess' },
-      //     ],
-      //   }),
-      // );
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{ name: 'Home' }, { name: 'FaceRegistrationSuccess' }],
+        }),
+      );
     } else {
-      // Save image in array -> update counter
       dispatch(addImage(currentImage));
     }
   };

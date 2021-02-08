@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import { setCurrentImage } from '../store/actions/registrationActions';
 import { useDispatch } from 'react-redux';
@@ -28,7 +28,10 @@ function FaceRegistrationCamera({ navigation }) {
 
   const takePicture = async () => {
     if (camera) {
-      const data = await camera.takePictureAsync({ base64: true });
+      const data = await camera.takePictureAsync({
+        base64: true,
+        quality: 0.25,
+      });
       dispatch(setCurrentImage(data));
       navigation.navigate('FaceRegistrationProcess');
     }
@@ -57,24 +60,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    // paddingVertical: 40,
   },
   cameraContainer: {
     flex: 1,
     width: '90%',
-    // height: '70%',
-    // flexDirection: 'row',
     borderRadius: 15,
     marginTop: 80,
     marginBottom: 150,
     overflow: 'hidden',
   },
   camera: {
-    // width: Dimensions.get('window').width,
-    // height: Dimensions.get('window').width * 1.4,
     width: '100%',
     height: '100%',
-    // borderRadius: 15,
   },
   cameraClick: {
     width: 70,

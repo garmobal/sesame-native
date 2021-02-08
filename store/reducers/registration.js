@@ -18,11 +18,11 @@ const initialUserRegistration = { name: 'Francesco', id: '12345', images: [] };
 export const userRegistration = (state = initialUserRegistration, action) => {
   switch (action.type) {
     case actions.SET_CURRENT_USER:
+      // return action.payload when we have a backend;
       return state;
-    // return action.payload when we have a backend;
     case actions.CLEAR_CURRENT_USER:
+      // return {} when we have a backend;
       return { name: 'Francesco', aid: '12345', images: [] };
-    // return {} when we have a backend;
     case actions.ADD_CURRENT_USER_IMAGE:
       return { ...state, images: [...state.images, action.payload] };
     case actions.CLEAR_CURRENT_USER_IMAGES:
@@ -32,7 +32,7 @@ export const userRegistration = (state = initialUserRegistration, action) => {
   }
 };
 
-// Success for now until we have a backend
+// Until we connect a backend
 const initialRegistrationStatus = {
   status: 'pending',
   doorKey: '1234',

@@ -5,7 +5,6 @@ import {
   Text,
   Pressable,
   StyleSheet,
-  BackHandler,
   ActivityIndicator,
 } from 'react-native';
 import { StackActions } from '@react-navigation/native';
@@ -21,19 +20,11 @@ const FaceRegistrationSuccess = ({ navigation }) => {
   const registrationStatus = useSelector((state) => state.registrationStatus);
 
   useEffect(() => {
-    // const handleBackButton = (e) => {
-    //   navigation.navigate('Home');
-    //   return true;
-    // };
-    // BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-    // return () => {
-    //   BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
-    // };
     return () => {
       dispatch(clearCurrentUser());
       dispatch(resetRegistration());
     };
-  }, [dispatch /* , navigation */]);
+  }, [dispatch]);
 
   let content;
   if (registrationStatus.status === 'pending') {
@@ -60,7 +51,6 @@ const FaceRegistrationSuccess = ({ navigation }) => {
           <Pressable
             style={styles.goHomeButton}
             onPress={() => navigation.dispatch(StackActions.popToTop())}
-            // onPress={() => navigation.navigate('Home')}
           >
             <Text style={styles.goHomeButtonText}>Ok</Text>
           </Pressable>
@@ -77,7 +67,6 @@ const FaceRegistrationSuccess = ({ navigation }) => {
           <Pressable
             style={styles.goHomeButton}
             onPress={() => navigation.dispatch(StackActions.popToTop())}
-            // onPress={() => navigation.navigate('Home')}
           >
             <Text style={styles.goHomeButtonText}>Ok</Text>
           </Pressable>
