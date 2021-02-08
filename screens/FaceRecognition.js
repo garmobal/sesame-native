@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { Camera } from 'expo-camera';
 
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import * as AzureAPI from './../services/azureAPI';
-import { checkUserAuth } from './../services/userAPI';
+import { checkUserAuth, checkUserCode } from './../services/userAPI';
 
 import FRCamera from './../components/FaceRecognition/FRCamera';
 import FaceSquares from './../components/FaceRecognition/FaceSquares';
 import TextMessage from './../components/FaceRecognition/TextMessage';
+import EnterCode from './../components/FaceRecognition/EnterCode';
 import Logo from './../components/Logo';
 
 import * as cStyle from './../style';
@@ -22,10 +23,11 @@ function FaceRecognition() {
   const [eFaceRecState] = useState({
     TAKE_SELFIE: 1,
     TAKING_PICTURE: 2,
-    CHECKING_FACE: 3,
-    ALLOWED: 4,
-    NOT_ALLOWED: 5,
-    NOT_RECOGNIZED: 6,
+    ENTER_CODE: 3,
+    CHECKING_FACE: 4,
+    ALLOWED: 5,
+    NOT_ALLOWED: 6,
+    NOT_RECOGNIZED: 7,
   });
 
   // GLOBAL STATE
@@ -76,6 +78,17 @@ function FaceRecognition() {
   };
 
   /**
+   * Check if the code the user inserted is a valid code for opening the selected door.
+   *
+   * @param {number} code, code the user has input for opening the door.
+   */
+  const _checkCode = async (code) => {
+    setFaceRecState(eFaceRecState.CHECKING_FACE);
+    const res = await checkUserCode(selectedDoor.did, code);
+    _checkResponse(res);
+  };
+
+  /**
    * Check if a picture contains a face calling the Azure API.
    *
    * @param {object} picture, picture taken with the camera.
@@ -85,6 +98,16 @@ function FaceRecognition() {
     const faceDetectRes = await AzureAPI.detectFace(octetStream);
     const res = await checkUserAuth(selectedDoor.did, faceDetectRes[0].faceId);
 
+    _checkResponse(res);
+  };
+
+  /**
+   * Given the response received by the server it checks if the user is allowed, not allowed or not recognized.
+   * It also resets the local state to "TAKE_SELFIE" after SHOW_QUOTE_TIME ms.
+   *
+   * @param {object} res, object contaning the response received by the server.
+   */
+  const _checkResponse = (res) => {
     if (res.access === true) {
       setFaceRecState(eFaceRecState.ALLOWED);
       setUserName(res.firstName);
@@ -123,9 +146,29 @@ function FaceRecognition() {
             <FaceSquares detectedFaces={detectedFaces} />
           </View>
         ) : null}
-        {faceRecState !== eFaceRecState.TAKE_SELFIE &&
-        faceRecState !== eFaceRecState.TAKING_PICTURE ? (
-          <View style={styles.textContainer}>
+        {faceRecState === eFaceRecState.TAKE_SELFIE ||
+        faceRecState === eFaceRecState.TAKING_PICTURE ? (
+          <Pressable
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+              },
+              styles.useCodeBtn,
+            ]}
+            onPress={() => {
+              setFaceRecState(eFaceRecState.ENTER_CODE);
+            }}
+          >
+            <Text>Use code instead</Text>
+          </Pressable>
+        ) : null}
+        {faceRecState === eFaceRecState.ENTER_CODE ? (
+          <View style={styles.content}>
+            <EnterCode _checkCode={_checkCode} />
+          </View>
+        ) : null}
+        {faceRecState >= eFaceRecState.CHECKING_FACE ? (
+          <View style={styles.content}>
             <TextMessage
               faceRecState={faceRecState}
               eFaceRecState={eFaceRecState}
@@ -148,14 +191,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cameraContainer: {
-    flex: 1,
+    flex: 10,
     width: '90%',
     borderRadius: 15,
-    marginTop: 55,
-    marginBottom: 70,
+    marginTop: 30,
+    marginBottom: 30,
     overflow: 'hidden',
   },
-  textContainer: {
+  useCodeBtn: {
+    flex: 1,
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 3,
+  },
+  content: {
     ...cStyle.content,
   },
 });
