@@ -6,9 +6,15 @@ import { getDoors } from '../../services/doorAPI';
  */
 export const fetchDoors = () => {
   return (dispatch) => {
-    getDoors().then((doors) => {
-      dispatch({ type: actionTypes.SET_DOORS, payload: doors });
-    });
+    getDoors()
+      .then((doors) => {
+        dispatch({ type: actionTypes.SET_DOORS, payload: doors });
+      })
+      .catch((err) => {
+        console.log('err -> ', err);
+        // Promise.reject(err);
+        dispatch({ type: actionTypes.SET_DOORS_FAIL, payload: [] });
+      });
   };
 };
 

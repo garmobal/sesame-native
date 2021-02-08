@@ -5,6 +5,8 @@ export const doorsReducer = (state = initialDoors, action) => {
   switch (action.type) {
     case actionTypes.SET_DOORS:
       return action.payload;
+    case actionTypes.SET_DOORS_FAIL:
+      return state;
     default:
       return state;
   }

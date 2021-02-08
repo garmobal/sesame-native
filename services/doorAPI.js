@@ -10,18 +10,23 @@ export const getDoors = () => {
 function fetchDoors(url, options) {
   return fetch(url, options)
     .then((res) => {
-      if (res.status < 400) {
+      console.log('response -> ', res);
+      if (res && res.status < 400) {
         return res;
       } else {
-        Promise.reject(res);
+        return res;
       }
     })
     .then((res) => {
-      if (res.status !== 204) {
+      console.log('response 2 -> ', res);
+      if (res && res.status !== 204) {
         return res.json();
       } else {
         return res;
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log('error from doorAPI -> ', err);
+      throw err;
+    });
 }

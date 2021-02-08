@@ -16,6 +16,7 @@ export const REGISTRATION_RESET = 'REGISTRATION_RESET';
 
 // For doors
 export const SET_DOORS = 'SET_DOORS';
+export const SET_DOORS_FAIL = 'SET_DOORS_FAIL';
 export const SET_SELECTED_DOOR = 'SET_SELECTED_DOOR';
 
 // For quotes
