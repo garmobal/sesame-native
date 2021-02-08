@@ -12,6 +12,7 @@ export const CLEAR_CURRENT_USER_IMAGES = 'CLEAR_CURRENT_USER_IMAGES';
 // For registration status
 export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS';
 export const REGISTRATION_FAIL = 'REGISTRATION_FAIL';
+export const REGISTRATION_RESET = 'REGISTRATION_RESET';
 
 // For doors
 export const SET_DOORS = 'SET_DOORS';

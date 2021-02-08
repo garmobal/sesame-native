@@ -1,51 +1,90 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { View, Text, Pressable, StyleSheet, BackHandler } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import { StackActions } from '@react-navigation/native';
 
+import {
+  resetRegistration,
+  clearCurrentUser,
+} from '../store/actions/registrationActions';
 import * as cStyle from '../style';
 
 const FaceRegistrationSuccess = ({ navigation }) => {
   const dispatch = useDispatch();
-
+  const registrationStatus = useSelector((state) => state.registrationStatus);
   useEffect(() => {
-    // dispatch(clearCurrentImage());
-    // dispatch(clearCurrentUser());
-    const handleBackButton = (e) => {
-      navigation.navigate('Home');
-      return true;
-    };
-    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+      dispatch(clearCurrentUser());
+      dispatch(resetRegistration());
     };
-  }, [dispatch, navigation]);
+  }, [dispatch]);
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.messageContainer}>
-        <Text style={styles.message}>
-          Congratulations Alba! You're face is now registered!
-        </Text>
-        <Text style={styles.entry}>This is your manual entry code:</Text>
-        <Text style={styles.code}>293847</Text>
+  let content;
+  if (registrationStatus.status === 'pending') {
+    content = (
+      <View style={styles.spinnerContainer}>
+        <ActivityIndicator
+          animating={true}
+          size="large"
+          color={cStyle.colors.highlight}
+        />
       </View>
-      <View style={styles.goHomeButtonContainer}>
-        <Pressable
-          style={styles.goHomeButton}
-          onPress={() => navigation.dispatch(StackActions.popToTop())}
-          // onPress={() => navigation.navigate('Home')}
-        >
-          <Text style={styles.goHomeButtonText}>Ok</Text>
-        </Pressable>
+    );
+  } else if (registrationStatus.status === 'success') {
+    content = (
+      <View style={styles.container}>
+        <View style={styles.messageContainer}>
+          <Text style={styles.message}>
+            Congratulations Alba! You're face is now registered!
+          </Text>
+          <Text style={styles.entry}>This is your manual entry code:</Text>
+          <Text style={styles.code}>293847</Text>
+        </View>
+        <View style={styles.goHomeButtonContainer}>
+          <Pressable
+            style={styles.goHomeButton}
+            onPress={() => navigation.dispatch(StackActions.popToTop())}
+          >
+            <Text style={styles.goHomeButtonText}>Ok</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    content = (
+      <View style={styles.container}>
+        <View style={styles.messageContainer}>
+          <Text style={styles.message}>Something went wrong</Text>
+        </View>
+        <View style={styles.goHomeButtonContainer}>
+          <Pressable
+            style={styles.goHomeButton}
+            onPress={() => navigation.dispatch(StackActions.popToTop())}
+          >
+            <Text style={styles.goHomeButtonText}>Ok</Text>
+          </Pressable>
+        </View>
+      </View>
+    );
+  }
+
+  return content;
 };
 
 export default FaceRegistrationSuccess;
 
 const styles = StyleSheet.create({
+  spinnerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
   },

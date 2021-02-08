@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, Pressable, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+
 import * as cStyle from '../style';
+import { clearCurrentUserImages } from '../store/actions/registrationActions';
 
 function FaceRegistration({ navigation }) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(clearCurrentUserImages());
+  }, [dispatch]);
   return (
     <View style={styles.container}>
       <View style={styles.welcomeCard}>
         <Text style={styles.welcomeText}>
-          Welcome to the registration process
+          Welcome to the registration process: some more explanation here
         </Text>
       </View>
       <Pressable

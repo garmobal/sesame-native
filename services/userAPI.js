@@ -13,20 +13,14 @@ export const checkRegistrationCode = (code) => {
   });
 };
 
-// const aid = '022c4ae2-c730-4488-bbab-825441367e8a';
-export const registerUser = (id, images) => {
-  // return fetchUser('192.168.1.169:5001/azure/register/1234');
-  return sendRequest(
-    'http://192.168.1.169:5001/azure/register/022c4ae2-c730-4488-bbab-825441367e8a',
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'application/octet-stream',
-      },
-      body: JSON.stringify(images),
+export const registerUser = (id, img) => {
+  return sendRequest(`/register/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/octet-stream',
     },
-  );
+    body: img,
+  });
 };
 
 function sendRequest(url, options) {
@@ -45,5 +39,4 @@ function sendRequest(url, options) {
         return res;
       }
     });
-  // .catch((err) => console.log(err));
 }
