@@ -14,7 +14,7 @@ export const checkRegistrationCode = (code) => {
 };
 
 export const registerUser = (id, img) => {
-  return sendRequest(`/register/${id}`, {
+  return sendRequest(`${apiUrl}/register/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/octet-stream',
