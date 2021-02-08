@@ -1,5 +1,6 @@
-import serverURL from './serverURL';
-const apiUrl = `${serverURL}/door/list`;
+import { SERVER_IP, PORT } from '@env';
+
+const apiUrl = `${SERVER_IP}:${PORT}/door/list`;
 
 export const getDoors = () => {
   return fetchDoors(apiUrl, {
