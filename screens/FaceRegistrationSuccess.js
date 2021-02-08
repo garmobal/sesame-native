@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   View,
   Text,
@@ -9,21 +9,10 @@ import {
 } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 
-import {
-  resetRegistration,
-  clearCurrentUser,
-} from '../store/actions/registrationActions';
 import * as cStyle from '../style';
 
 const FaceRegistrationSuccess = ({ navigation }) => {
-  const dispatch = useDispatch();
   const registrationStatus = useSelector((state) => state.registrationStatus);
-  useEffect(() => {
-    return () => {
-      dispatch(clearCurrentUser());
-      dispatch(resetRegistration());
-    };
-  }, [dispatch]);
 
   let content;
   if (registrationStatus.status === 'pending') {

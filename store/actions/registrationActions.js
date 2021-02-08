@@ -19,24 +19,16 @@ export const registerCurrentUser = (user, img) => {
   const octetStream = base64ToArrayBuffer.decode(img.base64);
   const images = [...user.images, octetStream];
   return (dispatch) => {
-    registerUser(id, images[0])
-      .then((key) => {
-        console.log(key);
-        dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
-      })
-      .catch((err) =>
-        dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
-      );
-    registerUser(id, images[1])
-      .then((key) => {
-        dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
-      })
-      .catch((err) =>
-        dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
-      );
-    registerUser(id, images[2])
-      .then((key) => {
-        dispatch({ type: actions.REGISTRATION_SUCCESS, payload: key });
+    Promise.all(
+      images.map((image) => {
+        return registerUser(id, image);
+      }),
+    )
+      .then((responses) => {
+        dispatch({
+          type: actions.REGISTRATION_SUCCESS,
+          payload: responses[0],
+        });
       })
       .catch((err) =>
         dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),

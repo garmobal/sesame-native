@@ -27,6 +27,8 @@ export const userRegistration = (state = initialUserRegistration, action) => {
       return { ...state, images: [...state.images, action.payload] };
     case actions.CLEAR_CURRENT_USER_IMAGES:
       return { ...state, images: [] };
+    case actions.REGISTRATION_SUCCESS:
+      return { ...state, images: [] };
     default:
       return state;
   }
@@ -45,13 +47,10 @@ export const registrationStatus = (
 ) => {
   switch (action.type) {
     case actions.REGISTRATION_SUCCESS:
-      if (state.status === 'pending' && state.apiCalls < 2) {
-        return { ...state, apiCalls: state.apiCalls + 1 };
-      } else if (state.status === 'pending' && state.apiCalls === 2) {
+      if (state.status === 'pending') {
         return {
           status: 'success',
           doorKey: action.payloadm,
-          apiCalls: state.apiCalls + 1,
         };
       }
       return state;
