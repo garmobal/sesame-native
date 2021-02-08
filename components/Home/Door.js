@@ -13,18 +13,21 @@ import leo from './../../assets/leo.jpeg';
 function Door({ door, navigation }) {
   const dispatch = useDispatch();
   let image;
-  switch (door.id) {
-    case 1:
+  switch (door.did) {
+    case 12:
       image = main;
       break;
-    case 2:
+    case 15:
       image = cafe;
       break;
-    case 3:
+    case 13:
       image = leo;
       break;
-    case 4:
+    case 14:
       image = berta;
+      break;
+    default:
+      image = main;
       break;
   }
   // HELPER FUNCTIONS
@@ -41,7 +44,7 @@ function Door({ door, navigation }) {
     <TouchableOpacity onPress={_setSelectedDoor}>
       <View style={styles.container}>
         <Image style={styles.doorImage} source={image} />
-        <Text style={styles.doorName}>{door.name}</Text>
+        <Text style={styles.doorName}>{door.doorName}</Text>
       </View>
     </TouchableOpacity>
   );

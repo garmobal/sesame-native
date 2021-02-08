@@ -1,4 +1,5 @@
-const apiUrl = 'https://private-bcb07f-sesame2.apiary-mock.com/api/door';
+import serverURL from './serverURL';
+const apiUrl = `${serverURL}/door/list`;
 
 export const getDoors = () => {
   return fetchDoors(apiUrl, {

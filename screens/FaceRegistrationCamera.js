@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import { setCurrentImage } from '../store/actions/registrationActions';
 import { useDispatch } from 'react-redux';
@@ -9,7 +9,7 @@ import * as cStyle from '../style';
 function FaceRegistrationCamera({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.front);
+  const [type] = useState(Camera.Constants.Type.front);
 
   const dispatch = useDispatch();
 
