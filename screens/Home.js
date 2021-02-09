@@ -7,32 +7,32 @@ import DoorsList from './../components/Home/DoorsList';
 function Home({ navigation }) {
   // RENDER
   return (
-     <>
-        <View style={styles.chooseDoorContainer}>
-          <View style={styles.chooseDoorCard}>
-            <Text style={styles.chooseDoorText}>
-              Please choose the door to enter.
-            </Text>
-          </View>
+    <>
+      <View style={styles.chooseDoorContainer}>
+        <View style={styles.chooseDoorCard}>
+          <Text style={styles.chooseDoorText}>
+            Please choose the door to enter.
+          </Text>
         </View>
-        <View style={styles.doorsListContainer}>
-          <DoorsList navigation={navigation} />
-        </View>
-        <View style={styles.registerBtnContainer}>
-          <Pressable
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-              },
-              styles.registerBtn,
-            ]}
-            onPress={() => {
-              navigation.navigate('RegistrationCode');
-            }}
-          >
-            <Text style={styles.registerText}>Register</Text>
-          </Pressable>
-        </View>
+      </View>
+      <View style={styles.doorsListContainer}>
+        <DoorsList navigation={navigation} />
+      </View>
+      <View style={styles.registerBtnContainer}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+            },
+            styles.registerBtn,
+          ]}
+          onPress={() => {
+            navigation.navigate('RegistrationCode');
+          }}
+        >
+          <Text style={styles.registerText}>Register</Text>
+        </Pressable>
+      </View>
     </>
   );
 }

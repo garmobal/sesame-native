@@ -50,7 +50,11 @@ export default function AppContainer() {
           component={FaceRecognition}
           options={headerOptions}
         />
-    <Stack.Screen name="RegistrationCode" component={RegistrationCode} options={headerOptions} />
+        <Stack.Screen
+          name="RegistrationCode"
+          component={RegistrationCode}
+          options={headerOptions}
+        />
         <Stack.Screen
           name="FaceRegistration"
           component={FaceRegistration}
