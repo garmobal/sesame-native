@@ -13,16 +13,37 @@ export const imageRegistration = (state = initialImageRegistration, action) => {
   }
 };
 
-const initialUserRegistration = { name: 'Francesco', id: '12345', images: [] };
+const initialUserRegistration = {
+  fetching: 'none',
+};
 
 export const userRegistration = (state = initialUserRegistration, action) => {
   switch (action.type) {
     case actions.SET_CURRENT_USER:
       // return action.payload when we have a backend;
-      return state;
+      return {
+        name: 'Francesco',
+        aid: '12345',
+        images: [],
+        fetching: 'success',
+      };
+    case actions.LOADING_CURRENT_USER:
+      // return action.payload when we have a backend;
+      return {
+        fetching: 'pending',
+      };
+    case actions.SET_CURRENT_USER_ERROR:
+      // return error message when we have a backend;
+      // return { fetching: 'fail' };
+      return {
+        name: 'Francesco',
+        aid: '12345',
+        images: [],
+        fetching: 'success',
+      };
     case actions.CLEAR_CURRENT_USER:
       // return {} when we have a backend;
-      return { name: 'Francesco', aid: '12345', images: [] };
+      return { fetching: 'none' };
     case actions.ADD_CURRENT_USER_IMAGE:
       return { ...state, images: [...state.images, action.payload] };
     case actions.CLEAR_CURRENT_USER_IMAGES:

@@ -9,6 +9,7 @@ import { fetchQuotes, setQuotes } from './store/actions/quotesActions';
 import Home from './screens/Home';
 import FaceRecognition from './screens/FaceRecognition';
 import FaceRegistration from './screens/FaceRegistration';
+import RegistrationCode from './screens/RegistrationCode';
 import FaceRegistrationProcess from './screens/FaceRegistrationProcess';
 import FaceRegistrationCamera from './screens/FaceRegistrationCamera';
 import FaceRegistrationSuccess from './screens/FaceRegistrationSuccess';
@@ -49,6 +50,7 @@ export default function AppContainer() {
           component={FaceRecognition}
           options={headerOptions}
         />
+    <Stack.Screen name="RegistrationCode" component={RegistrationCode} options={headerOptions} />
         <Stack.Screen
           name="FaceRegistration"
           component={FaceRegistration}
