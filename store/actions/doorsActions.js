@@ -10,11 +10,7 @@ export const fetchDoors = () => {
       .then((doors) => {
         dispatch({ type: actionTypes.SET_DOORS, payload: doors });
       })
-      .catch((err) => {
-        console.log('err -> ', err);
-        // Promise.reject(err);
-        dispatch({ type: actionTypes.SET_DOORS_FAIL, payload: [] });
-      });
+      .catch((err) => console.log('err :>> ', err));
   };
 };
 

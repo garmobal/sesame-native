@@ -17,6 +17,7 @@ export const container = {
 export const content = {
   flex: 5,
   backgroundColor: colors.background,
+  width: Dimensions.get('window').width,
 };
 
 export const centerItem = {

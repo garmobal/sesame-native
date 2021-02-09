@@ -1,5 +1,12 @@
-import serverURL from './serverURL';
-const apiUrl = `${serverURL}/azure`;
+import { SERVER_IP, PORT } from '@env';
+
+const apiUrl = `${SERVER_IP}:${PORT}/azure`;
+
+export const checkUserCode = (doorId, code) => {
+  return sendRequest(`${apiUrl}/code/${doorId}/${code}`, {
+    method: 'GET',
+  });
+};
 
 export const checkUserAuth = (doorId, faceId) => {
   return sendRequest(`${apiUrl}/identify/${doorId}/${faceId}`, {
