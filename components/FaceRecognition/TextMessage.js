@@ -55,27 +55,49 @@ const TextMessage = React.memo(
       return image;
     };
 
-    const _renderText = () => {
+    const _renderHeaderMsg = () => {
       let text;
       switch (userRecState) {
         case eUserRecState.ALLOWED:
           text = (
-            <Text style={styles.text}>
+            <Text style={styles.headerText}>
               Welcome,
-              <Text style={[styles.text, styles.textRed]}> {userName}</Text>!
+              <Text style={[styles.headerText, styles.textRed]}>
+                {' '}
+                {userName}
+              </Text>
+              !
             </Text>
           );
           break;
         case eUserRecState.NOT_ALLOWED:
+          text = <Text style={styles.headerText}>You shall not pass! </Text>;
+          break;
+        case eUserRecState.NO_USER_FOUND:
+          text = <Text style={styles.headerText}>Oh, noooooo </Text>;
+          break;
+        default:
+          text = (
+            <Text style={styles.headerText}>
+              Sorry, we were not able to find you.
+            </Text>
+          );
+          break;
+      }
+      return text;
+    };
+
+    const _renderDescription = () => {
+      let text;
+      switch (userRecState) {
+        case eUserRecState.ALLOWED:
+          text = <Text style={styles.quoteText}>{quote}</Text>;
+          break;
+        case eUserRecState.NOT_ALLOWED:
           text = (
             <Text style={styles.text}>
-              Sorry
-              <Text style={[styles.text, styles.textRed]}> {userName}</Text>,
-              you are not allowed to enter{' '}
-              <Text style={[styles.text, styles.textRed]}>
-                {selectedDoor.doorName}
-              </Text>
-              .
+              Sorry {userName}, you are not allowed to enter{' '}
+              {selectedDoor.doorName}.
             </Text>
           );
           break;
@@ -97,9 +119,23 @@ const TextMessage = React.memo(
       return text;
     };
 
-    const _renderQuote = () => {
-      if (userRecState === eUserRecState.ALLOWED) {
-        return <Text style={styles.quoteText}>{quote}</Text>;
+    const renderIssueBtn = () => {
+      if (userRecState !== eUserRecState.ALLOWED) {
+        return (
+          <Pressable
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+              },
+              styles.issueBtn,
+            ]}
+            onPress={() => {
+              console.log('Report issue');
+            }}
+          >
+            <Text style={styles.issueBtnText}>Report issue</Text>
+          </Pressable>
+        );
       } else {
         return null;
       }
@@ -108,15 +144,24 @@ const TextMessage = React.memo(
     // RENDER
     return (
       <View style={styles.content}>
-        {userRecState !== eUserRecState.CHECKING_USER ? (
+        {userRecState === eUserRecState.CHECKING_USER ? (
+          <LottieView
+            source={require('./../../assets/animations/notspinner.json')}
+            autoPlay
+            loop
+          />
+        ) : (
           <>
             <View style={styles.imageContainer}>
               <Image style={styles.image} source={_getImage()} />
             </View>
-            <View style={styles.textContainer}>
-              <View style={styles.textCard}>{_renderText()}</View>
+            <View style={styles.headerMsgContainer}>
+              <View style={styles.textCard}>{_renderHeaderMsg()}</View>
             </View>
-            <View style={styles.quoteContainer}>{_renderQuote()}</View>
+            <View style={styles.descriptionContainer}>
+              {_renderDescription()}
+            </View>
+            <View style={styles.issueBtnContainer}>{renderIssueBtn()}</View>
             <View style={styles.goBackBtnContainer}>
               <Pressable
                 style={({ pressed }) => [
@@ -133,14 +178,7 @@ const TextMessage = React.memo(
               </Pressable>
             </View>
           </>
-        ) : null}
-        {userRecState === eUserRecState.CHECKING_USER ? (
-          <LottieView
-            source={require('./../../assets/animations/notspinner.json')}
-            autoPlay
-            loop
-          />
-        ) : null}
+        )}
       </View>
     );
   },
@@ -150,33 +188,42 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  textContainer: {
-    flex: 1,
+  headerMsgContainer: {
+    flex: 40,
     ...cStyle.centerItem,
+    textAlign: 'center',
   },
   textCard: {
+    textAlign: 'center',
     ...cStyle.whiteCard,
     padding: 40,
+  },
+  headerText: {
+    fontFamily: cStyle.fonts.bold,
+    fontSize: 50,
+    color: 'black',
+    textAlign: 'center',
   },
   text: {
     fontFamily: cStyle.fonts.regular,
     fontSize: 27,
     color: 'black',
+    textAlign: 'center',
   },
   textRed: {
     fontFamily: cStyle.fonts.bold,
     color: cStyle.colors.highlight,
   },
   imageContainer: {
-    flex: 1,
+    flex: 60,
   },
   image: {
     width: '100%',
     height: '100%',
     resizeMode: 'contain',
   },
-  quoteContainer: {
-    flex: 0.4,
+  descriptionContainer: {
+    flex: 16,
     padding: 40,
     ...cStyle.centerItem,
   },
@@ -184,9 +231,28 @@ const styles = StyleSheet.create({
     fontFamily: cStyle.fonts.regular_italic,
     fontSize: 20,
     color: cStyle.colors.highlight,
+    textAlign: 'center',
+  },
+  issueBtnContainer: {
+    flex: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  issueBtn: {
+    width: '50%',
+    marginHorizontal: 'auto',
+  },
+  issueBtnText: {
+    fontSize: 18,
+    color: cStyle.colors.fontColor,
+    alignSelf: 'center',
+    fontFamily: cStyle.fonts.medium,
+    borderBottomWidth: 3,
+    borderBottomColor: cStyle.colors.fontColor,
   },
   goBackBtnContainer: {
-    flex: 1,
+    flex: 20,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',

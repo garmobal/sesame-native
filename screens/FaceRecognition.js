@@ -29,7 +29,7 @@ function FaceRecognition() {
   const selectedDoor = useSelector((state) => state.selectedDoor);
 
   const [hasPermission, setHasPermission] = useState(null);
-  const [userRecState, setUserRecState] = useState(eUserRecState.ALLOWED);
+  const [userRecState, setUserRecState] = useState(eUserRecState.TAKE_SELFIE);
   const [detectedFaces, setDetectedFaces] = useState([]);
   const [userName, setUserName] = useState('');
 
