@@ -10,7 +10,11 @@ function DoorsList({ navigation }) {
   // RENDER
   return (
     <View style={styles.container}>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.doorsContainer}
+      >
         {doors.length !== 0 ? (
           doors.map((door) => (
             <Door door={door} key={door.did} navigation={navigation} />
@@ -27,6 +31,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     height: '100%',
+  },
+  doorsContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
