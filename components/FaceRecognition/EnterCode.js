@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 function EnterCode({ _checkCode }) {
@@ -24,8 +24,12 @@ function EnterCode({ _checkCode }) {
             styles.enterCodeBtn,
           ]}
           onPress={() => {
-            _checkCode(code);
-            setCode(null);
+            if (code !== null) {
+              _checkCode(code);
+              setCode(null);
+            } else {
+              Alert.alert('Insert a valid code', 'The code must not be empty');
+            }
           }}
         >
           <Text>Enter code</Text>
