@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
 import * as FileSystem from 'expo-file-system';
+import * as cStyle from './style';
 
 import { fetchDoors } from './store/actions/doorsActions';
 import { fetchQuotes, setQuotes } from './store/actions/quotesActions';
@@ -23,6 +24,11 @@ const Stack = createStackNavigator();
 const headerOptions = {
   headerTitle: (props) => <Logo {...props} />,
   headerRight: () => <View />,
+  headerStyle: {
+    shadowOpacity: 0, // remove shadow on iOS
+    elevation: 0, // remove shadow on Android
+  },
+  headerTintColor: cStyle.colors.highlight,
 };
 export default function AppContainer() {
   const dispatch = useDispatch();
