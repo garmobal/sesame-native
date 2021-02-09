@@ -9,8 +9,8 @@ function FRCamera({
   _handleFacesDetected,
   _takePicture,
   cam,
-  faceRecState,
-  eFaceRecState,
+  userRecState,
+  eUserRecState,
 }) {
   // RENDER
   return (
@@ -31,7 +31,7 @@ function FRCamera({
         <TouchableOpacity
           onPress={_takePicture}
           style={
-            faceRecState !== eFaceRecState.TAKE_SELFIE ||
+            userRecState !== eUserRecState.TAKE_SELFIE ||
             detectedFaces.length === 0
               ? styles.takeButtonDis
               : styles.takeButton

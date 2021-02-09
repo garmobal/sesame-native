@@ -1,4 +1,5 @@
 import { SERVER_IP, PORT } from '@env';
+import { sendRequest } from './sendRequest.js';
 
 const apiUrl = `${SERVER_IP}:${PORT}/azure`;
 
@@ -8,7 +9,7 @@ export const checkUserCode = (doorId, code) => {
   });
 };
 
-export const checkUserAuth = (doorId, faceId) => {
+export const checkUserFace = (doorId, faceId) => {
   return sendRequest(`${apiUrl}/identify/${doorId}/${faceId}`, {
     method: 'GET',
   });
@@ -29,21 +30,3 @@ export const registerUser = (id, img) => {
     body: img,
   });
 };
-
-function sendRequest(url, options) {
-  return fetch(url, options)
-    .then((res) => {
-      if (res.status < 400) {
-        return res;
-      } else {
-        Promise.reject(res);
-      }
-    })
-    .then((res) => {
-      if (res.status !== 204) {
-        return res.json();
-      } else {
-        return res;
-      }
-    });
-}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 
+import * as cStyle from './../../style';
+
 import FRCamera from './FRCamera';
 import FaceSquares from './FaceSquares';
 
@@ -9,9 +11,9 @@ function Recognize({
   _handleFacesDetected,
   _takePicture,
   cam,
-  faceRecState,
-  eFaceRecState,
-  setFaceRecState,
+  userRecState,
+  eUserRecState,
+  setUserRecState,
 }) {
   return (
     <>
@@ -21,24 +23,26 @@ function Recognize({
           _handleFacesDetected={_handleFacesDetected}
           _takePicture={_takePicture}
           cam={cam}
-          faceRecState={faceRecState}
-          eFaceRecState={eFaceRecState}
+          userRecState={userRecState}
+          eUserRecState={eUserRecState}
         />
         <FaceSquares detectedFaces={detectedFaces} />
       </View>
-      <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-          },
-          styles.useCodeBtn,
-        ]}
-        onPress={() => {
-          setFaceRecState(eFaceRecState.ENTER_CODE);
-        }}
-      >
-        <Text>Use code instead</Text>
-      </Pressable>
+      <View style={styles.useCodeBtnContainer}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+            },
+            styles.useCodeBtn,
+          ]}
+          onPress={() => {
+            setUserRecState(eUserRecState.ENTER_CODE);
+          }}
+        >
+          <Text style={styles.useCodeBtnText}>Use code</Text>
+        </Pressable>
+      </View>
     </>
   );
 }
@@ -47,17 +51,21 @@ export default Recognize;
 
 const styles = StyleSheet.create({
   cameraContainer: {
-    flex: 10,
+    flex: 3,
     width: '90%',
     borderRadius: 15,
     marginTop: 30,
-    marginBottom: 30,
     overflow: 'hidden',
   },
-  useCodeBtn: {
+  useCodeBtnContainer: {
     flex: 1,
     justifyContent: 'center',
-    borderRadius: 10,
-    borderWidth: 3,
+  },
+  useCodeBtn: {
+    ...cStyle.redButton,
+  },
+  useCodeBtnText: {
+    ...cStyle.redButtonText,
+    fontSize: 18,
   },
 });
