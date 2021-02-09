@@ -8,6 +8,7 @@ export const colors = {
   lightest: '#FFF',
   darkest: '#000',
   fakeLink: '#4D8AF0',
+  dismiss: '#03BFFF',
 };
 
 export const container = {

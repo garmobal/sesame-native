@@ -18,6 +18,7 @@ import {
   addImage,
   registerCurrentUser,
 } from '../store/actions/registrationActions';
+import RedButton from '../components/UI/RedButton';
 import * as cStyle from '../style';
 
 function FaceRegistrationProcess({ navigation }) {
@@ -72,33 +73,67 @@ function FaceRegistrationProcess({ navigation }) {
     }
   };
 
+  const pictureInstructions = [
+    {
+      title: 'Smile!',
+      text: 'Imitate this face when you take your first picture',
+    },
+    {
+      title: 'Think...',
+      text:
+        'Make sure to mimic this expression for better recognition accuracy!',
+    },
+    {
+      title: 'Surprise!',
+      text: "One more image, you're almost there!",
+    },
+  ];
+
   let options;
   if (!currentImage) {
     options = (
-      <View style={styles.optionsContainer}>
-        <Pressable
-          style={styles.buttonTakePicture}
-          onPress={() => navigation.navigate('FaceRegistrationCamera')}
-        >
-          <Text style={styles.buttonText}>Take picture</Text>
-        </Pressable>
-      </View>
+      <React.Fragment>
+        <View style={styles.instructionsContainer}>
+          <Text style={styles.instructionsTitle}>
+            {pictureInstructions[user.images.length].title}
+          </Text>
+          <Text style={styles.instructions}>
+            {pictureInstructions[user.images.length].text}
+          </Text>
+        </View>
+        <View style={styles.optionsContainer}>
+          <RedButton
+            text={'Take picture'}
+            clicked={() => navigation.navigate('FaceRegistrationCamera')}
+            size={'80%'}
+            icon={true}
+          />
+        </View>
+      </React.Fragment>
     );
   } else {
     options = (
       <View style={styles.optionsContainer}>
-        <Pressable
+        <Text
+          onPress={() => navigation.navigate('FaceRegistrationCamera')}
+          style={styles.buttonTextDismiss}
+        >
+          Try again!
+        </Text>
+        {/* <Pressable
           style={styles.buttonTakePictureSecondDismiss}
           onPress={() => navigation.navigate('FaceRegistrationCamera')}
         >
           <Text style={styles.buttonTextDismiss}>Try again!</Text>
-        </Pressable>
-        <Pressable
+        </Pressable> */}
+        {/* <Pressable
           style={styles.buttonTakePictureSecond}
           onPress={saveImageHandler}
         >
           <Text style={styles.buttonText}>Save</Text>
-        </Pressable>
+        </Pressable> */}
+
+        <RedButton text={'Save'} clicked={saveImageHandler} size={'45%'} />
       </View>
     );
   }
@@ -124,6 +159,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: cStyle.colors.background,
   },
   titleContainer: {
@@ -144,8 +180,38 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: 'center',
   },
+  instructionsContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '80%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 0.5,
+    // elevation: 1,
+    // borderWidth: 2,
+    borderColor: 'red',
+    padding: 20,
+  },
+  instructionsTitle: {
+    color: '#444',
+    fontFamily: cStyle.fonts.bold,
+    fontSize: 28,
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  instructions: {
+    color: '#444',
+    fontFamily: cStyle.fonts.regular,
+    fontSize: 24,
+    textAlign: 'center',
+    marginTop: 15,
+  },
   imageContainer: {
-    flex: 3.5,
+    flex: 1,
     ...cStyle.whiteCard,
     width: '90%',
     flexDirection: 'column',
@@ -184,26 +250,29 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: cStyle.colors.highlight,
   },
-  buttonTakePictureSecondDismiss: {
-    fontSize: 30,
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: cStyle.colors.highlight,
-    backgroundColor: cStyle.colors.lightest,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '40%',
-  },
+  // buttonTakePictureSecondDismiss: {
+  //   fontSize: 30,
+  //   padding: 10,
+  //   borderRadius: 5,
+  //   borderWidth: 2,
+  //   borderColor: cStyle.colors.highlight,
+  //   backgroundColor: cStyle.colors.lightest,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   width: '40%',
+  // },
   buttonText: {
     ...cStyle.redButtonText,
     fontSize: 15,
     fontFamily: cStyle.fonts.medium,
   },
   buttonTextDismiss: {
-    ...cStyle.redButtonText,
-    fontSize: 20,
-    color: cStyle.colors.highlight,
+    // ...cStyle.redButtonText,
+    // fontSize: 20,
+    // color: cStyle.colors.highlight,
+    color: cStyle.colors.dismiss,
+    fontFamily: cStyle.fonts.medium,
+    fontSize: 15,
   },
 });
 

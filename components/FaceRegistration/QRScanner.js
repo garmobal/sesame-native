@@ -44,8 +44,8 @@ function QRScanner(props) {
 
 const styles = StyleSheet.create({
   camera: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 1.4,
+    width: '100%',
+    height: '100%',
   },
 });
 

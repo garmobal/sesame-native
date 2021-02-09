@@ -36,6 +36,7 @@ function FaceRegistrationCamera({ navigation }) {
       navigation.navigate('FaceRegistrationProcess');
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.cameraContainer}>

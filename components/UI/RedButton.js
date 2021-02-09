@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Pressable, Text } from 'react-native';
-
 import * as cStyle from './../../style';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 function RedButton(props) {
   return (
@@ -10,6 +11,9 @@ function RedButton(props) {
       onPress={props.clicked}
     >
       <Text style={styles.redButtonText}>{props.text}</Text>
+      {props.icon ? (
+        <FontAwesomeIcon icon={faCamera} style={styles.icon} />
+      ) : null}
     </Pressable>
   );
 }
@@ -19,6 +23,7 @@ export default RedButton;
 const styles = StyleSheet.create({
   redButton: {
     padding: 14,
+    flexDirection: 'row',
     marginBottom: 30,
     borderRadius: 10,
     backgroundColor: cStyle.colors.highlight,
@@ -38,5 +43,9 @@ const styles = StyleSheet.create({
     color: cStyle.colors.lightest,
     textAlign: 'center',
     fontFamily: cStyle.fonts.medium,
+  },
+  icon: {
+    marginLeft: 10,
+    color: 'white',
   },
 });
