@@ -26,19 +26,21 @@ function Recognize({
         />
         <FaceSquares detectedFaces={detectedFaces} />
       </View>
-      <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-          },
-          styles.useCodeBtn,
-        ]}
-        onPress={() => {
-          setFaceRecState(eFaceRecState.ENTER_CODE);
-        }}
-      >
-        <Text>Use code instead</Text>
-      </Pressable>
+      <View style={styles.useCodeBtnContainer}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+            },
+            styles.useCodeBtn,
+          ]}
+          onPress={() => {
+            setFaceRecState(eFaceRecState.ENTER_CODE);
+          }}
+        >
+          <Text>Use code instead</Text>
+        </Pressable>
+      </View>
     </>
   );
 }
@@ -47,15 +49,17 @@ export default Recognize;
 
 const styles = StyleSheet.create({
   cameraContainer: {
-    flex: 10,
+    flex: 4,
     width: '90%',
     borderRadius: 15,
     marginTop: 30,
     marginBottom: 30,
     overflow: 'hidden',
   },
-  useCodeBtn: {
+  useCodeBtnContainer: {
     flex: 1,
+  },
+  useCodeBtn: {
     justifyContent: 'center',
     borderRadius: 10,
     borderWidth: 3,

@@ -8,7 +8,6 @@ import { checkUserAuth, checkUserCode } from './../services/userAPI';
 
 import TextMessage from './../components/FaceRecognition/TextMessage';
 import EnterCode from './../components/FaceRecognition/EnterCode';
-import Logo from './../components/Logo';
 
 import * as cStyle from './../style';
 import { useSelector } from 'react-redux';
@@ -130,7 +129,6 @@ function FaceRecognition() {
   } else {
     return (
       <View style={styles.container}>
-        <Logo />
         {faceRecState === eFaceRecState.TAKE_SELFIE ||
         faceRecState === eFaceRecState.TAKING_PICTURE ? (
           <Recognize

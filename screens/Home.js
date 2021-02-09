@@ -3,14 +3,11 @@ import { StyleSheet, View, Text, Pressable } from 'react-native';
 
 import * as cStyle from './../style';
 import DoorsList from './../components/Home/DoorsList';
-import Logo from './../components/Logo';
 
 function Home({ navigation }) {
   // RENDER
   return (
-    <View style={{ ...cStyle.container }}>
-      <Logo />
-      <View style={{ ...cStyle.content }}>
+     <>
         <View style={styles.chooseDoorContainer}>
           <View style={styles.chooseDoorCard}>
             <Text style={styles.chooseDoorText}>
@@ -36,14 +33,13 @@ function Home({ navigation }) {
             <Text style={styles.registerText}>Register</Text>
           </Pressable>
         </View>
-      </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   chooseDoorContainer: {
-    flex: 2,
+    flex: 1,
     ...cStyle.centerItem,
   },
   chooseDoorCard: {
