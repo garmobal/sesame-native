@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   View,
   Text,
@@ -9,24 +9,13 @@ import {
 } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 
-import {
-  resetRegistration,
-  clearCurrentUser,
-} from '../store/actions/registrationActions';
 import * as cStyle from '../style';
 
 const FaceRegistrationSuccess = ({ navigation }) => {
-  const dispatch = useDispatch();
   const registrationStatus = useSelector((state) => state.registrationStatus);
-  useEffect(() => {
-    return () => {
-      dispatch(clearCurrentUser());
-      dispatch(resetRegistration());
-    };
-  }, [dispatch]);
 
   let content;
-  if (registrationStatus.status === 'pending') {
+  if (registrationStatus.status === 'success') {
     content = (
       <View style={styles.spinnerContainer}>
         <ActivityIndicator
@@ -36,7 +25,7 @@ const FaceRegistrationSuccess = ({ navigation }) => {
         />
       </View>
     );
-  } else if (registrationStatus.status === 'success') {
+  } else if (registrationStatus.status === 'pending') {
     content = (
       <View style={styles.container}>
         <View style={styles.messageContainer}>
@@ -122,7 +111,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   goHomeButton: {
-    // flex: 1,
     ...cStyle.redButton,
     width: '80%',
   },

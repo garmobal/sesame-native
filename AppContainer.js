@@ -9,6 +9,7 @@ import { fetchQuotes, setQuotes } from './store/actions/quotesActions';
 import Home from './screens/Home';
 import FaceRecognition from './screens/FaceRecognition';
 import FaceRegistration from './screens/FaceRegistration';
+import RegistrationCode from './screens/RegistrationCode';
 import FaceRegistrationProcess from './screens/FaceRegistrationProcess';
 import FaceRegistrationCamera from './screens/FaceRegistrationCamera';
 import FaceRegistrationSuccess from './screens/FaceRegistrationSuccess';
@@ -40,6 +41,7 @@ export default function AppContainer() {
       <Stack.Navigator initialRouteName={'Home'}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FaceRecognition" component={FaceRecognition} />
+        <Stack.Screen name="RegistrationCode" component={RegistrationCode} />
         <Stack.Screen name="FaceRegistration" component={FaceRegistration} />
         <Stack.Screen name="HandleQuotes" component={HandleQuotes} />
         <Stack.Screen

@@ -53,9 +53,9 @@ export const card = {
 };
 
 export const redButton = {
-  fontSize: 30,
-  padding: 10,
-  borderRadius: 5,
+  fontSize: 20,
+  padding: 14,
+  borderRadius: 10,
   backgroundColor: colors.highlight,
   justifyContent: 'center',
   alignItems: 'center',
@@ -68,4 +68,11 @@ export const redButtonText = {
   fontFamily: fonts.regular,
 };
 
-export const textInput = {};
+export const codeInput = {
+  color: colors.highlight,
+  borderColor: colors.fontColor,
+  paddingVertical: 8,
+  textAlign: 'center',
+  fontSize: 25,
+  borderBottomWidth: 1,
+};
