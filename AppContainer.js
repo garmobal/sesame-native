@@ -16,12 +16,13 @@ import FaceRegistrationSuccess from './screens/FaceRegistrationSuccess';
 import HandleQuotes from './screens/HandleQuotes';
 import fileUri from './fileSystemUri';
 import Logo from './components/Logo';
+import { View } from 'react-native';
 
 const Stack = createStackNavigator();
 
 const headerOptions = {
   headerTitle: (props) => <Logo {...props} />,
-  headerLeft: null,
+  headerRight: () => <View />,
 };
 export default function AppContainer() {
   const dispatch = useDispatch();
@@ -44,13 +45,21 @@ export default function AppContainer() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={'Home'}>
-        <Stack.Screen name="Home" component={Home} options={headerOptions} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ ...headerOptions, headerRight: null }}
+        />
         <Stack.Screen
           name="FaceRecognition"
           component={FaceRecognition}
           options={headerOptions}
         />
-    <Stack.Screen name="RegistrationCode" component={RegistrationCode} options={headerOptions} />
+        <Stack.Screen
+          name="RegistrationCode"
+          component={RegistrationCode}
+          options={headerOptions}
+        />
         <Stack.Screen
           name="FaceRegistration"
           component={FaceRegistration}
