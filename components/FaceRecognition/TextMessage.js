@@ -35,8 +35,8 @@ const TextMessage = React.memo(({ userRecState, eUserRecState, userName }) => {
     case eUserRecState.CHECKING_USER:
       textMessage = 'Checking identity..';
       break;
-    case eUserRecState.NOT_RECOGNIZED:
-      textMessage = 'User not recognized';
+    case eUserRecState.NO_USER_FOUND:
+      textMessage = 'No user found';
       break;
     default:
       textMessage = '';

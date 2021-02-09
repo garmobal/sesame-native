@@ -25,7 +25,7 @@ function FaceRecognition() {
     CHECKING_USER: 4,
     ALLOWED: 5,
     NOT_ALLOWED: 6,
-    NOT_RECOGNIZED: 7,
+    NO_USER_FOUND: 7,
   });
 
   // GLOBAL STATE
@@ -113,7 +113,7 @@ function FaceRecognition() {
       setUserRecState(eUserRecState.NOT_ALLOWED);
       setUserName(res.firstName);
     } else {
-      setUserRecState(eUserRecState.NOT_RECOGNIZED);
+      setUserRecState(eUserRecState.NO_USER_FOUND);
     }
 
     setTimeout(() => {
