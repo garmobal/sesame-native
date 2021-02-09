@@ -1,5 +1,7 @@
 import * as actions from '../actions/actionTypes';
-import { registerUser } from '../../services/userAPI';
+import {
+  registerUser /* checkRegistrationCode */,
+} from '../../services/userAPI';
 import base64ToArrayBuffer from 'base64-arraybuffer';
 
 export const setCurrentImage = (img) => {
@@ -33,6 +35,23 @@ export const registerCurrentUser = (user, img) => {
       .catch((err) =>
         dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
       );
+  };
+};
+
+export const setCurrentUser = (code) => {
+  return (dispatch) => {
+    // checkRegistrationCode(code)
+    //   .then((data) => {
+    //     dispatch({ type: actions.SET_CURRENT_USER, payload: data });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     dispatch({ type: actions.SET_CURRENT_USER_ERROR });
+    //   });
+    dispatch({ type: actions.LOADING_CURRENT_USER });
+    setTimeout(() => {
+      dispatch({ type: actions.SET_CURRENT_USER, payload: '982374' });
+    }, 1000);
   };
 };
 

@@ -30,7 +30,7 @@ function Home({ navigation }) {
               styles.registerBtn,
             ]}
             onPress={() => {
-              navigation.navigate('FaceRegistration');
+              navigation.navigate('RegistrationCode');
             }}
           >
             <Text style={styles.registerText}>Register</Text>

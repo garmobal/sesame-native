@@ -21,7 +21,8 @@ function fetchDoors(url, options) {
       }
     })
     .then((res) => {
-      if (res.status !== 204) {
+      console.log('response 2 -> ', res);
+      if (res && res.status !== 204) {
         return res.json();
       } else {
         return res;

@@ -15,7 +15,7 @@ const FaceRegistrationSuccess = ({ navigation }) => {
   const registrationStatus = useSelector((state) => state.registrationStatus);
 
   let content;
-  if (registrationStatus.status === 'pending') {
+  if (registrationStatus.status === 'success') {
     content = (
       <View style={styles.spinnerContainer}>
         <ActivityIndicator
@@ -25,7 +25,7 @@ const FaceRegistrationSuccess = ({ navigation }) => {
         />
       </View>
     );
-  } else if (registrationStatus.status === 'success') {
+  } else if (registrationStatus.status === 'pending') {
     content = (
       <View style={styles.container}>
         <View style={styles.messageContainer}>
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   goHomeButton: {
-    // flex: 1,
     ...cStyle.redButton,
     width: '80%',
   },

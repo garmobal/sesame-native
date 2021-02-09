@@ -45,7 +45,7 @@ function FaceRegistrationProcess({ navigation }) {
             text: 'Exit',
             style: 'destructive',
             onPress: () => {
-              navigation.dispatch(StackActions.pop(2));
+              navigation.dispatch(StackActions.pop(3));
             },
           },
         ],
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   title: {
     color: cStyle.colors.highlight,
     fontSize: 40,
-    fontFamily: cStyle.fonts.medium,
+    fontFamily: cStyle.fonts.black,
     backgroundColor: cStyle.colors.lightest,
     padding: 20,
     paddingHorizontal: 40,
@@ -197,7 +197,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     ...cStyle.redButtonText,
-    fontSize: 20,
+    fontSize: 15,
+    fontFamily: cStyle.fonts.medium,
   },
   buttonTextDismiss: {
     ...cStyle.redButtonText,
