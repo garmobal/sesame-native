@@ -44,7 +44,7 @@ function RegistrationCode({ navigation }) {
           <TextInput
             style={styles.codeInput}
             autoCompleteType="off"
-            keyboardType="numeric"
+            keyboardType="number-pad"
             maxLength={5}
             onSubmitEditing={inputCodeHandler}
           />

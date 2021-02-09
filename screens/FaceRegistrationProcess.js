@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
   },
   emoji: {
     flex: 1,
-    width: 160,
-    height: 160,
+    width: 90,
+    height: 90,
     resizeMode: 'contain',
     borderRadius: 100,
   },
