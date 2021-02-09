@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
 import * as FileSystem from 'expo-file-system';
+import * as cStyle from './style';
 
 import { fetchDoors } from './store/actions/doorsActions';
 import { fetchQuotes, setQuotes } from './store/actions/quotesActions';
@@ -16,12 +17,18 @@ import FaceRegistrationSuccess from './screens/FaceRegistrationSuccess';
 import HandleQuotes from './screens/HandleQuotes';
 import fileUri from './fileSystemUri';
 import Logo from './components/Logo';
+import { View } from 'react-native';
 
 const Stack = createStackNavigator();
 
 const headerOptions = {
   headerTitle: (props) => <Logo {...props} />,
-  headerLeft: null,
+  headerRight: () => <View />,
+  headerStyle: {
+    shadowOpacity: 0, // remove shadow on iOS
+    elevation: 0, // remove shadow on Android
+  },
+  headerTintColor: cStyle.colors.highlight,
 };
 export default function AppContainer() {
   const dispatch = useDispatch();
@@ -44,7 +51,11 @@ export default function AppContainer() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={'Home'}>
-        <Stack.Screen name="Home" component={Home} options={headerOptions} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ ...headerOptions, headerRight: null }}
+        />
         <Stack.Screen
           name="FaceRecognition"
           component={FaceRecognition}

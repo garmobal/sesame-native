@@ -8,6 +8,9 @@ function EnterCode({ _checkCode }) {
   const [code, setCode] = useState(null); //111118=Francesco, 532956=Matthieu
   return (
     <View style={styles.content}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Enter your door key</Text>
+      </View>
       <View style={styles.textInputContainer}>
         <TextInput
           style={styles.textInput}
@@ -45,22 +48,29 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  textInputContainer: {
-    flex: 1,
+  textContainer: {
+    flex: 3,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginBottom: 30,
+  },
+  text: {
+    fontSize: 30,
+    fontFamily: cStyle.fonts.medium,
+  },
+  textInputContainer: {
+    flex: 10,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   textInput: {
-    borderWidth: 2,
-    width: '50%',
-    padding: 10,
-    fontSize: 30,
-    borderRadius: 10,
+    marginBottom: 30,
+    ...cStyle.codeInput,
+    width: '40%',
+    letterSpacing: 15,
   },
   enterCodeBtnContainer: {
     alignItems: 'center',
-    flex: 1,
+    flex: 10,
   },
   enterCodeBtn: {
     ...cStyle.redButton,

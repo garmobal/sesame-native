@@ -7,7 +7,7 @@ import DoorsList from './../components/Home/DoorsList';
 function Home({ navigation }) {
   // RENDER
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.chooseDoorContainer}>
         <View style={styles.chooseDoorCard}>
           <Text style={styles.chooseDoorText}>
@@ -33,11 +33,15 @@ function Home({ navigation }) {
           <Text style={styles.registerText}>Register</Text>
         </Pressable>
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: cStyle.colors.background,
+  },
   chooseDoorContainer: {
     flex: 1,
     ...cStyle.centerItem,
@@ -48,7 +52,7 @@ const styles = StyleSheet.create({
   },
   chooseDoorText: {
     fontFamily: 'Roboto',
-    fontSize: 18,
+    fontSize: 30,
     color: 'black',
   },
   doorsListContainer: {
