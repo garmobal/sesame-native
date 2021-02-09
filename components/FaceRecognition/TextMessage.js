@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import * as cStyle from './../../style';
 
-const TextMessage = React.memo(({ faceRecState, eFaceRecState, userName }) => {
+const TextMessage = React.memo(({ userRecState, eUserRecState, userName }) => {
   // GLOBAL STATE
   const quotes = useSelector((state) => state.quotes);
 
@@ -25,17 +25,17 @@ const TextMessage = React.memo(({ faceRecState, eFaceRecState, userName }) => {
   }, [quotes]);
 
   let textMessage;
-  switch (faceRecState) {
-    case eFaceRecState.ALLOWED:
+  switch (userRecState) {
+    case eUserRecState.ALLOWED:
       textMessage = `Welcome, ${userName}!`;
       break;
-    case eFaceRecState.NOT_ALLOWED:
+    case eUserRecState.NOT_ALLOWED:
       textMessage = `Sorry ${userName}, you're not allowed to enter`;
       break;
-    case eFaceRecState.CHECKING_FACE:
+    case eUserRecState.CHECKING_USER:
       textMessage = 'Checking identity..';
       break;
-    case eFaceRecState.NOT_RECOGNIZED:
+    case eUserRecState.NOT_RECOGNIZED:
       textMessage = 'User not recognized';
       break;
     default:
@@ -50,7 +50,7 @@ const TextMessage = React.memo(({ faceRecState, eFaceRecState, userName }) => {
           <Text style={styles.text}>{textMessage}</Text>
         </View>
       </View>
-      {faceRecState === eFaceRecState.ALLOWED ? (
+      {userRecState === eUserRecState.ALLOWED ? (
         <View style={styles.quoteContainer}>
           <Text style={styles.quoteText}>{quote}</Text>
         </View>

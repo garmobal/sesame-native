@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 
+import * as cStyle from './../../style';
+
 import FRCamera from './FRCamera';
 import FaceSquares from './FaceSquares';
 
@@ -9,9 +11,9 @@ function Recognize({
   _handleFacesDetected,
   _takePicture,
   cam,
-  faceRecState,
-  eFaceRecState,
-  setFaceRecState,
+  userRecState,
+  eUserRecState,
+  setUserRecState,
 }) {
   return (
     <>
@@ -21,8 +23,8 @@ function Recognize({
           _handleFacesDetected={_handleFacesDetected}
           _takePicture={_takePicture}
           cam={cam}
-          faceRecState={faceRecState}
-          eFaceRecState={eFaceRecState}
+          userRecState={userRecState}
+          eUserRecState={eUserRecState}
         />
         <FaceSquares detectedFaces={detectedFaces} />
       </View>
@@ -35,10 +37,10 @@ function Recognize({
             styles.useCodeBtn,
           ]}
           onPress={() => {
-            setFaceRecState(eFaceRecState.ENTER_CODE);
+            setUserRecState(eUserRecState.ENTER_CODE);
           }}
         >
-          <Text>Use code instead</Text>
+          <Text style={styles.useCodeBtnText}>Use code</Text>
         </Pressable>
       </View>
     </>
@@ -49,19 +51,21 @@ export default Recognize;
 
 const styles = StyleSheet.create({
   cameraContainer: {
-    flex: 4,
+    flex: 3,
     width: '90%',
     borderRadius: 15,
     marginTop: 30,
-    marginBottom: 30,
     overflow: 'hidden',
   },
   useCodeBtnContainer: {
     flex: 1,
+    justifyContent: 'center',
   },
   useCodeBtn: {
-    justifyContent: 'center',
-    borderRadius: 10,
-    borderWidth: 3,
+    ...cStyle.redButton,
+  },
+  useCodeBtnText: {
+    ...cStyle.redButtonText,
+    fontSize: 18,
   },
 });

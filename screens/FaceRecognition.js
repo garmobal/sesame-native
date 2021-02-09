@@ -18,11 +18,11 @@ function FaceRecognition() {
   const SHOW_QUOTE_TIME = 5000; // [ms]
 
   // LOCAL STATE
-  const [eFaceRecState] = useState({
+  const [eUserRecState] = useState({
     TAKE_SELFIE: 1,
     TAKING_PICTURE: 2,
     ENTER_CODE: 3,
-    CHECKING_FACE: 4,
+    CHECKING_USER: 4,
     ALLOWED: 5,
     NOT_ALLOWED: 6,
     NOT_RECOGNIZED: 7,
@@ -32,7 +32,7 @@ function FaceRecognition() {
   const selectedDoor = useSelector((state) => state.selectedDoor);
 
   const [hasPermission, setHasPermission] = useState(null);
-  const [faceRecState, setFaceRecState] = useState(eFaceRecState.TAKE_SELFIE);
+  const [userRecState, setUserRecState] = useState(eUserRecState.TAKE_SELFIE);
   const [detectedFaces, setDetectedFaces] = useState([]);
   const [userName, setUserName] = useState('');
 
@@ -61,14 +61,14 @@ function FaceRecognition() {
    * Callback called when a picture is taken.
    */
   const _takePicture = async () => {
-    setFaceRecState(eFaceRecState.TAKING_PICTURE);
+    setUserRecState(eUserRecState.TAKING_PICTURE);
     const option = {
       quality: 0.25,
       base64: true,
     };
     try {
       const picture = await cam.current.takePictureAsync(option);
-      setFaceRecState(eFaceRecState.CHECKING_FACE);
+      setUserRecState(eUserRecState.CHECKING_USER);
       _checkPicture(picture);
     } catch (error) {
       console.log('error :>> ', error);
@@ -81,7 +81,7 @@ function FaceRecognition() {
    * @param {number} code, code the user has input for opening the door.
    */
   const _checkCode = async (code) => {
-    setFaceRecState(eFaceRecState.CHECKING_FACE);
+    setUserRecState(eUserRecState.CHECKING_USER);
     const res = await checkUserCode(selectedDoor.did, code);
     _checkResponse(res);
   };
@@ -107,17 +107,17 @@ function FaceRecognition() {
    */
   const _checkResponse = (res) => {
     if (res.access === true) {
-      setFaceRecState(eFaceRecState.ALLOWED);
+      setUserRecState(eUserRecState.ALLOWED);
       setUserName(res.firstName);
     } else if (res.access === false) {
-      setFaceRecState(eFaceRecState.NOT_ALLOWED);
+      setUserRecState(eUserRecState.NOT_ALLOWED);
       setUserName(res.firstName);
     } else {
-      setFaceRecState(eFaceRecState.NOT_RECOGNIZED);
+      setUserRecState(eUserRecState.NOT_RECOGNIZED);
     }
 
     setTimeout(() => {
-      setFaceRecState(eFaceRecState.TAKE_SELFIE);
+      setUserRecState(eUserRecState.TAKE_SELFIE);
     }, SHOW_QUOTE_TIME);
   };
 
@@ -129,28 +129,28 @@ function FaceRecognition() {
   } else {
     return (
       <View style={styles.container}>
-        {faceRecState === eFaceRecState.TAKE_SELFIE ||
-        faceRecState === eFaceRecState.TAKING_PICTURE ? (
+        {userRecState === eUserRecState.TAKE_SELFIE ||
+        userRecState === eUserRecState.TAKING_PICTURE ? (
           <Recognize
             detectedFaces={detectedFaces}
             _handleFacesDetected={_handleFacesDetected}
             _takePicture={_takePicture}
             cam={cam}
-            faceRecState={faceRecState}
-            eFaceRecState={eFaceRecState}
-            setFaceRecState={setFaceRecState}
+            userRecState={userRecState}
+            eUserRecState={eUserRecState}
+            setUserRecState={setUserRecState}
           />
         ) : null}
-        {faceRecState === eFaceRecState.ENTER_CODE ? (
+        {userRecState === eUserRecState.ENTER_CODE ? (
           <View style={styles.content}>
             <EnterCode _checkCode={_checkCode} />
           </View>
         ) : null}
-        {faceRecState >= eFaceRecState.CHECKING_FACE ? (
+        {userRecState >= eUserRecState.CHECKING_USER ? (
           <View style={styles.content}>
             <TextMessage
-              faceRecState={faceRecState}
-              eFaceRecState={eFaceRecState}
+              userRecState={userRecState}
+              eUserRecState={eUserRecState}
               userName={userName}
             />
           </View>
