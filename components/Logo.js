@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 
-import * as cStyle from './../style';
-import logo from './../assets/logo_placeholder.png';
+import logo from './../assets/sesame.png';
 
 function Logo() {
   // RENDER
@@ -15,12 +14,14 @@ function Logo() {
 
 const styles = StyleSheet.create({
   logoContainer: {
-    ...cStyle.centerItem,
-    backgroundColor: cStyle.colors.lightest,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   logo: {
+    width: 200,
+    height: 20,
     resizeMode: 'contain',
-    width: '40%',
   },
 });
 export default Logo;

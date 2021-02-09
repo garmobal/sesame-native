@@ -14,9 +14,14 @@ import FaceRegistrationCamera from './screens/FaceRegistrationCamera';
 import FaceRegistrationSuccess from './screens/FaceRegistrationSuccess';
 import HandleQuotes from './screens/HandleQuotes';
 import fileUri from './fileSystemUri';
+import Logo from './components/Logo';
 
 const Stack = createStackNavigator();
 
+const headerOptions = {
+  headerTitle: (props) => <Logo {...props} />,
+  headerLeft: null,
+};
 export default function AppContainer() {
   const dispatch = useDispatch();
   const DELETE_FILE = false;
@@ -38,22 +43,36 @@ export default function AppContainer() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={'Home'}>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="FaceRecognition" component={FaceRecognition} />
-        <Stack.Screen name="FaceRegistration" component={FaceRegistration} />
-        <Stack.Screen name="HandleQuotes" component={HandleQuotes} />
+        <Stack.Screen name="Home" component={Home} options={headerOptions} />
+        <Stack.Screen
+          name="FaceRecognition"
+          component={FaceRecognition}
+          options={headerOptions}
+        />
+        <Stack.Screen
+          name="FaceRegistration"
+          component={FaceRegistration}
+          options={headerOptions}
+        />
+        <Stack.Screen
+          name="HandleQuotes"
+          component={HandleQuotes}
+          options={headerOptions}
+        />
         <Stack.Screen
           name="FaceRegistrationProcess"
           component={FaceRegistrationProcess}
-          // options={{ headerShown: false }}
+          options={headerOptions}
         />
         <Stack.Screen
           name="FaceRegistrationCamera"
           component={FaceRegistrationCamera}
+          options={headerOptions}
         />
         <Stack.Screen
           name="FaceRegistrationSuccess"
           component={FaceRegistrationSuccess}
+          options={headerOptions}
         />
       </Stack.Navigator>
     </NavigationContainer>
