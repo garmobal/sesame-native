@@ -14,9 +14,6 @@ import { useSelector } from 'react-redux';
 import Recognize from '../components/FaceRecognition/Recognize';
 
 function FaceRecognition() {
-  // CONSTANTS
-  const SHOW_QUOTE_TIME = 5000; // [ms]
-
   // LOCAL STATE
   const [eUserRecState] = useState({
     TAKE_SELFIE: 1,
@@ -115,10 +112,6 @@ function FaceRecognition() {
     } else {
       setUserRecState(eUserRecState.NO_USER_FOUND);
     }
-
-    setTimeout(() => {
-      setUserRecState(eUserRecState.TAKE_SELFIE);
-    }, SHOW_QUOTE_TIME);
   };
 
   // RENDER
@@ -152,6 +145,8 @@ function FaceRecognition() {
               userRecState={userRecState}
               eUserRecState={eUserRecState}
               userName={userName}
+              selectedDoor={selectedDoor}
+              setUserRecState={setUserRecState}
             />
           </View>
         ) : null}
@@ -181,12 +176,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 30,
     overflow: 'hidden',
-  },
-  useCodeBtn: {
-    flex: 1,
-    justifyContent: 'center',
-    borderRadius: 10,
-    borderWidth: 3,
   },
   content: {
     ...cStyle.content,
