@@ -152,6 +152,7 @@ function FaceRecognition() {
               userRecState={userRecState}
               eUserRecState={eUserRecState}
               userName={userName}
+              selectedDoor={selectedDoor}
             />
           </View>
         ) : null}
