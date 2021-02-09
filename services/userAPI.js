@@ -8,7 +8,7 @@ export const checkUserCode = (doorId, code) => {
   });
 };
 
-export const checkUserAuth = (doorId, faceId) => {
+export const checkUserFace = (doorId, faceId) => {
   return sendRequest(`${apiUrl}/identify/${doorId}/${faceId}`, {
     method: 'GET',
   });

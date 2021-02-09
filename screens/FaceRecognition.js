@@ -4,7 +4,7 @@ import { Camera } from 'expo-camera';
 
 import base64ToArrayBuffer from 'base64-arraybuffer'; // for converting base64 images to array buffer
 import * as AzureAPI from './../services/azureAPI';
-import { checkUserAuth, checkUserCode } from './../services/userAPI';
+import { checkUserFace, checkUserCode } from './../services/userAPI';
 
 import TextMessage from './../components/FaceRecognition/TextMessage';
 import EnterCode from './../components/FaceRecognition/EnterCode';
@@ -94,7 +94,7 @@ function FaceRecognition() {
   const _checkPicture = async (picture) => {
     const octetStream = base64ToArrayBuffer.decode(picture.base64);
     const faceDetectRes = await AzureAPI.detectFace(octetStream);
-    const res = await checkUserAuth(selectedDoor.did, faceDetectRes[0].faceId);
+    const res = await checkUserFace(selectedDoor.did, faceDetectRes[0].faceId);
 
     _checkResponse(res);
   };
