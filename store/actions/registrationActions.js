@@ -1,5 +1,5 @@
 import * as actions from '../actions/actionTypes';
-import { registerUser, checkRegistrationCode } from '../../services/userAPI';
+import { registerUser } from '../../services/userAPI';
 import base64ToArrayBuffer from 'base64-arraybuffer';
 
 export const setCurrentImage = (img) => {

@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     flex: 3,
     width: '90%',
     borderRadius: 15,
-    marginTop: 30,
+    marginTop: 60,
     overflow: 'hidden',
   },
   useCodeBtnContainer: {
