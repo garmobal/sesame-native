@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     flex: 20,
     ...cStyle.centerItem,
     textAlign: 'center',
-    marginBottom: -30,
+    marginBottom: -20,
   },
   textCard: {
     textAlign: 'center',
