@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import { setCurrentImage } from '../store/actions/registrationActions';
 import { useDispatch } from 'react-redux';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import * as cStyle from '../style';
+import smile from '../assets/registration/1.png';
+import sad from '../assets/registration/2.png';
+import silly from '../assets/registration/3.png';
 
 function FaceRegistrationCamera({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
+  const user = useSelector((state) => state.user);
+  const emojis = [smile, sad, silly];
 
   const dispatch = useDispatch();
 
@@ -39,6 +45,9 @@ function FaceRegistrationCamera({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View>
+        <Image source={emojis[user.images.length]} style={styles.emoji} />
+      </View>
       <View style={styles.cameraContainer}>
         <Camera
           ref={(ref) => setCamera(ref)}
@@ -63,13 +72,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: cStyle.colors.lightest,
   },
+  emoji: {
+    width: 50,
+    height: 50,
+    margin: 30,
+  },
   cameraContainer: {
-    flex: 1,
-    width: '100%',
-    // borderRadius: 15,
-    marginTop: 80,
+    flex: 6,
+    width: '90%',
+    // marginTop: 40,
     marginBottom: 150,
     overflow: 'hidden',
+    borderRadius: 15,
   },
   camera: {
     width: '100%',

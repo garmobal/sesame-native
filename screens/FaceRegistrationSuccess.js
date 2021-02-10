@@ -1,13 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  ActivityIndicator,
-  Image,
-} from 'react-native';
+import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
+import LottieView from 'lottie-react-native';
 import { StackActions } from '@react-navigation/native';
 import congrats from '../assets/registration/congrats.png';
 
@@ -21,10 +15,10 @@ const FaceRegistrationSuccess = ({ navigation }) => {
   if (registrationStatus.status === 'pending') {
     content = (
       <View style={styles.spinnerContainer}>
-        <ActivityIndicator
-          animating={true}
-          size="large"
-          color={cStyle.colors.highlight}
+        <LottieView
+          source={require('./../assets/animations/notspinner.json')}
+          autoPlay
+          loop
         />
       </View>
     );

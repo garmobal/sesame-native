@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Text, View, StyleSheet, ActivityIndicator, Image } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import RedButton from '../components/UI/RedButton';
 import door from '../assets/registration/door.png';
+import LottieView from 'lottie-react-native';
 
 import * as cStyle from '../style';
 import { clearCurrentUserImages } from '../store/actions/registrationActions';
@@ -42,10 +43,10 @@ function FaceRegistration({ navigation }) {
         </View>
       ) : user.fetching === 'pending' ? (
         <View style={styles.spinnerContainer}>
-          <ActivityIndicator
-            animating={true}
-            size="large"
-            color={cStyle.colors.highlight}
+          <LottieView
+            source={require('./../assets/animations/notspinner.json')}
+            autoPlay
+            loop
           />
         </View>
       ) : user.fetching === 'fail' ? (
