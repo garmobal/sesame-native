@@ -57,7 +57,7 @@ export const userRegistration = (state = initialUserRegistration, action) => {
 
 // Until we connect a backend
 const initialRegistrationStatus = {
-  status: 'success',
+  status: 'pending',
   doorKey: '1234',
 };
 
