@@ -26,6 +26,7 @@ function Home({ navigation }) {
             navigation.navigate('RegistrationCode');
           }}
           text={'Register'}
+          marginBottom={0}
         />
       </View>
     </View>
@@ -57,14 +58,6 @@ const styles = StyleSheet.create({
   registerBtnContainer: {
     flex: 1,
     ...cStyle.centerItem,
-  },
-  registerBtn: {
-    ...cStyle.redButton,
-    width: '85%',
-  },
-  registerText: {
-    ...cStyle.redButtonText,
-    fontSize: 18,
   },
 });
 export default Home;

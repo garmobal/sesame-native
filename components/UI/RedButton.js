@@ -3,7 +3,7 @@ import { StyleSheet, Pressable, Text } from 'react-native';
 
 import * as cStyle from './../../style';
 
-function RedButton({ size, clicked, text }) {
+function RedButton({ size, clicked, text, marginBottom }) {
   return (
     <Pressable
       style={({ pressed }) => [
@@ -22,7 +22,11 @@ function RedButton({ size, clicked, text }) {
           elevation: pressed ? 6 : 8,
           transform: pressed ? [{ translateY: 3 }] : [{ translateY: 0 }],
         },
-        { ...styles.redButton, width: size },
+        {
+          ...styles.redButton,
+          width: size || 200,
+          marginBottom: marginBottom || 30,
+        },
       ]}
       onPress={clicked}
     >
@@ -36,7 +40,6 @@ export default RedButton;
 const styles = StyleSheet.create({
   redButton: {
     padding: 14,
-    marginBottom: 30,
     borderRadius: 10,
     backgroundColor: cStyle.colors.highlight,
     justifyContent: 'center',
