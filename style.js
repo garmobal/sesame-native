@@ -8,6 +8,7 @@ export const colors = {
   lightest: '#FFF',
   darkest: '#000',
   fakeLink: '#4D8AF0',
+  dismiss: '#03BFFF',
 };
 
 export const container = {
@@ -72,10 +73,12 @@ export const redButtonText = {
 };
 
 export const codeInput = {
+  fontFamily: fonts.black,
   color: colors.highlight,
   borderColor: colors.fontColor,
   paddingVertical: 8,
   textAlign: 'center',
-  fontSize: 25,
-  borderBottomWidth: 1,
+  fontSize: 50,
+  backgroundColor: '#f5f5f5',
+  borderRadius: 15,
 };

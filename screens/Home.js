@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
+import RedButton from './../components/UI/RedButton';
 import * as cStyle from './../style';
 import DoorsList from './../components/Home/DoorsList';
 
@@ -19,19 +20,14 @@ function Home({ navigation }) {
         <DoorsList navigation={navigation} />
       </View>
       <View style={styles.registerBtnContainer}>
-        <Pressable
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-            },
-            styles.registerBtn,
-          ]}
-          onPress={() => {
+        <RedButton
+          size={200}
+          clicked={() => {
             navigation.navigate('RegistrationCode');
           }}
-        >
-          <Text style={styles.registerText}>Register</Text>
-        </Pressable>
+          text={'Register'}
+          marginBottom={0}
+        />
       </View>
     </View>
   );
@@ -51,7 +47,7 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   chooseDoorText: {
-    fontFamily: 'Roboto',
+    fontFamily: cStyle.fonts.regular,
     fontSize: 30,
     color: 'black',
   },
@@ -62,14 +58,6 @@ const styles = StyleSheet.create({
   registerBtnContainer: {
     flex: 1,
     ...cStyle.centerItem,
-  },
-  registerBtn: {
-    ...cStyle.redButton,
-    width: '85%',
-  },
-  registerText: {
-    ...cStyle.redButtonText,
-    fontSize: 18,
   },
 });
 export default Home;
