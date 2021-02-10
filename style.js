@@ -77,7 +77,7 @@ export const codeInput = {
   borderColor: colors.fontColor,
   paddingVertical: 8,
   textAlign: 'center',
-  fontSize: 50,
+  fontSize: 40,
   backgroundColor: '#f5f5f5',
   borderRadius: 15,
 };

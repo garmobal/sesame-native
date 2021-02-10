@@ -20,7 +20,10 @@ function FaceRegistration({ navigation }) {
           <View style={styles.welcomeCard}>
             <Text style={styles.welcomeTextTitle}>
               Welcome to the recognition process{' '}
-              <Text style={styles.welcomeTextTitleHighlight}>{user.name}</Text>!
+              <Text style={styles.welcomeTextTitleHighlight}>
+                {user.firstName}
+              </Text>
+              !
             </Text>
             <Image source={door} style={styles.door} />
             <RedButton

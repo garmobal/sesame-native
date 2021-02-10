@@ -3,9 +3,7 @@ import {
   TextInput,
   Text,
   View,
-  TouchableOpacity,
   StyleSheet,
-  Image,
   ActivityIndicator,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -14,7 +12,6 @@ import * as cStyle from '../style';
 import { setCurrentUser } from '../store/actions/registrationActions';
 import QRScanner from '../components/FaceRegistration/QRScanner';
 import RedButton from '../components/UI/RedButton';
-import QRIcon from '../assets/registration/camIcon.png';
 
 function RegistrationCode({ navigation }) {
   const [scanning, setScanning] = useState(false);
@@ -40,8 +37,8 @@ function RegistrationCode({ navigation }) {
   } else if (scanning === false) {
     content = (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.codeInputTitleWelcome}>Registration</Text>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Registration</Text>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.codeInputTitle}>
@@ -55,8 +52,6 @@ function RegistrationCode({ navigation }) {
             onSubmitEditing={inputCodeHandler}
             selectionColor={cStyle.colors.dismiss}
           />
-        </View>
-        <View style={styles.inputContainerQR}>
           <RedButton
             text={'Send code'}
             clicked={() => setScanning(true)}
@@ -64,8 +59,7 @@ function RegistrationCode({ navigation }) {
             icon={false}
             iconName={'nonee'}
           />
-          <Text style={styles.codeInputTitle}>or</Text>
-          {/* <View style={styles.cameraContainer}> */}
+          <Text style={styles.codeInputText}>or</Text>
           <RedButton
             text={'Scan QR'}
             clicked={() => setScanning(true)}
@@ -73,13 +67,6 @@ function RegistrationCode({ navigation }) {
             icon={true}
             iconName={'qr'}
           />
-          {/* <TouchableOpacity
-              style={styles.camIconTouchable}
-              onPress={() => setScanning(true)}
-            >
-              <Image style={styles.image} source={QRIcon} />
-            </TouchableOpacity> */}
-          {/* </View> */}
         </View>
         <View style={styles.inputMissingContainer}>
           <Text style={styles.codeMissing}>
@@ -113,22 +100,23 @@ const styles = StyleSheet.create({
     backgroundColor: cStyle.colors.lightest,
     paddingBottom: 30,
   },
-  inputContainer: {
+  titleContainer: {
     ...cStyle.card,
     width: '80%',
+    flex: 1,
   },
-  inputContainerQR: {
-    ...cStyle.card,
-    width: '80%',
-    justifyContent: 'center',
-  },
-  codeInputTitleWelcome: {
+  title: {
     color: cStyle.colors.highlight,
     fontFamily: cStyle.fonts.medium,
     fontSize: 40,
     width: '80%',
     textAlign: 'center',
-    marginTop: 30,
+  },
+  inputContainer: {
+    flex: 7,
+    ...cStyle.card,
+    width: '80%',
+    justifyContent: 'space-evenly',
   },
   codeInputTitle: {
     color: '#444',
@@ -136,21 +124,18 @@ const styles = StyleSheet.create({
     fontFamily: cStyle.fonts.regular,
     fontSize: 20,
   },
+  codeInputText: {
+    color: '#444',
+    textAlign: 'center',
+    fontFamily: cStyle.fonts.regular,
+    fontSize: 20,
+    marginBottom: 20,
+  },
   codeInput: {
     ...cStyle.codeInput,
-    width: '70%',
+    width: '80%',
     letterSpacing: 15,
-    margin: 20,
   },
-  // camIconTouchable: {
-  //   width: 60,
-  //   height: 60,
-  // },
-  // image: {
-  //   width: 50,
-  //   height: 50,
-  //   resizeMode: 'contain',
-  // },
   inputMissingContainer: {
     ...cStyle.card,
     width: '80%',
@@ -159,13 +144,6 @@ const styles = StyleSheet.create({
     color: cStyle.colors.fontColor,
     textAlign: 'center',
   },
-  // cameraContainer: {
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   width: 120,
-  //   height: 120,
-  //   overflow: 'hidden',
-  // },
   spinnerContainer: {
     flex: 1,
     justifyContent: 'center',

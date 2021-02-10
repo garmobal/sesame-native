@@ -20,13 +20,13 @@ const initialUserRegistration = {
 export const userRegistration = (state = initialUserRegistration, action) => {
   switch (action.type) {
     case actions.SET_CURRENT_USER:
-      return { ...action.payload, images: [], fetching: 'success' };
-    // return {
-    //   name: 'Matthieu',
-    //   aid: '12345',
-    //   images: [],
-    //   fetching: 'success',
-    // };
+      // return { ...action.payload, images: [], fetching: 'success' };
+      return {
+        firstName: 'Matthieu',
+        aid: '12345',
+        images: [],
+        fetching: 'success',
+      };
     case actions.LOADING_CURRENT_USER:
       // return action.payload when we have a backend;
       return {
@@ -36,7 +36,7 @@ export const userRegistration = (state = initialUserRegistration, action) => {
       // return error message when we have a backend;
       // return { fetching: 'fail' };
       return {
-        name: 'Francesco',
+        firstName: 'Francesco',
         aid: '12345',
         images: [],
         fetching: 'success',

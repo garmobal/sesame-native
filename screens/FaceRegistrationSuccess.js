@@ -41,7 +41,7 @@ const FaceRegistrationSuccess = ({ navigation }) => {
             <Image source={congrats} style={styles.image} />
           </View>
           <Text style={styles.entry}>This is your manual entry code:</Text>
-          <Text style={styles.code}>293847</Text>
+          <Text style={styles.code}>532956</Text>
         </View>
         <View style={styles.goHomeButtonContainer}>
           <RedButton
