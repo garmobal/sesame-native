@@ -21,7 +21,7 @@ function Home({ navigation }) {
       </View>
       <View style={styles.registerBtnContainer}>
         <RedButton
-          size={200}
+          size={'80%'}
           clicked={() => {
             navigation.navigate('RegistrationCode');
           }}
