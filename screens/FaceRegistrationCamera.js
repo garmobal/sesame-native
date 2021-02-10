@@ -36,6 +36,7 @@ function FaceRegistrationCamera({ navigation }) {
       navigation.navigate('FaceRegistrationProcess');
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.cameraContainer}>
@@ -60,11 +61,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: cStyle.colors.lightest,
   },
   cameraContainer: {
     flex: 1,
-    width: '90%',
-    borderRadius: 15,
+    width: '100%',
+    // borderRadius: 15,
     marginTop: 80,
     marginBottom: 150,
     overflow: 'hidden',

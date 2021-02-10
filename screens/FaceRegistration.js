@@ -30,7 +30,7 @@ function FaceRegistration({ navigation }) {
               marginBottom={30}
             />
             <Text style={styles.welcomeTextBody}>
-              Registering signifies that you have read and agree to the
+              Continuing signifies that you have read and agree to the
               <Text style={styles.welcomeTextSpan}> Terms of Service </Text>
               and our
               <Text style={styles.welcomeTextSpan}> Privacy Policy</Text>
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: cStyle.colors.lightest,
+    paddingBottom: 20,
   },
   welcomeCard: {
     width: '80%',
@@ -73,13 +74,13 @@ const styles = StyleSheet.create({
   },
   welcomeTextTitle: {
     fontFamily: cStyle.fonts.medium,
-    fontSize: 35,
-    color: cStyle.colors.darkest,
-    lineHeight: 50,
+    fontSize: 38,
+    color: '#444',
+    // lineHeight: 50,
   },
   welcomeTextTitleHighlight: {
     fontFamily: cStyle.fonts.bold,
-    fontSize: 35,
+    // fontSize: 38,
     color: cStyle.colors.highlight,
   },
   welcomeTextBody: {
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: cStyle.colors.lightest,
   },
   door: {
     // flex: 1,

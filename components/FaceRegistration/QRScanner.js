@@ -23,7 +23,7 @@ function QRScanner(props) {
   }
 
   return (
-    <React.Fragment>
+    <View style={styles.QRcontainer}>
       <Camera
         style={styles.camera}
         type={Camera.Constants.Type.back}
@@ -38,14 +38,18 @@ function QRScanner(props) {
         animatedLineColor={cStyle.colors.highlight}
         animatedLineHeight={6}
       />
-    </React.Fragment>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  QRcontainer: {
+    backgroundColor: 'white',
+  },
   camera: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 1.4,
+    backgroundColor: 'white',
+    width: '100%',
+    height: '100%',
   },
 });
 

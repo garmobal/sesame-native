@@ -6,16 +6,19 @@ import {
   Pressable,
   StyleSheet,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import { StackActions } from '@react-navigation/native';
+import congrats from '../assets/registration/congrats.png';
 
 import * as cStyle from '../style';
+import RedButton from '../components/UI/RedButton';
 
 const FaceRegistrationSuccess = ({ navigation }) => {
   const registrationStatus = useSelector((state) => state.registrationStatus);
 
   let content;
-  if (registrationStatus.status === 'success') {
+  if (registrationStatus.status === 'pending') {
     content = (
       <View style={styles.spinnerContainer}>
         <ActivityIndicator
@@ -25,23 +28,27 @@ const FaceRegistrationSuccess = ({ navigation }) => {
         />
       </View>
     );
-  } else if (registrationStatus.status === 'pending') {
+  } else if (registrationStatus.status === 'success') {
     content = (
       <View style={styles.container}>
         <View style={styles.messageContainer}>
           <Text style={styles.message}>
-            Congratulations Alba! You're face is now registered!
+            Congratulations{' '}
+            <Text style={styles.messageHighlight}>Matthieu</Text>! Your face is
+            now registered!
           </Text>
+          <View style={styles.imageContainer}>
+            <Image source={congrats} style={styles.image} />
+          </View>
           <Text style={styles.entry}>This is your manual entry code:</Text>
           <Text style={styles.code}>293847</Text>
         </View>
         <View style={styles.goHomeButtonContainer}>
-          <Pressable
-            style={styles.goHomeButton}
-            onPress={() => navigation.dispatch(StackActions.popToTop())}
-          >
-            <Text style={styles.goHomeButtonText}>Ok</Text>
-          </Pressable>
+          <RedButton
+            text={'Done!'}
+            clicked={() => navigation.dispatch(StackActions.popToTop())}
+            size={'80%'}
+          />
         </View>
       </View>
     );
@@ -73,50 +80,60 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: cStyle.colors.lightest,
   },
   container: {
     flex: 1,
+    backgroundColor: cStyle.colors.lightest,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   messageContainer: {
-    flex: 5,
+    justifyContent: 'space-between',
+    flex: 4,
     ...cStyle.whiteCard,
-    margin: 20,
-    padding: 30,
+    width: '80%',
+    paddingTop: 15,
   },
   message: {
+    fontFamily: cStyle.fonts.medium,
+    lineHeight: 40,
+    fontSize: 34,
+    color: '#444',
+    height: '35%',
+    textAlign: 'center',
+  },
+  messageHighlight: {
+    lineHeight: 45,
     marginTop: 70,
     flex: 3,
-    textAlign: 'center',
-    fontSize: 25,
-    lineHeight: 40,
-    color: cStyle.colors.darkest,
-    fontFamily: cStyle.fonts.medium,
+    color: cStyle.colors.highlight,
+    fontFamily: cStyle.fonts.bold,
+  },
+  imageContainer: {
+    width: '100%',
+    height: '40%',
+    marginBottom: 30,
+  },
+  image: {
+    resizeMode: 'contain',
+    marginTop: 20,
+    width: '100%',
+    height: '90%',
   },
   entry: {
-    marginTop: 30,
-    flex: 1,
-    fontSize: 18,
-    lineHeight: 40,
+    fontSize: 16,
     color: cStyle.colors.fontColor,
   },
   code: {
-    flex: 2,
     fontFamily: cStyle.fonts.bold,
-    fontSize: 50,
+    fontSize: 40,
     color: cStyle.colors.highlight,
   },
   goHomeButtonContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  goHomeButton: {
-    ...cStyle.redButton,
     width: '80%',
-  },
-  goHomeButtonText: {
-    ...cStyle.redButtonText,
-    fontFamily: cStyle.fonts.regular,
-    fontSize: 18,
   },
 });
