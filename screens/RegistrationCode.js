@@ -16,9 +16,11 @@ import RedButton from '../components/UI/RedButton';
 function RegistrationCode({ navigation }) {
   const [scanning, setScanning] = useState(false);
   const dispatch = useDispatch();
+  const [userInput, setUserInput] = useState('');
 
   const inputCodeHandler = (e) => {
-    dispatch(setCurrentUser(e.nativeEvent.text));
+    const code = e.nativeEvent.text || userInput;
+    dispatch(setCurrentUser(code));
     navigation.navigate('FaceRegistration');
     setScanning(false);
   };
@@ -50,11 +52,12 @@ function RegistrationCode({ navigation }) {
             keyboardType="number-pad"
             maxLength={5}
             onSubmitEditing={inputCodeHandler}
+            onChangeText={(text) => setUserInput(text)}
             selectionColor={cStyle.colors.dismiss}
           />
           <RedButton
             text={'Send code'}
-            clicked={() => setScanning(true)}
+            clicked={inputCodeHandler}
             size={'80%'}
             icon={false}
             iconName={'nonee'}

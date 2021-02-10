@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   doorsContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    // flex: 1,
+    flex: 1,
   },
 });
 
