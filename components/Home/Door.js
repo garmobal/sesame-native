@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Text, View, Pressable, StyleSheet, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setSelectedDoor } from './../../store/actions/doorsActions';
 
@@ -19,12 +19,19 @@ function Door({ door, navigation }) {
 
   // RENDER
   return (
-    <TouchableOpacity onPress={_setSelectedDoor}>
+    <Pressable
+      style={({ pressed }) => [
+        {
+          transform: pressed ? [{ translateY: 3 }] : [{ translateY: 0 }],
+        },
+      ]}
+      onPress={_setSelectedDoor}
+    >
       <View style={styles.container}>
         <Image style={styles.doorImage} source={{ uri: `${door.doorUrl}` }} />
         <Text style={styles.doorName}>{door.doorName}</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

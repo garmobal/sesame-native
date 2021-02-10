@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet, Pressable } from 'react-native';
-
-import * as cStyle from './../../style';
+import { View, StyleSheet, Text } from 'react-native';
 
 import FRCamera from './FRCamera';
 import FaceSquares from './FaceSquares';
+import RedButton from './../UI/RedButton';
+
+import * as cStyle from './../../style';
 
 function Recognize({
   detectedFaces,
@@ -17,6 +18,19 @@ function Recognize({
 }) {
   return (
     <>
+      <View style={styles.useCodeBtnContainer}>
+        <RedButton
+          size={200}
+          clicked={() => {
+            setUserRecState(eUserRecState.ENTER_CODE);
+          }}
+          text={'Use code'}
+          marginBottom={0}
+        />
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>...or take a picture instead!</Text>
+      </View>
       <View style={styles.cameraContainer}>
         <FRCamera
           detectedFaces={detectedFaces}
@@ -28,21 +42,6 @@ function Recognize({
         />
         <FaceSquares detectedFaces={detectedFaces} />
       </View>
-      <View style={styles.useCodeBtnContainer}>
-        <Pressable
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-            },
-            styles.useCodeBtn,
-          ]}
-          onPress={() => {
-            setUserRecState(eUserRecState.ENTER_CODE);
-          }}
-        >
-          <Text style={styles.useCodeBtnText}>Use code</Text>
-        </Pressable>
-      </View>
     </>
   );
 }
@@ -51,21 +50,26 @@ export default Recognize;
 
 const styles = StyleSheet.create({
   cameraContainer: {
-    flex: 3,
+    flex: 6,
     width: '90%',
     borderRadius: 15,
-    marginTop: 60,
     overflow: 'hidden',
+    marginBottom: 20,
+    marginTop: 20,
   },
   useCodeBtnContainer: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
   },
-  useCodeBtn: {
-    ...cStyle.redButton,
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  useCodeBtnText: {
-    ...cStyle.redButtonText,
-    fontSize: 18,
+  text: {
+    fontFamily: cStyle.fonts.regular,
+    fontSize: 20,
   },
 });

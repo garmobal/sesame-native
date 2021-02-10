@@ -27,6 +27,7 @@ function FaceRegistration({ navigation }) {
               text={'Get started'}
               clicked={() => navigation.navigate('FaceRegistrationProcess')}
               size={'100%'}
+              marginBottom={30}
             />
             <Text style={styles.welcomeTextBody}>
               Continuing signifies that you have read and agree to the

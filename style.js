@@ -72,10 +72,12 @@ export const redButtonText = {
 };
 
 export const codeInput = {
+  fontFamily: fonts.black,
   color: colors.highlight,
   borderColor: colors.fontColor,
   paddingVertical: 8,
   textAlign: 'center',
-  fontSize: 25,
-  borderBottomWidth: 1,
+  fontSize: 50,
+  backgroundColor: '#f5f5f5',
+  borderRadius: 15,
 };
