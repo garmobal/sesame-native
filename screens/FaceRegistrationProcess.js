@@ -7,6 +7,7 @@ import {
   Image,
   Alert,
   BackHandler,
+  Dimensions,
 } from 'react-native';
 import { CommonActions, StackActions } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -147,14 +148,30 @@ function FaceRegistrationProcess({ navigation }) {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Step {user.images.length + 1}</Text>
       </View>
-      <View
+      {currentImage ? (
+        <View style={styles.imagesContainer}>
+          <Image source={{ uri: currentImage.uri }} style={styles.image} />
+          <View style={styles.emojiContainer1}>
+            <Image source={emojis[user.images.length]} style={styles.emoji1} />
+          </View>
+        </View>
+      ) : (
+        <View style={styles.imageContainer}>
+          <View style={styles.emojiContainer}>
+            <Image source={emojis[user.images.length]} style={styles.emoji} />
+          </View>
+        </View>
+      )}
+      {/* <View
         style={currentImage ? styles.imagesContainer : styles.imageContainer}
       >
-        <Image source={emojis[user.images.length]} style={styles.emoji} />
+        <View style={styles.emojiContainer}>
+          <Image source={emojis[user.images.length]} style={styles.emoji} />
+        </View>
         {currentImage ? (
           <Image source={{ uri: currentImage.uri }} style={styles.image} />
         ) : null}
-      </View>
+      </View> */}
       {options}
     </View>
   );
@@ -167,6 +184,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: cStyle.colors.background,
+    paddingBottom: 50,
   },
   titleContainer: {
     flex: 1,
@@ -207,19 +225,18 @@ const styles = StyleSheet.create({
     fontFamily: cStyle.fonts.bold,
     fontSize: 28,
     textAlign: 'center',
-    marginBottom: 15,
+    marginTop: 15,
   },
   instructions: {
     color: '#444',
     fontFamily: cStyle.fonts.regular,
-    fontSize: 24,
+    fontSize: 22,
     textAlign: 'center',
     marginTop: 15,
   },
   imageContainer: {
     flex: 1,
     ...cStyle.whiteCard,
-    width: '90%',
     flexDirection: 'row',
     justifyContent: 'center',
     // paddingVertical: 20,
@@ -228,12 +245,42 @@ const styles = StyleSheet.create({
   imagesContainer: {
     flex: 2,
     ...cStyle.whiteCard,
-    width: '90%',
+    height: Dimensions.get('window').width * 0.75,
+    width: Dimensions.get('window').width * 0.75,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     // borderWidth: 2,
-    paddingBottom: 20,
+    // paddingBottom: 20,
+    position: 'relative',
+  },
+  emojiContainer1: {
+    height: Dimensions.get('window').width * 0.25,
+    width: Dimensions.get('window').width * 0.25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
+    backgroundColor: '#f5f5f5',
+    position: 'absolute',
+    top: -15,
+    left: -15,
+    padding: 15,
+  },
+  emojiContainer: {
+    // borderWidth: 1,
+    height: Dimensions.get('window').width * 0.5,
+    width: Dimensions.get('window').width * 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
+    backgroundColor: '#f5f5f5',
+  },
+  emoji1: {
+    flex: 1,
+    width: 90,
+    height: 90,
+    resizeMode: 'contain',
+    borderRadius: 100,
   },
   emoji: {
     flex: 1,
@@ -244,10 +291,10 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: 160,
-    height: 160,
+    width: '100%',
+    height: '100%',
     resizeMode: 'cover',
-    borderRadius: 100,
+    borderRadius: 500,
   },
   optionsContainer: {
     flex: 1,

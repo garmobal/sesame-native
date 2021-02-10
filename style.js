@@ -2,7 +2,6 @@ import { Dimensions } from 'react-native';
 
 export const colors = {
   highlight: '#B00E23',
-  // background: '#E8E8E8',
   background: '#FFFFFF',
   fontColor: '#8E8E8E',
   lightest: '#FFF',

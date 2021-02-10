@@ -40,7 +40,12 @@ function RegistrationCode({ navigation }) {
     content = (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Text style={styles.codeInputTitle}>Enter your code:</Text>
+          <Text style={styles.codeInputTitleWelcome}>Registration</Text>
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.codeInputTitle}>
+            Enter your personal code to start the registration process
+          </Text>
           <TextInput
             style={styles.codeInput}
             autoCompleteType="off"
@@ -49,8 +54,8 @@ function RegistrationCode({ navigation }) {
             onSubmitEditing={inputCodeHandler}
           />
         </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.codeInputTitle}>Scan code</Text>
+        <View style={styles.inputContainerQR}>
+          <Text style={styles.codeInputTitle}>... or scan QR</Text>
           <View style={styles.cameraContainer}>
             <TouchableOpacity
               style={styles.camIconTouchable}
@@ -59,6 +64,12 @@ function RegistrationCode({ navigation }) {
               <Image style={styles.image} source={QRIcon} />
             </TouchableOpacity>
           </View>
+        </View>
+        <View style={styles.inputMissingContainer}>
+          <Text style={styles.codeMissing}>
+            Did not receive a registration code? Please check your span folder
+            or contact your company.
+          </Text>
         </View>
       </View>
     );
@@ -83,38 +94,66 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: cStyle.colors.background,
+    backgroundColor: cStyle.colors.lightest,
+    paddingBottom: 30,
   },
   inputContainer: {
     ...cStyle.card,
     width: '80%',
-    height: '40%',
+    // height: '40%',
+    // borderWidth: 2,
+  },
+  inputContainerQR: {
+    ...cStyle.card,
+    width: '80%',
+    // height: '10%',
+    justifyContent: 'center',
+    // height: '40%',
+    // borderWidth: 2,
+  },
+  codeInputTitleWelcome: {
+    // color: '#444',
+    color: cStyle.colors.highlight,
+    fontFamily: cStyle.fonts.medium,
+    fontSize: 40,
+    width: '80%',
+    textAlign: 'center',
+    marginTop: 30,
   },
   codeInputTitle: {
-    color: cStyle.colors.fontColor,
+    color: '#444',
+    textAlign: 'center',
+    fontFamily: cStyle.fonts.regular,
     fontSize: 20,
-    width: '70%',
   },
   codeInput: {
     ...cStyle.codeInput,
     width: '70%',
     letterSpacing: 15,
+    margin: 20,
   },
   camIconTouchable: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
   },
   image: {
     width: 50,
     height: 50,
     resizeMode: 'contain',
   },
+  inputMissingContainer: {
+    ...cStyle.card,
+    width: '80%',
+  },
+  codeMissing: {
+    color: cStyle.colors.fontColor,
+    textAlign: 'center',
+  },
   cameraContainer: {
-    backgroundColor: cStyle.colors.lightest,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 200,
-    height: 200,
+    width: 120,
+    height: 120,
     overflow: 'hidden',
   },
   spinnerContainer: {
