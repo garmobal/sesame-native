@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import Door from './Door';
+import LottieView from 'lottie-react-native';
 
 function DoorsList({ navigation }) {
   // GLOBAL STATE
@@ -20,7 +21,12 @@ function DoorsList({ navigation }) {
             <Door door={door} key={door.did} navigation={navigation} />
           ))
         ) : (
-          <Text>Loading doors</Text>
+          // <Text>Loading doors</Text>
+          <LottieView
+            source={require('./../../assets/animations/notspinner.json')}
+            autoPlay
+            loop
+          />
         )}
       </ScrollView>
     </View>
@@ -35,6 +41,7 @@ const styles = StyleSheet.create({
   doorsContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    // flex: 1,
   },
 });
 

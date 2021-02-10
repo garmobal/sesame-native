@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, View, StyleSheet, ActivityIndicator, Image } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import RedButton from '../components/UI/RedButton';
 import door from '../assets/registration/door.png';
@@ -48,11 +48,6 @@ function FaceRegistration({ navigation }) {
             autoPlay
             loop
           />
-          {/* <ActivityIndicator
-            animating={true}
-            size="large"
-            color={cStyle.colors.highlight}
-          /> */}
         </View>
       ) : user.fetching === 'fail' ? (
         <View style={styles.spinnerContainer}>

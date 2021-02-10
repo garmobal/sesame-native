@@ -1,13 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  ActivityIndicator,
-  Image,
-} from 'react-native';
+import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { StackActions } from '@react-navigation/native';
 import congrats from '../assets/registration/congrats.png';
@@ -27,11 +20,6 @@ const FaceRegistrationSuccess = ({ navigation }) => {
           autoPlay
           loop
         />
-        {/* <ActivityIndicator
-          animating={true}
-          size="large"
-          color={cStyle.colors.highlight}
-        /> */}
       </View>
     );
   } else if (registrationStatus.status === 'success') {
