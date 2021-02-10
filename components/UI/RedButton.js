@@ -3,13 +3,30 @@ import { StyleSheet, Pressable, Text } from 'react-native';
 
 import * as cStyle from './../../style';
 
-function RedButton(props) {
+function RedButton({ size, clicked, text }) {
   return (
     <Pressable
-      style={{ ...styles.redButton, width: props.size }}
-      onPress={props.clicked}
+      style={({ pressed }) => [
+        {
+          shadowOffset: pressed
+            ? {
+                width: 0,
+                height: 2,
+              }
+            : {
+                width: 0,
+                height: 8,
+              },
+          shadowOpacity: pressed ? 10 : 10,
+          shadowRadius: pressed ? 4.65 : 8.5,
+          elevation: pressed ? 6 : 8,
+          transform: pressed ? [{ translateY: 3 }] : [{ translateY: 0 }],
+        },
+        { ...styles.redButton, width: size },
+      ]}
+      onPress={clicked}
     >
-      <Text style={styles.redButtonText}>{props.text}</Text>
+      <Text style={styles.redButtonText}>{text}</Text>
     </Pressable>
   );
 }
@@ -25,13 +42,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 10,
-      height: 1,
-    },
-    shadowOpacity: 0.8,
-    shadowRadius: 1,
-    elevation: 7,
   },
   redButtonText: {
     fontSize: 15,
