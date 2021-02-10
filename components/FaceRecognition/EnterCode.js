@@ -20,6 +20,7 @@ function EnterCode({ _checkCode }) {
           onChangeText={(text) => setCode(text)}
           value={code}
           selectionColor={cStyle.colors.dismiss}
+          maxLength={6}
         />
       </View>
 

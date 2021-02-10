@@ -47,6 +47,7 @@ function RegistrationCode({ navigation }) {
             keyboardType="number-pad"
             maxLength={5}
             onSubmitEditing={inputCodeHandler}
+            selectionColor={cStyle.colors.dismiss}
           />
         </View>
         <View style={styles.inputContainer}>
