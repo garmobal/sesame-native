@@ -11,6 +11,8 @@ import notFound from './../../assets/not_found.png';
 
 import * as cStyle from './../../style';
 
+import RedButton from './../UI/RedButton';
+
 const TextMessage = React.memo(
   ({
     userRecState,
@@ -112,14 +114,16 @@ const TextMessage = React.memo(
         case eUserRecState.NO_USER_FOUND:
           text = (
             <Text style={styles.text}>
-              Sorry, we were not able to find you.
+              Sorry, we were not able to find you. Please, try again. If the
+              problem persists, please contact us for further support.
             </Text>
           );
           break;
         default:
           text = (
             <Text style={styles.text}>
-              Sorry, we were not able to find you.
+              Sorry, we were not able to find you. Please, try again. If the
+              problem persists, please contact us for further support.{' '}
             </Text>
           );
           break;
@@ -170,19 +174,14 @@ const TextMessage = React.memo(
               {_renderDescription()}
             </View>
             <View style={styles.goBackBtnContainer}>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-                  },
-                  styles.goBackBtn,
-                ]}
-                onPress={() => {
+              <RedButton
+                size={200}
+                clicked={() => {
                   setUserRecState(eUserRecState.TAKE_SELFIE);
                 }}
-              >
-                <Text style={styles.goBackBtnText}>Go back</Text>
-              </Pressable>
+                text={'Go back'}
+                marginBottom={0}
+              />
             </View>
             <View style={styles.issueBtnContainer}>{renderIssueBtn()}</View>
           </>
@@ -197,24 +196,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerMsgContainer: {
-    flex: 40,
+    flex: 20,
     ...cStyle.centerItem,
     textAlign: 'center',
+    marginBottom: -30,
   },
   textCard: {
     textAlign: 'center',
-    ...cStyle.whiteCard,
-    padding: 40,
   },
   headerText: {
-    fontFamily: cStyle.fonts.bold,
-    fontSize: 50,
-    color: 'black',
     textAlign: 'center',
+    fontFamily: cStyle.fonts.bold,
+    fontSize: 43,
+    color: 'black',
   },
   text: {
     fontFamily: cStyle.fonts.regular,
-    fontSize: 27,
+    fontSize: 23,
     color: 'black',
     textAlign: 'center',
   },
@@ -223,6 +221,7 @@ const styles = StyleSheet.create({
     color: cStyle.colors.highlight,
   },
   imageContainer: {
+    marginTop: 20,
     flex: 60,
   },
   image: {

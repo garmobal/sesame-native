@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 import FRCamera from './FRCamera';
 import FaceSquares from './FaceSquares';
 import RedButton from './../UI/RedButton';
+
+import * as cStyle from './../../style';
 
 function Recognize({
   detectedFaces,
@@ -26,6 +28,9 @@ function Recognize({
           marginBottom={0}
         />
       </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>...or take a picture instead!</Text>
+      </View>
       <View style={styles.cameraContainer}>
         <FRCamera
           detectedFaces={detectedFaces}
@@ -45,16 +50,26 @@ export default Recognize;
 
 const styles = StyleSheet.create({
   cameraContainer: {
-    flex: 3,
+    flex: 6,
     width: '90%',
     borderRadius: 15,
-    marginTop: 60,
     overflow: 'hidden',
     marginBottom: 20,
+    marginTop: 20,
   },
   useCodeBtnContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 30,
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontFamily: cStyle.fonts.regular,
+    fontSize: 20,
   },
 });

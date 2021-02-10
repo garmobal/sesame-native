@@ -24,8 +24,8 @@ function RedButton({ size, clicked, text, marginBottom }) {
         },
         {
           ...styles.redButton,
-          width: size || 200,
-          marginBottom: marginBottom || 30,
+          width: size === undefined ? 200 : size,
+          marginBottom: marginBottom === undefined ? 30 : marginBottom,
         },
       ]}
       onPress={clicked}

@@ -19,6 +19,7 @@ function EnterCode({ _checkCode }) {
           keyboardType="numeric"
           onChangeText={(text) => setCode(text)}
           value={code}
+          selectionColor={cStyle.colors.dismiss}
         />
       </View>
 
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
     flex: 3,
     alignItems: 'center',
     justifyContent: 'flex-end',
+    marginTop: 30,
   },
   text: {
     fontSize: 30,

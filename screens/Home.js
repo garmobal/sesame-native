@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   chooseDoorText: {
-    fontFamily: 'Roboto',
+    fontFamily: cStyle.fonts.regular,
     fontSize: 30,
     color: 'black',
   },
