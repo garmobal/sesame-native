@@ -2,7 +2,6 @@ import React, { useEffect, useCallback } from 'react';
 import {
   View,
   StyleSheet,
-  Pressable,
   Text,
   Image,
   Alert,
@@ -108,6 +107,7 @@ function FaceRegistrationProcess({ navigation }) {
             clicked={() => navigation.navigate('FaceRegistrationCamera')}
             size={'80%'}
             icon={true}
+            iconName={'camera'}
           />
         </View>
       </React.Fragment>

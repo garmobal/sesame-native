@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import * as cStyle from '../style';
 import { setCurrentUser } from '../store/actions/registrationActions';
 import QRScanner from '../components/FaceRegistration/QRScanner';
+import RedButton from '../components/UI/RedButton';
 import QRIcon from '../assets/registration/camIcon.png';
 
 function RegistrationCode({ navigation }) {
@@ -56,15 +57,29 @@ function RegistrationCode({ navigation }) {
           />
         </View>
         <View style={styles.inputContainerQR}>
-          <Text style={styles.codeInputTitle}>... or scan QR</Text>
-          <View style={styles.cameraContainer}>
-            <TouchableOpacity
+          <RedButton
+            text={'Send code'}
+            clicked={() => setScanning(true)}
+            size={'80%'}
+            icon={false}
+            iconName={'nonee'}
+          />
+          <Text style={styles.codeInputTitle}>or</Text>
+          {/* <View style={styles.cameraContainer}> */}
+          <RedButton
+            text={'Scan QR'}
+            clicked={() => setScanning(true)}
+            size={'80%'}
+            icon={true}
+            iconName={'qr'}
+          />
+          {/* <TouchableOpacity
               style={styles.camIconTouchable}
               onPress={() => setScanning(true)}
             >
               <Image style={styles.image} source={QRIcon} />
-            </TouchableOpacity>
-          </View>
+            </TouchableOpacity> */}
+          {/* </View> */}
         </View>
         <View style={styles.inputMissingContainer}>
           <Text style={styles.codeMissing}>
@@ -101,19 +116,13 @@ const styles = StyleSheet.create({
   inputContainer: {
     ...cStyle.card,
     width: '80%',
-    // height: '40%',
-    // borderWidth: 2,
   },
   inputContainerQR: {
     ...cStyle.card,
     width: '80%',
-    // height: '10%',
     justifyContent: 'center',
-    // height: '40%',
-    // borderWidth: 2,
   },
   codeInputTitleWelcome: {
-    // color: '#444',
     color: cStyle.colors.highlight,
     fontFamily: cStyle.fonts.medium,
     fontSize: 40,
@@ -133,15 +142,15 @@ const styles = StyleSheet.create({
     letterSpacing: 15,
     margin: 20,
   },
-  camIconTouchable: {
-    width: 60,
-    height: 60,
-  },
-  image: {
-    width: 50,
-    height: 50,
-    resizeMode: 'contain',
-  },
+  // camIconTouchable: {
+  //   width: 60,
+  //   height: 60,
+  // },
+  // image: {
+  //   width: 50,
+  //   height: 50,
+  //   resizeMode: 'contain',
+  // },
   inputMissingContainer: {
     ...cStyle.card,
     width: '80%',
@@ -150,13 +159,13 @@ const styles = StyleSheet.create({
     color: cStyle.colors.fontColor,
     textAlign: 'center',
   },
-  cameraContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 120,
-    height: 120,
-    overflow: 'hidden',
-  },
+  // cameraContainer: {
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   width: 120,
+  //   height: 120,
+  //   overflow: 'hidden',
+  // },
   spinnerContainer: {
     flex: 1,
     justifyContent: 'center',

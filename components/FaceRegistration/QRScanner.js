@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import BarcodeMask from 'react-native-barcode-mask';
 import * as cStyle from '../../style';

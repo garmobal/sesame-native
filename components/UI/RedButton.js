@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Pressable, Text } from 'react-native';
 import * as cStyle from './../../style';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faQrcode } from '@fortawesome/free-solid-svg-icons';
 
 function RedButton({ size, clicked, text, marginBottom, icon, iconName }) {
   return (
@@ -33,7 +33,10 @@ function RedButton({ size, clicked, text, marginBottom, icon, iconName }) {
     >
       <Text style={styles.redButtonText}>{text}</Text>
       {icon ? (
-        <FontAwesomeIcon icon={`${iconName}`} style={styles.icon} />
+        <FontAwesomeIcon
+          icon={iconName === 'camera' ? faCamera : faQrcode}
+          style={styles.icon}
+        />
       ) : null}
     </Pressable>
   );
