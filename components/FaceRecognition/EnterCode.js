@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+
+import RedButton from './../UI/RedButton';
 
 import * as cStyle from './../../style';
 
@@ -21,14 +23,9 @@ function EnterCode({ _checkCode }) {
       </View>
 
       <View style={styles.enterCodeBtnContainer}>
-        <Pressable
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-            },
-            styles.enterCodeBtn,
-          ]}
-          onPress={() => {
+        <RedButton
+          size={200}
+          clicked={() => {
             if (code !== null && code !== '') {
               _checkCode(code);
               setCode(null);
@@ -36,9 +33,9 @@ function EnterCode({ _checkCode }) {
               Alert.alert('Insert a valid code', 'The code must not be empty');
             }
           }}
-        >
-          <Text style={styles.enterCodeBtnText}>Enter code</Text>
-        </Pressable>
+          text={'Enter code'}
+          marginBottom={0}
+        />
       </View>
     </View>
   );
@@ -65,7 +62,7 @@ const styles = StyleSheet.create({
   textInput: {
     marginBottom: 30,
     ...cStyle.codeInput,
-    width: '40%',
+    width: '80%',
     letterSpacing: 15,
   },
   enterCodeBtnContainer: {
