@@ -113,28 +113,32 @@ function FaceRegistrationProcess({ navigation }) {
     );
   } else {
     options = (
-      <View style={styles.optionsContainer}>
-        <Text
-          onPress={() => navigation.navigate('FaceRegistrationCamera')}
-          style={styles.buttonTextDismiss}
-        >
-          Try again!
-        </Text>
-        {/* <Pressable
+      <React.Fragment>
+        <View style={styles.instructionsContainer}>
+          <Text style={styles.instructions}>Does it match?</Text>
+        </View>
+        <View style={styles.optionsContainer}>
+          <RedButton text={'Save'} clicked={saveImageHandler} size={'45%'} />
+          <Text
+            onPress={() => navigation.navigate('FaceRegistrationCamera')}
+            style={styles.buttonTextDismiss}
+          >
+            ...or try again!
+          </Text>
+          {/* <Pressable
           style={styles.buttonTakePictureSecondDismiss}
           onPress={() => navigation.navigate('FaceRegistrationCamera')}
         >
           <Text style={styles.buttonTextDismiss}>Try again!</Text>
         </Pressable> */}
-        {/* <Pressable
+          {/* <Pressable
           style={styles.buttonTakePictureSecond}
           onPress={saveImageHandler}
         >
           <Text style={styles.buttonText}>Save</Text>
         </Pressable> */}
-
-        <RedButton text={'Save'} clicked={saveImageHandler} size={'45%'} />
-      </View>
+        </View>
+      </React.Fragment>
     );
   }
 
@@ -143,7 +147,9 @@ function FaceRegistrationProcess({ navigation }) {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Step {user.images.length + 1}</Text>
       </View>
-      <View style={styles.imageContainer}>
+      <View
+        style={currentImage ? styles.imagesContainer : styles.imageContainer}
+      >
         <Image source={emojis[user.images.length]} style={styles.emoji} />
         {currentImage ? (
           <Image source={{ uri: currentImage.uri }} style={styles.image} />
@@ -165,7 +171,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     marginBottom: 20,
@@ -214,9 +220,20 @@ const styles = StyleSheet.create({
     flex: 1,
     ...cStyle.whiteCard,
     width: '90%',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    paddingVertical: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    // paddingVertical: 20,
+    // borderWidth: 2,
+  },
+  imagesContainer: {
+    flex: 2,
+    ...cStyle.whiteCard,
+    width: '90%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderWidth: 2,
+    paddingBottom: 20,
   },
   emoji: {
     flex: 1,
@@ -230,12 +247,12 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
     resizeMode: 'cover',
-    borderRadius: 15,
+    borderRadius: 100,
   },
   optionsContainer: {
     flex: 1,
     width: '100%',
-    flexDirection: 'row',
+    // flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -250,26 +267,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: cStyle.colors.highlight,
   },
-  // buttonTakePictureSecondDismiss: {
-  //   fontSize: 30,
-  //   padding: 10,
-  //   borderRadius: 5,
-  //   borderWidth: 2,
-  //   borderColor: cStyle.colors.highlight,
-  //   backgroundColor: cStyle.colors.lightest,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   width: '40%',
-  // },
   buttonText: {
     ...cStyle.redButtonText,
     fontSize: 15,
     fontFamily: cStyle.fonts.medium,
   },
   buttonTextDismiss: {
-    // ...cStyle.redButtonText,
-    // fontSize: 20,
-    // color: cStyle.colors.highlight,
     color: cStyle.colors.dismiss,
     fontFamily: cStyle.fonts.medium,
     fontSize: 15,

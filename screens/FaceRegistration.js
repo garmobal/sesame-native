@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: cStyle.colors.lightest,
   },
   door: {
     // flex: 1,

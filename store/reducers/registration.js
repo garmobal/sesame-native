@@ -22,7 +22,7 @@ export const userRegistration = (state = initialUserRegistration, action) => {
     case actions.SET_CURRENT_USER:
       // return action.payload when we have a backend;
       return {
-        name: 'Francesco',
+        name: 'Matthieu',
         aid: '12345',
         images: [],
         fetching: 'success',
@@ -57,9 +57,8 @@ export const userRegistration = (state = initialUserRegistration, action) => {
 
 // Until we connect a backend
 const initialRegistrationStatus = {
-  status: 'pending',
+  status: 'success',
   doorKey: '1234',
-  apiCalls: 0,
 };
 
 export const registrationStatus = (
@@ -71,7 +70,7 @@ export const registrationStatus = (
       if (state.status === 'pending') {
         return {
           status: 'success',
-          doorKey: action.payloadm,
+          doorKey: action.payload,
         };
       }
       return state;

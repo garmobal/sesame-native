@@ -15,24 +15,29 @@ export const addImage = (img) => {
 };
 
 export const registerCurrentUser = (user, img) => {
-  const id = user.aid;
-  const octetStream = base64ToArrayBuffer.decode(img.base64);
-  const images = [...user.images, octetStream];
+  // const id = user.aid;
+  // const octetStream = base64ToArrayBuffer.decode(img.base64);
+  // const images = [...user.images, octetStream];
+  // return (dispatch) => {
+  //   Promise.all(
+  //     images.map((image) => {
+  //       return registerUser(id, image);
+  //     }),
+  //   )
+  //     .then((responses) => {
+  //       dispatch({
+  //         type: actions.REGISTRATION_SUCCESS,
+  //         payload: responses[0],
+  //       });
+  //     })
+  //     .catch((err) =>
+  //       dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
+  //     );
+  // };
   return (dispatch) => {
-    Promise.all(
-      images.map((image) => {
-        return registerUser(id, image);
-      }),
-    )
-      .then((responses) => {
-        dispatch({
-          type: actions.REGISTRATION_SUCCESS,
-          payload: responses[0],
-        });
-      })
-      .catch((err) =>
-        dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
-      );
+    setTimeout(() => {
+      dispatch({ type: actions.REGISTRATION_SUCCESS, payload: '282376' });
+    }, 1000);
   };
 };
 
