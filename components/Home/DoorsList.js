@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import Door from './Door';
+// import LottieView from 'lottie-react-native';
 
 function DoorsList({ navigation }) {
   // GLOBAL STATE
@@ -21,6 +22,11 @@ function DoorsList({ navigation }) {
           ))
         ) : (
           <Text>Loading doors</Text>
+          // <LottieView
+          //   source={require('./../../assets/animations/notspinner.json')}
+          //   autoPlay
+          //   loop
+          // />
         )}
       </ScrollView>
     </View>

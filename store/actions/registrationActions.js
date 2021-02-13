@@ -18,43 +18,43 @@ export const registerCurrentUser = (user, img) => {
   const id = user.aid;
   const octetStream = base64ToArrayBuffer.decode(img.base64);
   const images = [...user.images, octetStream];
-  return (dispatch) => {
-    Promise.all(
-      images.map((image) => {
-        return registerUser(id, image);
-      }),
-    )
-      .then((responses) => {
-        dispatch({
-          type: actions.REGISTRATION_SUCCESS,
-          payload: responses[0],
-        });
-      })
-      .catch((err) =>
-        dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
-      );
-  };
   // return (dispatch) => {
-  //   setTimeout(() => {
-  //     dispatch({ type: actions.REGISTRATION_SUCCESS, payload: '282376' });
-  //   }, 1000);
+  //   Promise.all(
+  //     images.map((image) => {
+  //       return registerUser(id, image);
+  //     }),
+  //   )
+  //     .then((responses) => {
+  //       dispatch({
+  //         type: actions.REGISTRATION_SUCCESS,
+  //         payload: responses[0],
+  //       });
+  //     })
+  //     .catch((err) =>
+  //       dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
+  //     );
   // };
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch({ type: actions.REGISTRATION_SUCCESS, payload: '282376' });
+    }, 1000);
+  };
 };
 
 export const setCurrentUser = (code) => {
   return (dispatch) => {
-    checkRegistrationCode(code)
-      .then((data) => {
-        dispatch({ type: actions.SET_CURRENT_USER, payload: data });
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({ type: actions.SET_CURRENT_USER_ERROR });
-      });
-    // dispatch({ type: actions.LOADING_CURRENT_USER });
-    // setTimeout(() => {
-    //   dispatch({ type: actions.SET_CURRENT_USER, payload: '982374' });
-    // }, 1000);
+    // checkRegistrationCode(code)
+    //   .then((data) => {
+    //     dispatch({ type: actions.SET_CURRENT_USER, payload: data });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     dispatch({ type: actions.SET_CURRENT_USER_ERROR });
+    //   });
+    dispatch({ type: actions.LOADING_CURRENT_USER });
+    setTimeout(() => {
+      dispatch({ type: actions.SET_CURRENT_USER, payload: '982374' });
+    }, 1000);
   };
 };
 

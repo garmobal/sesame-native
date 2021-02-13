@@ -12,7 +12,7 @@ function Home({ navigation }) {
       <View style={styles.chooseDoorContainer}>
         <View style={styles.chooseDoorCard}>
           <Text style={styles.chooseDoorText}>
-            Please choose the door to enter.
+            Please choose the door to enter
           </Text>
         </View>
       </View>
@@ -21,7 +21,7 @@ function Home({ navigation }) {
       </View>
       <View style={styles.registerBtnContainer}>
         <RedButton
-          size={200}
+          size={'80%'}
           clicked={() => {
             navigation.navigate('RegistrationCode');
           }}
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   chooseDoorText: {
-    fontFamily: cStyle.fonts.regular,
+    fontFamily: cStyle.fonts.medium,
     fontSize: 30,
     color: 'black',
   },
