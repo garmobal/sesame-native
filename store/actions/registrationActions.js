@@ -34,11 +34,6 @@ export const registerCurrentUser = (user, img) => {
         dispatch({ type: actions.REGISTRATION_FAIL, payload: err }),
       );
   };
-  // return (dispatch) => {
-  //   setTimeout(() => {
-  //     dispatch({ type: actions.REGISTRATION_SUCCESS, payload: '282376' });
-  //   }, 1000);
-  // };
 };
 
 export const setCurrentUser = (code) => {
@@ -51,10 +46,6 @@ export const setCurrentUser = (code) => {
         console.log(err);
         dispatch({ type: actions.SET_CURRENT_USER_ERROR });
       });
-    // dispatch({ type: actions.LOADING_CURRENT_USER });
-    // setTimeout(() => {
-    //   dispatch({ type: actions.SET_CURRENT_USER, payload: '982374' });
-    // }, 1000);
   };
 };
 

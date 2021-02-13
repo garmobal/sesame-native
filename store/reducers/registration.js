@@ -20,29 +20,14 @@ const initialUserRegistration = {
 export const userRegistration = (state = initialUserRegistration, action) => {
   switch (action.type) {
     case actions.SET_CURRENT_USER:
-      // return { ...action.payload, images: [], fetching: 'success' };
-      return {
-        firstName: 'Matthieu',
-        aid: '12345',
-        images: [],
-        fetching: 'success',
-      };
+      return { ...action.payload, images: [], fetching: 'success' };
     case actions.LOADING_CURRENT_USER:
-      // return action.payload when we have a backend;
       return {
         fetching: 'pending',
       };
     case actions.SET_CURRENT_USER_ERROR:
-      // return error message when we have a backend;
-      // return { fetching: 'fail' };
-      return {
-        firstName: 'Francesco',
-        aid: '12345',
-        images: [],
-        fetching: 'success',
-      };
+      return { fetching: 'fail' };
     case actions.CLEAR_CURRENT_USER:
-      // return {} when we have a backend;
       return { fetching: 'none' };
     case actions.ADD_CURRENT_USER_IMAGE:
       return { ...state, images: [...state.images, action.payload] };
@@ -55,10 +40,9 @@ export const userRegistration = (state = initialUserRegistration, action) => {
   }
 };
 
-// Until we connect a backend
 const initialRegistrationStatus = {
   status: 'pending',
-  doorKey: '1234',
+  doorKey: '',
 };
 
 export const registrationStatus = (

@@ -82,7 +82,7 @@ const TextMessage = React.memo(
         case eUserRecState.NO_USER_FOUND:
           text = (
             <Text style={[styles.headerText, styles.textRed]}>
-              Oh, noooooo{' '}
+              Oh, noooooo!
             </Text>
           );
           break;
