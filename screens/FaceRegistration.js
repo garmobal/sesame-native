@@ -20,7 +20,7 @@ function FaceRegistration({ navigation }) {
         <View style={styles.container}>
           <View style={styles.welcomeCard}>
             <Text style={styles.welcomeTextTitle}>
-              Welcome to the recognition process{' '}
+              Welcome to the registration process{' '}
               <Text style={styles.welcomeTextTitleHighlight}>
                 {user.firstName}
               </Text>

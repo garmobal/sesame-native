@@ -28,7 +28,7 @@ const FaceRegistrationSuccess = ({ navigation }) => {
         <View style={styles.messageContainer}>
           <Text style={styles.message}>
             Congratulations{' '}
-            <Text style={styles.messageHighlight}>Matthieu</Text>! Your face is
+            <Text style={styles.messageHighlight}>Francesco</Text>! Your face is
             now registered!
           </Text>
           <View style={styles.imageContainer}>
