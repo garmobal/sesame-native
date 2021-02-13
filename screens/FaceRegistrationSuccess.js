@@ -10,6 +10,7 @@ import RedButton from '../components/UI/RedButton';
 
 const FaceRegistrationSuccess = ({ navigation }) => {
   const registrationStatus = useSelector((state) => state.registrationStatus);
+  const user = useSelector((state) => state.user);
 
   let content;
   if (registrationStatus.status === 'pending') {
@@ -28,14 +29,14 @@ const FaceRegistrationSuccess = ({ navigation }) => {
         <View style={styles.messageContainer}>
           <Text style={styles.message}>
             Congratulations{' '}
-            <Text style={styles.messageHighlight}>Matthieu</Text>! Your face is
-            now registered!
+            <Text style={styles.messageHighlight}>{user.firstName}</Text>! Your
+            face is now registered!
           </Text>
           <View style={styles.imageContainer}>
             <Image source={congrats} style={styles.image} />
           </View>
           <Text style={styles.entry}>This is your manual entry code:</Text>
-          <Text style={styles.code}>532956</Text>
+          <Text style={styles.code}>{registrationStatus.doorKey}</Text>
         </View>
         <View style={styles.goHomeButtonContainer}>
           <RedButton
