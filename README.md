@@ -1,4 +1,7 @@
-<div style="text-align:center"><img src="./assets/sesame.png" width="300px"/></div>
+<p align="center">
+ <img src="./assets/sesame.png" alt="sesame logo" style="zoom:30%;" >
+</p>
 <br>
-
-<div style="text-align:center"><img src="./assets/screenshotreadme.png" width="500px"/></div>
+<p align="center">
+ <img src="./assets/screenshotreadme.png" alt="sesame logo" style="zoom:20%;" >
+</p>
