@@ -29,7 +29,6 @@ In the native app you can register and enter your company's premises:
 4. Select a door and scan your face to open it! Make sure you're allowed to enter...the app knows!
 5. Alternatively, you can manually enter your personal access key.
 
-<br>
 
 ### Tech stack
 
